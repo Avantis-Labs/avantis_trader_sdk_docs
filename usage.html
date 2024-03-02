@@ -84,7 +84,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#get-opening-fee">get_opening_fee</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#price-feed-rpc">Price Feed RPC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#price-feed">Price Feed</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#register-price-feed-callback">register_price_feed_callback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#unregister-price-feed-callback">unregister_price_feed_callback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#listen-for-price-updates">listen_for_price_updates</a></li>
@@ -595,9 +595,9 @@
 </ul>
 </section>
 </section>
-<section id="price-feed-rpc">
-<h2>Price Feed RPC<a class="headerlink" href="#price-feed-rpc" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">price_feed_rpc</span></code> module provides methods to register callbacks for real-time price feed updates. Avantis uses Pyth for price feeds. Read more about Pyth here: <a class="reference external" href="https://docs.pyth.network/">https://docs.pyth.network/</a>. Reference: <code class="xref py py-meth docutils literal notranslate"><span class="pre">PriceFeedRPC()</span></code>:</p>
+<section id="price-feed">
+<h2>Price Feed<a class="headerlink" href="#price-feed" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">price_feed</span></code> module provides methods to register callbacks for real-time price feed updates. Avantis uses Pyth for price feeds. Read more about Pyth here: <a class="reference external" href="https://docs.pyth.network/">https://docs.pyth.network/</a>. Reference: <code class="xref py py-meth docutils literal notranslate"><span class="pre">FeedClient()</span></code>:</p>
 <section id="register-price-feed-callback">
 <h3>register_price_feed_callback<a class="headerlink" href="#register-price-feed-callback" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">register_price_feed_callback</span></code> method registers a callback for price feed updates. This allows you to receive real-time price updates for a specific trading pair or price feed identifier. You can get price feed ids from <a class="reference external" href="https://pyth.network/developers/price-feed-ids">https://pyth.network/developers/price-feed-ids</a>.</p>
