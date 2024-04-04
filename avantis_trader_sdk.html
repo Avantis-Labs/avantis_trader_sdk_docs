@@ -91,6 +91,7 @@
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_asset_skew"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_asset_skew()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_oi"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_oi()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_oi_limits"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_oi_limits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_one_percent_depth"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_one_percent_depth()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_opening_price_impact_spread"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_opening_price_impact_spread()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_price_impact_spread"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_price_impact_spread()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_skew_impact_spread"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_skew_impact_spread()</span></code></a></li>
@@ -119,9 +120,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="avantis_trader_sdk.rpc.html#module-avantis_trader_sdk.rpc.fee_parameters">avantis_trader_sdk.rpc.fee_parameters module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.constant_spread_parameter"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC.constant_spread_parameter()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_margin_fee"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC.get_margin_fee()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_opening_fee"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC.get_opening_fee()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_pair_spread"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC.get_pair_spread()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -211,6 +212,43 @@
 <section id="module-avantis_trader_sdk.types">
 <span id="avantis-trader-sdk-types-module"></span><h2>avantis_trader_sdk.types module<a class="headerlink" href="#module-avantis_trader_sdk.types" title="Link to this heading"></a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.Depth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">Depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#Depth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.Depth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.Depth.above">
+<span class="sig-name descname"><span class="pre">above</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.Depth.above" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.Depth.below">
+<span class="sig-name descname"><span class="pre">below</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.Depth.below" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.Depth.check_at_least_one">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_at_least_one</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#Depth.check_at_least_one"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.Depth.check_at_least_one" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.DepthSingle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">DepthSingle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#DepthSingle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.DepthSingle" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.DepthSingle.above">
+<span class="sig-name descname"><span class="pre">above</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.DepthSingle.above" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.DepthSingle.below">
+<span class="sig-name descname"><span class="pre">below</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.DepthSingle.below" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="avantis_trader_sdk.types.Fee">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">Fee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#Fee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.Fee" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
@@ -236,18 +274,39 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">MarginFee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#MarginFee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.MarginFee" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFee.base">
-<span class="sig-name descname"><span class="pre">base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.MarginFee.base" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFee.hourly_base_fee_parameter">
+<span class="sig-name descname"><span class="pre">hourly_base_fee_parameter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.MarginFee.hourly_base_fee_parameter" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFee.margin_long">
-<span class="sig-name descname"><span class="pre">margin_long</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.MarginFee.margin_long" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFee.hourly_margin_fee_long_bps">
+<span class="sig-name descname"><span class="pre">hourly_margin_fee_long_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.MarginFee.hourly_margin_fee_long_bps" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFee.margin_short">
-<span class="sig-name descname"><span class="pre">margin_short</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.MarginFee.margin_short" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFee.hourly_margin_fee_short_bps">
+<span class="sig-name descname"><span class="pre">hourly_margin_fee_short_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.MarginFee.hourly_margin_fee_short_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFeeSingle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">MarginFeeSingle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#MarginFeeSingle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.MarginFeeSingle" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFeeSingle.hourly_base_fee_parameter">
+<span class="sig-name descname"><span class="pre">hourly_base_fee_parameter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.MarginFeeSingle.hourly_base_fee_parameter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFeeSingle.hourly_margin_fee_long_bps">
+<span class="sig-name descname"><span class="pre">hourly_margin_fee_long_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.MarginFeeSingle.hourly_margin_fee_long_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.MarginFeeSingle.hourly_margin_fee_short_bps">
+<span class="sig-name descname"><span class="pre">hourly_margin_fee_short_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.MarginFeeSingle.hourly_margin_fee_short_bps" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -283,19 +342,40 @@
 <dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">PairInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfo.Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.Config.allow_population_by_field_name">
+<span class="sig-name descname"><span class="pre">allow_population_by_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.Config.allow_population_by_field_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.backupFeed">
 <span class="sig-name descname"><span class="pre">backupFeed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#avantis_trader_sdk.types.PairInfoFeed" title="avantis_trader_sdk.types.PairInfoFeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">PairInfoFeed</span></code></a></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.backupFeed" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.constant_spread_bps">
+<span class="sig-name descname"><span class="pre">constant_spread_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.constant_spread_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.convert_spreadP">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert_spreadP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfo.convert_spreadP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.convert_spreadP" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.convert_to_float_10">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert_to_float_10</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfo.convert_to_float_10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.convert_to_float_10" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.convert_to_float_10_bps">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert_to_float_10_bps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfo.convert_to_float_10_bps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.convert_to_float_10_bps" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.feeIndex">
-<span class="sig-name descname"><span class="pre">feeIndex</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.feeIndex" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.fee_index">
+<span class="sig-name descname"><span class="pre">fee_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.fee_index" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -309,38 +389,185 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.groupIndex">
-<span class="sig-name descname"><span class="pre">groupIndex</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.groupIndex" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.group_index">
+<span class="sig-name descname"><span class="pre">group_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.group_index" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.groupOpenInterestPecentage">
-<span class="sig-name descname"><span class="pre">groupOpenInterestPecentage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.groupOpenInterestPecentage" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.group_open_interest_percentage">
+<span class="sig-name descname"><span class="pre">group_open_interest_percentage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.group_open_interest_percentage" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.maxWalletOI">
-<span class="sig-name descname"><span class="pre">maxWalletOI</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.maxWalletOI" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.max_wallet_oi">
+<span class="sig-name descname"><span class="pre">max_wallet_oi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.max_wallet_oi" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.priceImpactMultiplier">
-<span class="sig-name descname"><span class="pre">priceImpactMultiplier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.priceImpactMultiplier" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.price_impact_parameter">
+<span class="sig-name descname"><span class="pre">price_impact_parameter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.price_impact_parameter" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.skewImpactMultiplier">
-<span class="sig-name descname"><span class="pre">skewImpactMultiplier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.skewImpactMultiplier" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.spreadP">
-<span class="sig-name descname"><span class="pre">spreadP</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.spreadP" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.skew_impact_parameter">
+<span class="sig-name descname"><span class="pre">skew_impact_parameter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.skew_impact_parameter" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfo.to">
 <span class="sig-name descname"><span class="pre">to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfo.to" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">PairInfoExtended</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfoExtended"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#avantis_trader_sdk.types.PairInfo" title="avantis_trader_sdk.types.PairInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">PairInfo</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfoExtended.Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.Config.allow_population_by_field_name">
+<span class="sig-name descname"><span class="pre">allow_population_by_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.Config.allow_population_by_field_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.asset_open_interest">
+<span class="sig-name descname"><span class="pre">asset_open_interest</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.asset_open_interest" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.asset_open_interest_limit">
+<span class="sig-name descname"><span class="pre">asset_open_interest_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.asset_open_interest_limit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.asset_skew">
+<span class="sig-name descname"><span class="pre">asset_skew</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.asset_skew" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.asset_utilization">
+<span class="sig-name descname"><span class="pre">asset_utilization</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.asset_utilization" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.backupFeed">
+<span class="sig-name descname"><span class="pre">backupFeed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#avantis_trader_sdk.types.PairInfoFeed" title="avantis_trader_sdk.types.PairInfoFeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">PairInfoFeed</span></code></a></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.backupFeed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.blended_skew">
+<span class="sig-name descname"><span class="pre">blended_skew</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.blended_skew" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.blended_utilization">
+<span class="sig-name descname"><span class="pre">blended_utilization</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.blended_utilization" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.constant_spread_bps">
+<span class="sig-name descname"><span class="pre">constant_spread_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.constant_spread_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.fee_index">
+<span class="sig-name descname"><span class="pre">fee_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.fee_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.feed">
+<span class="sig-name descname"><span class="pre">feed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#avantis_trader_sdk.types.PairInfoFeed" title="avantis_trader_sdk.types.PairInfoFeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">PairInfoFeed</span></code></a></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.feed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.from_">
+<span class="sig-name descname"><span class="pre">from_</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.from_" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.group_index">
+<span class="sig-name descname"><span class="pre">group_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.group_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.group_open_interest_percentage">
+<span class="sig-name descname"><span class="pre">group_open_interest_percentage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.group_open_interest_percentage" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.margin_fee">
+<span class="sig-name descname"><span class="pre">margin_fee</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#avantis_trader_sdk.types.MarginFeeSingle" title="avantis_trader_sdk.types.MarginFeeSingle"><code class="xref py py-class docutils literal notranslate"><span class="pre">MarginFeeSingle</span></code></a></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.margin_fee" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.max_wallet_oi">
+<span class="sig-name descname"><span class="pre">max_wallet_oi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.max_wallet_oi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.new_1k_long_opening_fee_bps">
+<span class="sig-name descname"><span class="pre">new_1k_long_opening_fee_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.new_1k_long_opening_fee_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.new_1k_long_opening_spread_bps">
+<span class="sig-name descname"><span class="pre">new_1k_long_opening_spread_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.new_1k_long_opening_spread_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.new_1k_short_opening_fee_bps">
+<span class="sig-name descname"><span class="pre">new_1k_short_opening_fee_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.new_1k_short_opening_fee_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.new_1k_short_opening_spread_bps">
+<span class="sig-name descname"><span class="pre">new_1k_short_opening_spread_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.new_1k_short_opening_spread_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.one_percent_depth">
+<span class="sig-name descname"><span class="pre">one_percent_depth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#avantis_trader_sdk.types.DepthSingle" title="avantis_trader_sdk.types.DepthSingle"><code class="xref py py-class docutils literal notranslate"><span class="pre">DepthSingle</span></code></a></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.one_percent_depth" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.price_impact_parameter">
+<span class="sig-name descname"><span class="pre">price_impact_parameter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.price_impact_parameter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.price_impact_spread_long_bps">
+<span class="sig-name descname"><span class="pre">price_impact_spread_long_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.price_impact_spread_long_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.price_impact_spread_short_bps">
+<span class="sig-name descname"><span class="pre">price_impact_spread_short_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.price_impact_spread_short_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.skew_impact_parameter">
+<span class="sig-name descname"><span class="pre">skew_impact_parameter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.skew_impact_parameter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.skew_impact_spread_long_bps">
+<span class="sig-name descname"><span class="pre">skew_impact_spread_long_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.skew_impact_spread_long_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.skew_impact_spread_short_bps">
+<span class="sig-name descname"><span class="pre">skew_impact_spread_short_bps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.skew_impact_spread_short_bps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoExtended.to">
+<span class="sig-name descname"><span class="pre">to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoExtended.to" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -430,6 +657,64 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="avantis_trader_sdk.types.Skew.skew">
 <span class="sig-name descname"><span class="pre">skew</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.Skew.skew" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.Snapshot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">Snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#Snapshot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.Snapshot" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.Snapshot.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code><span class="pre">,</span> <a class="reference internal" href="#avantis_trader_sdk.types.SnapshotGroup" title="avantis_trader_sdk.types.SnapshotGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">SnapshotGroup</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.Snapshot.groups" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.SnapshotGroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">SnapshotGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#SnapshotGroup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.SnapshotGroup" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.SnapshotGroup.group_open_interest">
+<span class="sig-name descname"><span class="pre">group_open_interest</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#avantis_trader_sdk.types.SnapshotOpenInterest" title="avantis_trader_sdk.types.SnapshotOpenInterest"><code class="xref py py-class docutils literal notranslate"><span class="pre">SnapshotOpenInterest</span></code></a></em><a class="headerlink" href="#avantis_trader_sdk.types.SnapshotGroup.group_open_interest" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.SnapshotGroup.group_open_interest_limit">
+<span class="sig-name descname"><span class="pre">group_open_interest_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.SnapshotGroup.group_open_interest_limit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.SnapshotGroup.group_skew">
+<span class="sig-name descname"><span class="pre">group_skew</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.SnapshotGroup.group_skew" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.SnapshotGroup.group_utilization">
+<span class="sig-name descname"><span class="pre">group_utilization</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.SnapshotGroup.group_utilization" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.SnapshotGroup.pairs">
+<span class="sig-name descname"><span class="pre">pairs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <a class="reference internal" href="#avantis_trader_sdk.types.PairInfoExtended" title="avantis_trader_sdk.types.PairInfoExtended"><code class="xref py py-class docutils literal notranslate"><span class="pre">PairInfoExtended</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#avantis_trader_sdk.types.SnapshotGroup.pairs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.SnapshotOpenInterest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.types.</span></span><span class="sig-name descname"><span class="pre">SnapshotOpenInterest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#SnapshotOpenInterest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.SnapshotOpenInterest" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.SnapshotOpenInterest.long">
+<span class="sig-name descname"><span class="pre">long</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.SnapshotOpenInterest.long" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.SnapshotOpenInterest.short">
+<span class="sig-name descname"><span class="pre">short</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.SnapshotOpenInterest.short" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

@@ -43,7 +43,6 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html#getting-started">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
@@ -87,6 +86,7 @@
     <span class="n">Utilization</span><span class="p">,</span>
     <span class="n">Skew</span><span class="p">,</span>
     <span class="n">Spread</span><span class="p">,</span>
+    <span class="n">Depth</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
@@ -152,9 +152,10 @@
         <span class="n">decoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">utils</span><span class="p">[</span><span class="s2">&quot;decoder&quot;</span><span class="p">](</span>
             <span class="n">Multicall</span><span class="p">,</span> <span class="s2">&quot;getLongShortRatios&quot;</span><span class="p">,</span> <span class="n">raw_data</span>
         <span class="p">)</span>
+        
         <span class="k">return</span> <span class="n">OpenInterest</span><span class="p">(</span>
-            <span class="n">long</span><span class="o">=</span><span class="n">map_output_to_pairs</span><span class="p">(</span><span class="n">pairs_info</span><span class="p">,</span> <span class="n">decoded</span><span class="p">[</span><span class="s2">&quot;longRatio&quot;</span><span class="p">]),</span>
-            <span class="n">short</span><span class="o">=</span><span class="n">map_output_to_pairs</span><span class="p">(</span><span class="n">pairs_info</span><span class="p">,</span> <span class="n">decoded</span><span class="p">[</span><span class="s2">&quot;shortRatio&quot;</span><span class="p">]),</span>
+            <span class="n">long</span><span class="o">=</span><span class="n">map_output_to_pairs</span><span class="p">(</span><span class="n">pairs_info</span><span class="p">,</span> <span class="p">[</span><span class="n">val</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">decoded</span><span class="p">[</span><span class="s2">&quot;longRatio&quot;</span><span class="p">]]),</span>
+            <span class="n">short</span><span class="o">=</span><span class="n">map_output_to_pairs</span><span class="p">(</span><span class="n">pairs_info</span><span class="p">,</span> <span class="p">[</span><span class="n">val</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">decoded</span><span class="p">[</span><span class="s2">&quot;shortRatio&quot;</span><span class="p">]]),</span>
         <span class="p">)</span></div>
 
 
@@ -166,7 +167,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A Utilization instance containing the asset utilization</span>
-<span class="sd">            percentage % for each trading pair.</span>
+<span class="sd">            absolute value for each trading pair.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TradingStorage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TradingStorage&quot;</span><span class="p">)</span>
         <span class="n">Multicall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Multicall&quot;</span><span class="p">)</span>
@@ -190,7 +191,7 @@
             <span class="n">pair_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pairs_info</span><span class="p">[</span><span class="n">pair_index</span><span class="p">]</span><span class="o">.</span><span class="n">from_</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">pairs_info</span><span class="p">[</span><span class="n">pair_index</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="n">current_oi</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">pair_data</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span>
             <span class="n">limit</span> <span class="o">=</span> <span class="n">oi_limit</span>
-            <span class="n">utilization</span><span class="p">[</span><span class="n">pair_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_oi</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">limit</span> <span class="k">if</span> <span class="n">limit</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">utilization</span><span class="p">[</span><span class="n">pair_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_oi</span> <span class="o">/</span> <span class="n">limit</span> <span class="k">if</span> <span class="n">limit</span> <span class="k">else</span> <span class="mi">0</span>
 
         <span class="k">return</span> <span class="n">Utilization</span><span class="p">(</span><span class="n">utilization</span><span class="o">=</span><span class="n">utilization</span><span class="p">)</span></div>
 
@@ -203,7 +204,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            An Skew instance containing the asset skew</span>
-<span class="sd">            percentage % for each trading pair.</span>
+<span class="sd">            absolute value for each trading pair.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">oi</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_oi</span><span class="p">()</span>
 
@@ -211,7 +212,7 @@
         <span class="k">for</span> <span class="n">pair</span><span class="p">,</span> <span class="n">long_ratio</span> <span class="ow">in</span> <span class="n">oi</span><span class="o">.</span><span class="n">long</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">short_ratio</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">short</span><span class="p">[</span><span class="n">pair</span><span class="p">]</span>
             <span class="n">skew</span><span class="p">[</span><span class="n">pair</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">long_ratio</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="p">(</span><span class="n">long_ratio</span> <span class="o">+</span> <span class="n">short_ratio</span><span class="p">)</span>
+                <span class="n">long_ratio</span> <span class="o">/</span> <span class="p">(</span><span class="n">long_ratio</span> <span class="o">+</span> <span class="n">short_ratio</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">long_ratio</span> <span class="o">+</span> <span class="n">short_ratio</span>
                 <span class="k">else</span> <span class="mi">0</span>
             <span class="p">)</span>
@@ -233,7 +234,7 @@
 <span class="sd">            pair: The trading pair for which the price impact spread is to be calculated. Defaults to None. If None, the price impact spread for all trading pairs will be returned.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A Spread instance containing the price impact spread for each trading pair.</span>
+<span class="sd">            A Spread instance containing the price impact spread for each trading pair in bps.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">position_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">position_size</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
 
@@ -306,7 +307,7 @@
             <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Multicall</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">calls</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">is_long</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">decoded_response</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
+                    <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span>
                     <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="p">]</span>
                 <span class="k">if</span> <span class="n">pair</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -323,7 +324,7 @@
                 <span class="n">decoded_response</span> <span class="o">=</span> <span class="n">map_output_to_pairs</span><span class="p">(</span>
                     <span class="n">pairs_info</span><span class="p">,</span>
                     <span class="p">[</span>
-                        <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
+                        <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span>
                         <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                     <span class="p">],</span>
                 <span class="p">)</span>
@@ -332,15 +333,15 @@
                 <span class="n">decoded_response</span> <span class="o">=</span> <span class="n">map_output_to_pairs</span><span class="p">(</span>
                     <span class="n">pairs_info</span><span class="p">,</span>
                     <span class="p">[</span>
-                        <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
+                        <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span>
                         <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                     <span class="p">],</span>
                 <span class="p">)</span>
                 <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="n">decoded_response</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">is_long</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">long</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span><span class="p">})</span>
+            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">long</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span><span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span><span class="p">})</span></div>
+            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span><span class="p">})</span></div>
 
 
 <div class="viewcode-block" id="AssetParametersRPC.get_skew_impact_spread">
@@ -357,7 +358,7 @@
 <span class="sd">            pair: The trading pair for which the skew impact spread is to be calculated. Defaults to None. If None, the skew impact spread for all trading pairs will be returned.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A Spread instance containing the skew impact spread for each trading pair.</span>
+<span class="sd">            A Spread instance containing the skew impact spread for each trading pair in bps.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">position_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">position_size</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
 
@@ -429,8 +430,9 @@
         <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Multicall</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">calls</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">is_long</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                
                 <span class="n">decoded_response</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
+                    <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span>
                     <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="p">]</span>
                 <span class="k">if</span> <span class="n">pair</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -447,7 +449,7 @@
                 <span class="n">decoded_response</span> <span class="o">=</span> <span class="n">map_output_to_pairs</span><span class="p">(</span>
                     <span class="n">pairs_info</span><span class="p">,</span>
                     <span class="p">[</span>
-                        <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
+                        <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span>
                         <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                     <span class="p">],</span>
                 <span class="p">)</span>
@@ -456,15 +458,15 @@
                 <span class="n">decoded_response</span> <span class="o">=</span> <span class="n">map_output_to_pairs</span><span class="p">(</span>
                     <span class="n">pairs_info</span><span class="p">,</span>
                     <span class="p">[</span>
-                        <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
+                        <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span>
                         <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                     <span class="p">],</span>
                 <span class="p">)</span>
                 <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="n">decoded_response</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">is_long</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">long</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span><span class="p">})</span>
+            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">long</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span><span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span><span class="p">})</span></div>
+            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span><span class="p">})</span></div>
 
 
 <div class="viewcode-block" id="AssetParametersRPC.get_opening_price_impact_spread">
@@ -487,7 +489,7 @@
 
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A Spread instance containing the trade price impact for pair.</span>
+<span class="sd">            A Spread instance containing the trade price impact for pair in bps.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">position_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">position_size</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
         <span class="n">open_price</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">open_price</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span><span class="p">)</span>
@@ -526,16 +528,63 @@
         <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Multicall</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">calls</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
             <span class="n">decoded_response</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="p">]</span>
             <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span>
                 <span class="n">long</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">decoded_response</span><span class="p">[</span><span class="mi">0</span><span class="p">]},</span>
                 <span class="n">short</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">decoded_response</span><span class="p">[</span><span class="mi">1</span><span class="p">]},</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">is_long</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">long</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span><span class="p">})</span>
+            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">long</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span><span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span><span class="p">})</span></div>
+            <span class="k">return</span> <span class="n">Spread</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="AssetParametersRPC.get_one_percent_depth">
+<a class="viewcode-back" href="../../../avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_one_percent_depth">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_one_percent_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the one percent depth for all trading pairs.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A Depth instance containing the one percent depth for each trading pair.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">Multicall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Multicall&quot;</span><span class="p">)</span>
+        <span class="n">PairInfos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PairInfos&quot;</span><span class="p">)</span>
+        <span class="n">pairs_info</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">pairs_cache</span><span class="o">.</span><span class="n">get_pairs_info</span><span class="p">()</span>
+        <span class="n">calls</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pair_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs_info</span><span class="p">)):</span>
+            <span class="n">calls</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="p">(</span>
+                            <span class="n">PairInfos</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+                            <span class="n">PairInfos</span><span class="o">.</span><span class="n">encodeABI</span><span class="p">(</span>
+                                <span class="n">fn_name</span><span class="o">=</span><span class="s2">&quot;getOnePercentDepthAbove&quot;</span><span class="p">,</span>
+                                <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">pair_index</span><span class="p">],</span>
+                            <span class="p">),</span>
+                        <span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="n">PairInfos</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+                            <span class="n">PairInfos</span><span class="o">.</span><span class="n">encodeABI</span><span class="p">(</span>
+                                <span class="n">fn_name</span><span class="o">=</span><span class="s2">&quot;getOnePercentDepthBelow&quot;</span><span class="p">,</span>
+                                <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">pair_index</span><span class="p">],</span>
+                            <span class="p">),</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Multicall</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">calls</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
+        
+        <span class="n">decoded_response</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">Depth</span><span class="p">(</span>
+            <span class="n">above</span><span class="o">=</span><span class="n">map_output_to_pairs</span><span class="p">(</span><span class="n">pairs_info</span><span class="p">,</span> <span class="n">decoded_response</span><span class="p">[::</span><span class="mi">2</span><span class="p">]),</span>
+            <span class="n">below</span><span class="o">=</span><span class="n">map_output_to_pairs</span><span class="p">(</span><span class="n">pairs_info</span><span class="p">,</span> <span class="n">decoded_response</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]),</span>
+        <span class="p">)</span></div>
 </div>
 
 </pre></div>

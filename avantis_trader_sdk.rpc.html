@@ -44,7 +44,6 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
@@ -99,7 +98,7 @@ related to open interest, open interest limits, and asset utilization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An Skew instance containing the asset skew
-percentage % for each trading pair.</p>
+absolute value for each trading pair.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -129,6 +128,17 @@ for each trading pair.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_one_percent_depth">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_one_percent_depth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/asset_parameters.html#AssetParametersRPC.get_one_percent_depth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_one_percent_depth" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the one percent depth for all trading pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Depth instance containing the one percent depth for each trading pair.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_opening_price_impact_spread">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_opening_price_impact_spread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_long</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/asset_parameters.html#AssetParametersRPC.get_opening_price_impact_spread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_opening_price_impact_spread" title="Link to this definition"></a></dt>
 <dd><p>Retrieves the trade price impact spread for pair.</p>
@@ -142,7 +152,7 @@ for each trading pair.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A Spread instance containing the trade price impact for pair.</p>
+<dd class="field-even"><p>A Spread instance containing the trade price impact for pair in bps.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -160,7 +170,7 @@ for each trading pair.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A Spread instance containing the price impact spread for each trading pair.</p>
+<dd class="field-even"><p>A Spread instance containing the price impact spread for each trading pair in bps.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -178,7 +188,7 @@ for each trading pair.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A Spread instance containing the skew impact spread for each trading pair.</p>
+<dd class="field-even"><p>A Spread instance containing the skew impact spread for each trading pair in bps.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -190,7 +200,7 @@ for each trading pair.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A Utilization instance containing the asset utilization
-percentage % for each trading pair.</p>
+absolute value for each trading pair.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -245,7 +255,7 @@ related to open interest, open interest limits, and category utilization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An Skew instance containing the category skew
-percentage % for each category.</p>
+absolute value for each category.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -280,7 +290,7 @@ corresponds to the category index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A Utilization instance containing the category utilization
-percentage % for each category.</p>
+absolute value for each category.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -297,12 +307,23 @@ percentage % for each category.</p>
 <p>This class provides methods to retrieve and calculate various fee parameters
 related to trades.</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.constant_spread_parameter">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">constant_spread_parameter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/fee_parameters.html#FeeParametersRPC.constant_spread_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.constant_spread_parameter" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the spread for all trading pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A PairSpread instance containing the spread for each trading pair in bps.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_margin_fee">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_margin_fee</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/fee_parameters.html#FeeParametersRPC.get_margin_fee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_margin_fee" title="Link to this definition"></a></dt>
 <dd><p>Retrieves the margin fee for all trading pairs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A MarginFee instance containing the margin fee for each trading pair.</p>
+<dd class="field-odd"><p>A MarginFee instance containing the margin fee for each trading pair in bps.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -320,18 +341,7 @@ related to trades.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A Fee instance containing the skew impact Fee for each trading pair.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_pair_spread">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_pair_spread</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/fee_parameters.html#FeeParametersRPC.get_pair_spread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_pair_spread" title="Link to this definition"></a></dt>
-<dd><p>Retrieves the spread percentage % for all trading pairs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A PairSpread instance containing the spread % for each trading pair.</p>
+<dd class="field-even"><p>A Fee instance containing the opening Fee for each trading pair in bps.</p>
 </dd>
 </dl>
 </dd></dl>

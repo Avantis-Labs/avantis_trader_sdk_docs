@@ -43,7 +43,6 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html#getting-started">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
@@ -118,12 +117,12 @@
         <span class="n">pair_indexes</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">group_index</span> <span class="ow">in</span> <span class="n">group_indexes</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">pair</span><span class="o">.</span><span class="n">groupIndex</span> <span class="o">==</span> <span class="n">group_index</span><span class="p">:</span>
-                    <span class="n">pair_indexes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="o">.</span><span class="n">feeIndex</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">pair</span><span class="o">.</span><span class="n">group_index</span> <span class="o">==</span> <span class="n">group_index</span><span class="p">:</span>
+                    <span class="n">pair_indexes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="o">.</span><span class="n">fee_index</span><span class="p">)</span>
                     <span class="k">break</span>
 
         <span class="n">calls</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">pair_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pair_indexes</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">pair_index</span> <span class="ow">in</span> <span class="n">pair_indexes</span><span class="p">:</span>
             <span class="n">call_data</span> <span class="o">=</span> <span class="n">PairStorage</span><span class="o">.</span><span class="n">encodeABI</span><span class="p">(</span><span class="n">fn_name</span><span class="o">=</span><span class="s2">&quot;groupMaxOI&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">pair_index</span><span class="p">])</span>
             <span class="n">calls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">PairStorage</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">call_data</span><span class="p">))</span>
 
@@ -153,12 +152,13 @@
 
         <span class="n">long_calls</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">short_calls</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">group_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">group_indexes</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">group_index</span> <span class="ow">in</span> <span class="n">group_indexes</span><span class="p">:</span>
             <span class="n">call_data</span> <span class="o">=</span> <span class="n">PairStorage</span><span class="o">.</span><span class="n">encodeABI</span><span class="p">(</span><span class="n">fn_name</span><span class="o">=</span><span class="s2">&quot;groupOIs&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">group_index</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
             <span class="n">long_calls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">PairStorage</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">call_data</span><span class="p">))</span>
 
             <span class="n">call_data</span> <span class="o">=</span> <span class="n">PairStorage</span><span class="o">.</span><span class="n">encodeABI</span><span class="p">(</span><span class="n">fn_name</span><span class="o">=</span><span class="s2">&quot;groupOIs&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">group_index</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
             <span class="n">short_calls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">PairStorage</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">call_data</span><span class="p">))</span>
+            
 
         <span class="n">long_task</span> <span class="o">=</span> <span class="n">Multicall</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">long_calls</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
         <span class="n">short_task</span> <span class="o">=</span> <span class="n">Multicall</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">short_calls</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
@@ -185,6 +185,82 @@
         <span class="k">return</span> <span class="n">OpenInterest</span><span class="p">(</span><span class="n">long</span><span class="o">=</span><span class="n">long_response</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="n">short_response</span><span class="p">)</span></div>
 
 
+    <span class="c1"># async def get_oi(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Retrieves the current open interest for all categories.</span>
+
+    <span class="c1">#     Returns:</span>
+    <span class="c1">#         An OpenInterest instance containing the long and short open interest</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     pair_info = await self.client.pairs_cache.get_pairs_info()</span>
+    <span class="c1">#     pair_oi = await self.client.asset_parameters.get_oi()</span>
+    <span class="c1">#     group_indexes = await self.client.pairs_cache.get_group_indexes()</span>
+
+    <span class="c1">#     long_response = {}</span>
+    <span class="c1">#     short_response = {}</span>
+        
+    <span class="c1">#     for group_index in group_indexes:</span>
+    <span class="c1">#         long_response[group_index] = 0</span>
+    <span class="c1">#         short_response[group_index] = 0</span>
+        
+    <span class="c1">#     for pair_key, oi in pair_oi.long.items():</span>
+    <span class="c1">#         if pair_key in self.client.pairs_cache._pair_mapping:</span>
+    <span class="c1">#             pair_index = self.client.pairs_cache._pair_mapping[pair_key]</span>
+    <span class="c1">#             pair = pair_info[pair_index]</span>
+    <span class="c1">#             group_index = pair.group_index</span>
+    <span class="c1">#             long_response[group_index] += oi</span>
+    <span class="c1">#             # Assuming pair_oi.short has the same keys as pair_oi.long</span>
+    <span class="c1">#             short_response[group_index] += pair_oi.short[pair_key]</span>
+    <span class="c1">#         else:</span>
+    <span class="c1">#             print(f&quot;Warning: {pair_key} not found in pair_info&quot;)</span>
+
+    <span class="c1">#     return OpenInterest(long=long_response, short=short_response)</span>
+
+    <span class="c1"># async def get_utilization(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Calculates the category utilization for all categories.</span>
+
+    <span class="c1">#     Returns:</span>
+    <span class="c1">#         A Utilization instance containing the category utilization</span>
+    <span class="c1">#         percentage % for each category.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     PairStorage = self.client.contracts.get(&quot;PairStorage&quot;)</span>
+    <span class="c1">#     Multicall = self.client.contracts.get(&quot;Multicall&quot;)</span>
+    <span class="c1">#     pairs_info = await self.client.pairs_cache.get_pairs_info()</span>
+    <span class="c1">#     group_indexes = await self.client.pairs_cache.get_group_indexes()</span>
+
+    <span class="c1">#     pair_indexes = []</span>
+    <span class="c1">#     for group_index in group_indexes:</span>
+    <span class="c1">#         for _, pair in pairs_info.items():</span>
+    <span class="c1">#             if pair.group_index == group_index:</span>
+    <span class="c1">#                 pair_indexes.append(pair.fee_index)</span>
+    <span class="c1">#                 break</span>
+
+    <span class="c1">#     calls = []</span>
+    <span class="c1">#     for pair_index in pair_indexes:</span>
+    <span class="c1">#         call_data = PairStorage.encodeABI(fn_name=&quot;groupOI&quot;, args=[pair_index])</span>
+    <span class="c1">#         calls.append((PairStorage.address, call_data))</span>
+
+    <span class="c1">#     oi_limits_task = self.get_oi_limits()</span>
+    <span class="c1">#     aggregate_task = Multicall.functions.aggregate(calls).call()</span>
+
+    <span class="c1">#     oi_limits, aggregate_response = await asyncio.gather(</span>
+    <span class="c1">#         oi_limits_task, aggregate_task</span>
+    <span class="c1">#     )</span>
+
+    <span class="c1">#     utilization = {}</span>
+
+    <span class="c1">#     for pair_index in range(len(aggregate_response[1])):</span>
+    <span class="c1">#         current_oi = (</span>
+    <span class="c1">#             int.from_bytes(aggregate_response[1][pair_index], byteorder=&quot;big&quot;)</span>
+    <span class="c1">#             / 10**6</span>
+    <span class="c1">#         )</span>
+    <span class="c1">#         limit = oi_limits.limits[str(pair_index)]</span>
+    <span class="c1">#         print(current_oi, limit)</span>
+    <span class="c1">#         utilization[pair_index] = current_oi * 100 / limit if limit else 0</span>
+
+    <span class="c1">#     return Utilization(utilization=utilization)</span>
+
 <div class="viewcode-block" id="CategoryParametersRPC.get_utilization">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.category_parameters.CategoryParametersRPC.get_utilization">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">get_utilization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -193,41 +269,21 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A Utilization instance containing the category utilization</span>
-<span class="sd">            percentage % for each category.</span>
+<span class="sd">            absolute value for each category.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">PairStorage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PairStorage&quot;</span><span class="p">)</span>
-        <span class="n">Multicall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Multicall&quot;</span><span class="p">)</span>
-        <span class="n">pairs_info</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">pairs_cache</span><span class="o">.</span><span class="n">get_pairs_info</span><span class="p">()</span>
-        <span class="n">group_indexes</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">pairs_cache</span><span class="o">.</span><span class="n">get_group_indexes</span><span class="p">()</span>
-
-        <span class="n">pair_indexes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">group_index</span> <span class="ow">in</span> <span class="n">group_indexes</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">pair</span><span class="o">.</span><span class="n">groupIndex</span> <span class="o">==</span> <span class="n">group_index</span><span class="p">:</span>
-                    <span class="n">pair_indexes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="o">.</span><span class="n">feeIndex</span><span class="p">)</span>
-                    <span class="k">break</span>
-
-        <span class="n">calls</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">pair_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pair_indexes</span><span class="p">)):</span>
-            <span class="n">call_data</span> <span class="o">=</span> <span class="n">PairStorage</span><span class="o">.</span><span class="n">encodeABI</span><span class="p">(</span><span class="n">fn_name</span><span class="o">=</span><span class="s2">&quot;groupOI&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">pair_index</span><span class="p">])</span>
-            <span class="n">calls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">PairStorage</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">call_data</span><span class="p">))</span>
-
         <span class="n">oi_limits_task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_oi_limits</span><span class="p">()</span>
-        <span class="n">aggregate_task</span> <span class="o">=</span> <span class="n">Multicall</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">calls</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
+        <span class="n">oi_task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_oi</span><span class="p">()</span>
 
-        <span class="n">oi_limits</span><span class="p">,</span> <span class="n">aggregate_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
-            <span class="n">oi_limits_task</span><span class="p">,</span> <span class="n">aggregate_task</span>
+        <span class="n">oi_limits</span><span class="p">,</span> <span class="n">oi</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+            <span class="n">oi_limits_task</span><span class="p">,</span> <span class="n">oi_task</span>
         <span class="p">)</span>
 
         <span class="n">utilization</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="k">for</span> <span class="n">pair_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aggregate_response</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
-            <span class="n">current_oi</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">aggregate_response</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">pair_index</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span>
-                <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span>
-            <span class="p">)</span>
-            <span class="n">limit</span> <span class="o">=</span> <span class="n">oi_limits</span><span class="o">.</span><span class="n">limits</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">pair_index</span><span class="p">)]</span>
-            <span class="n">utilization</span><span class="p">[</span><span class="n">pair_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_oi</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">limit</span> <span class="k">if</span> <span class="n">limit</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">group_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">oi</span><span class="o">.</span><span class="n">long</span><span class="p">)):</span>
+            <span class="n">current_oi</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">long</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">)]</span> <span class="o">+</span> <span class="n">oi</span><span class="o">.</span><span class="n">short</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">)]</span>
+            <span class="n">limit</span> <span class="o">=</span> <span class="n">oi_limits</span><span class="o">.</span><span class="n">limits</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">)]</span>
+            <span class="n">utilization</span><span class="p">[</span><span class="n">group_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_oi</span> <span class="o">/</span> <span class="n">limit</span> <span class="k">if</span> <span class="n">limit</span> <span class="k">else</span> <span class="mi">0</span>
 
         <span class="k">return</span> <span class="n">Utilization</span><span class="p">(</span><span class="n">utilization</span><span class="o">=</span><span class="n">utilization</span><span class="p">)</span></div>
 
@@ -240,7 +296,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            An Skew instance containing the category skew</span>
-<span class="sd">            percentage % for each category.</span>
+<span class="sd">            absolute value for each category.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">oi</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_oi</span><span class="p">()</span>
 
@@ -248,7 +304,7 @@
         <span class="k">for</span> <span class="n">group_index</span><span class="p">,</span> <span class="n">long_ratio</span> <span class="ow">in</span> <span class="n">oi</span><span class="o">.</span><span class="n">long</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">short_ratio</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">short</span><span class="p">[</span><span class="n">group_index</span><span class="p">]</span>
             <span class="n">skew</span><span class="p">[</span><span class="n">group_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">long_ratio</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="p">(</span><span class="n">long_ratio</span> <span class="o">+</span> <span class="n">short_ratio</span><span class="p">)</span>
+                <span class="n">long_ratio</span> <span class="o">/</span> <span class="p">(</span><span class="n">long_ratio</span> <span class="o">+</span> <span class="n">short_ratio</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">long_ratio</span> <span class="o">+</span> <span class="n">short_ratio</span>
                 <span class="k">else</span> <span class="mi">0</span>
             <span class="p">)</span>

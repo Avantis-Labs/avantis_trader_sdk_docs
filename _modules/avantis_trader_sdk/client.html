@@ -43,7 +43,6 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../introduction.html#getting-started">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
@@ -89,6 +88,7 @@
 <span class="kn">from</span> <span class="nn">.rpc.blended</span> <span class="kn">import</span> <span class="n">BlendedRPC</span>
 <span class="kn">from</span> <span class="nn">.rpc.fee_parameters</span> <span class="kn">import</span> <span class="n">FeeParametersRPC</span>
 <span class="kn">from</span> <span class="nn">.rpc.trading_parameters</span> <span class="kn">import</span> <span class="n">TradingParametersRPC</span>
+<span class="kn">from</span> <span class="nn">.rpc.snapshot</span> <span class="kn">import</span> <span class="n">SnapshotRPC</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">decoder</span>
 
 
@@ -106,8 +106,8 @@
 <span class="sd">        Args:</span>
 <span class="sd">            provider_url: The URL of the Ethereum node provider.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">web3</span> <span class="o">=</span> <span class="n">Web3</span><span class="p">(</span><span class="n">Web3</span><span class="o">.</span><span class="n">HTTPProvider</span><span class="p">(</span><span class="n">provider_url</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span> <span class="o">=</span> <span class="n">AsyncWeb3</span><span class="p">(</span><span class="n">AsyncWeb3</span><span class="o">.</span><span class="n">AsyncHTTPProvider</span><span class="p">(</span><span class="n">provider_url</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">web3</span> <span class="o">=</span> <span class="n">Web3</span><span class="p">(</span><span class="n">Web3</span><span class="o">.</span><span class="n">HTTPProvider</span><span class="p">(</span><span class="n">provider_url</span><span class="p">,</span> <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span> <span class="o">=</span> <span class="n">AsyncWeb3</span><span class="p">(</span><span class="n">AsyncWeb3</span><span class="o">.</span><span class="n">AsyncHTTPProvider</span><span class="p">(</span><span class="n">provider_url</span><span class="p">,</span> <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">}))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contracts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_contracts</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">utils</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">decoder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">web3</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -119,6 +119,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">blended</span> <span class="o">=</span> <span class="n">BlendedRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fee_parameters</span> <span class="o">=</span> <span class="n">FeeParametersRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trading_parameters</span> <span class="o">=</span> <span class="n">TradingParametersRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">snapshot</span> <span class="o">=</span> <span class="n">SnapshotRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TraderClient.load_contract">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.load_contract">[docs]</a>

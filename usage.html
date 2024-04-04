@@ -46,10 +46,13 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#snapshot">Snapshot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get-snapshot">get_snapshot</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#pairs-cache">Pairs Cache</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#get-pairs-info">get_pairs_info</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#get-pairs-count">get_pairs_count</a></li>
@@ -127,6 +130,23 @@
   <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
 <p>The Avantis Trader SDK provides various methods to interact with Avantis contracts and retrieve trading parameters. Below are examples for each category.</p>
+<section id="snapshot">
+<h2>Snapshot<a class="headerlink" href="#snapshot" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">snapshot</span></code> module provides methods to retrieve the current snapshot of the trading parameters. Reference: <code class="xref py py-meth docutils literal notranslate"><span class="pre">SnapshotRPC()</span></code>:</p>
+<section id="get-snapshot">
+<h3>get_snapshot<a class="headerlink" href="#get-snapshot" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_snapshot</span></code> method retrieves the current snapshot of the trading parameters. The snapshot includes information such as the current open interest, asset utilization, asset skew, category utilization, category skew, and more.</p>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>An instance of <a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Snapshot" title="avantis_trader_sdk.types.Snapshot"><code class="xref py py-class docutils literal notranslate"><span class="pre">Snapshot</span></code></a> containing the current snapshot of the trading parameters.</p></li>
+</ul>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">snapshot</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">snapshot</span><span class="o">.</span><span class="n">get_snapshot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Snapshot:&quot;</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="pairs-cache">
 <h2>Pairs Cache<a class="headerlink" href="#pairs-cache" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">pairs_cache</span></code> module provides methods to retrieve trading pairs and their details. Reference: <a class="reference internal" href="avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.pairs_cache.PairsCache" title="avantis_trader_sdk.rpc.pairs_cache.PairsCache"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PairsCache()</span></code></a>:</p>
