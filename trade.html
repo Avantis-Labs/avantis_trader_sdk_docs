@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trade Operations &mdash; Avantis Trader SDK  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Get Information and Parameters" href="get_information_and_parameters.html" />
+    <link rel="prev" title="Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Avantis Trader SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Trade Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#opening-a-trade">Opening a Trade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calculating-opening-fee-and-loss-protection">Calculating Opening Fee and Loss Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#retrieving-open-trades-and-pending-limit-orders">Retrieving Open Trades and Pending Limit Orders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closing-a-trade">Closing a Trade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#placing-a-limit-order">Placing a Limit Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#canceling-a-limit-order">Canceling a Limit Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-collateral-margin-update">Updating Collateral (Margin Update)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="get_information_and_parameters.html">Get Information and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Avantis Trader SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Trade Operations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/trade.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="trade-operations">
+<h1>Trade Operations<a class="headerlink" href="#trade-operations" title="Link to this heading"></a></h1>
+<p>The Avantis Trader SDK provides powerful methods for managing trades, including opening, closing, canceling, and editing trades. This section will guide you through each operation with clear examples to help you interact with the Avantis contracts effectively.</p>
+<section id="opening-a-trade">
+<h2>Opening a Trade<a class="headerlink" href="#opening-a-trade" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">open_trade</span></code> method allows you to open a new trade. Follow the steps below to open a trade using the SDK.</p>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">TradeInput</span><span class="p">,</span> <span class="n">TradeInputOrderType</span>
+
+<span class="n">private_key</span> <span class="o">=</span> <span class="s2">&quot;0xmyprivatekey&quot;</span>
+<span class="n">trader</span> <span class="o">=</span> <span class="s2">&quot;0xmywalletaddress&quot;</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Initialize TraderClient</span>
+    <span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span>  <span class="c1"># Find provider URL for Base Mainnet Chain from https://chainlist.org/chain/8453 or use a dedicated node (Alchemy, Infura, etc.)</span>
+    <span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
+
+    <span class="c1"># Get pair index of the pair. For example, ETH/USD</span>
+    <span class="n">pair_index_of_eth_usd</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">pairs_cache</span><span class="o">.</span><span class="n">get_pair_index</span><span class="p">(</span><span class="s2">&quot;ETH/USD&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Prepare trade input</span>
+    <span class="n">trade_input</span> <span class="o">=</span> <span class="n">TradeInput</span><span class="p">(</span>
+        <span class="n">trader</span><span class="o">=</span><span class="n">trader</span><span class="p">,</span>  <span class="c1"># Trader&#39;s wallet address</span>
+        <span class="n">open_price</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># (Optional) Open price of the trade. Current price in case of Market orders. If None then it will default to the current price</span>
+        <span class="n">pair_index</span><span class="o">=</span><span class="n">pair_index_of_eth_usd</span><span class="p">,</span>  <span class="c1"># Pair index</span>
+        <span class="n">collateral_in_trade</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Amount of collateral in trade (in USDC)</span>
+        <span class="n">is_long</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># True for long, False for short</span>
+        <span class="n">leverage</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>  <span class="c1"># Leverage for the trade</span>
+        <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># This is the index of the trade for a pair (0 for the first trade, 1 for the second, etc.)</span>
+        <span class="n">tp</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span>  <span class="c1"># Take profit price. Max allowed is 500% of open price.</span>
+        <span class="n">sl</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Stop loss price</span>
+        <span class="n">timestamp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Timestamp of the trade. 0 for now</span>
+    <span class="p">)</span>
+
+    <span class="c1"># ---------------------------------------------</span>
+    <span class="c1"># Get opening fee data</span>
+    <span class="c1"># Read more: https://docs.avantisfi.com/trading/trading-fees/crypto#dynamic-opening-fee-0.04-0.1-position-size</span>
+    <span class="n">opening_fee_usdc</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">fee_parameters</span><span class="o">.</span><span class="n">get_opening_fee</span><span class="p">(</span>
+        <span class="n">trade_input</span><span class="o">=</span><span class="n">trade_input</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Opening fee for this trade: </span><span class="si">{</span><span class="n">opening_fee_usdc</span><span class="si">}</span><span class="s2"> USDC&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get loss protection percentage</span>
+    <span class="c1"># Read more: https://docs.avantisfi.com/rewards/loss-protection</span>
+    <span class="n">loss_protection_info</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trading_parameters</span><span class="o">.</span><span class="n">get_loss_protection_for_trade_input</span><span class="p">(</span>
+            <span class="n">trade_input</span><span class="p">,</span> <span class="n">opening_fee_usdc</span><span class="o">=</span><span class="n">opening_fee_usdc</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Loss protection percentage for this trade: </span><span class="si">{</span><span class="n">loss_protection_info</span><span class="o">.</span><span class="n">percentage</span><span class="si">}</span><span class="s2">%&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;You&#39;ll receive up to $</span><span class="si">{</span><span class="n">loss_protection_info</span><span class="o">.</span><span class="n">amount</span><span class="si">}</span><span class="s2"> as a loss rebate if the trade goes against you.&quot;</span>
+    <span class="p">)</span>
+    <span class="c1"># ---------------------------------------------</span>
+
+    <span class="c1"># 1% slippage</span>
+    <span class="n">slippage_percentage</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># Order type for the trade (MARKET, LIMIT, or STOP_LIMIT)</span>
+    <span class="n">trade_input_order_type</span> <span class="o">=</span> <span class="n">TradeInputOrderType</span><span class="o">.</span><span class="n">MARKET</span>
+
+    <span class="c1"># Open trade</span>
+    <span class="n">open_transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">build_trade_open_tx</span><span class="p">(</span>
+        <span class="n">trade_input</span><span class="p">,</span> <span class="n">trade_input_order_type</span><span class="p">,</span> <span class="n">slippage_percentage</span>
+    <span class="p">)</span>
+
+    <span class="n">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">sign_and_get_receipt</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">open_transaction</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">receipt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trade opened successfully!&quot;</span><span class="p">)</span>
+
+<span class="c1"># Run the example</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Steps Explained:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Initialize the TraderClient:</strong>
+- Connect to the Base Mainnet using a provider URL.</p></li>
+<li><p><strong>Get Pair Index:</strong>
+- Retrieve the index of the trading pair (e.g., ETH/USD).</p></li>
+<li><p><strong>Prepare Trade Input:</strong>
+- Define the trade details such as trader’s address, collateral, leverage, and more.</p></li>
+<li><p><strong>Calculate Fees and Protection:</strong>
+- Retrieve the opening fee and loss protection information for the trade.</p></li>
+<li><p><strong>Set Slippage and Order Type:</strong>
+- Define slippage tolerance and choose the order type (MARKET, LIMIT, STOP_LIMIT).</p></li>
+<li><p><strong>Build and Send Transaction:</strong>
+- Construct the transaction to open the trade and send it to the blockchain.</p></li>
+</ol>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>Ensure that the parameters such as <cite>trade_input</cite>, <cite>slippage_percentage</cite>, and <cite>trade_input_order_type</cite> are correctly set.</p></li>
+<li><p>An execution fee is charged in ETH to execute the close trade transaction. This fee is required to cover the gas costs on the Ethereum network. This is automatically calculated.</p></li>
+<li><p>Refer to the Avantis documentation for more details on trading fees and loss protection mechanisms - <a class="reference external" href="https://docs.avantisfi.com/">https://docs.avantisfi.com/</a>.</p></li>
+</ul>
+</section>
+<section id="calculating-opening-fee-and-loss-protection">
+<h2>Calculating Opening Fee and Loss Protection<a class="headerlink" href="#calculating-opening-fee-and-loss-protection" title="Link to this heading"></a></h2>
+<p>Before opening a trade, it’s important to calculate the opening fee and understand the loss protection available for the trade. The following steps demonstrate how to retrieve this information using the SDK.</p>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate Opening Fee</span>
+<span class="n">opening_fee_usdc</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">fee_parameters</span><span class="o">.</span><span class="n">get_opening_fee</span><span class="p">(</span>
+    <span class="n">trade_input</span><span class="o">=</span><span class="n">trade_input</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Opening fee for this trade: </span><span class="si">{</span><span class="n">opening_fee_usdc</span><span class="si">}</span><span class="s2"> USDC&quot;</span><span class="p">)</span>
+
+<span class="c1"># Calculate Loss Protection</span>
+<span class="n">loss_protection_info</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trading_parameters</span><span class="o">.</span><span class="n">get_loss_protection_for_trade_input</span><span class="p">(</span>
+        <span class="n">trade_input</span><span class="p">,</span> <span class="n">opening_fee_usdc</span><span class="o">=</span><span class="n">opening_fee_usdc</span> <span class="c1"># Opening fee is optional (it will be calculated if not provided)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loss protection percentage for this trade: </span><span class="si">{</span><span class="n">loss_protection_info</span><span class="o">.</span><span class="n">percentage</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;You&#39;ll receive up to $</span><span class="si">{</span><span class="n">loss_protection_info</span><span class="o">.</span><span class="n">amount</span><span class="si">}</span><span class="s2"> as a loss rebate if the trade goes against you.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Details:</strong></p>
+<ul>
+<li><p><strong>Opening Fee</strong>:
+- The opening fee is a cost associated with opening a new position. It’s calculated based on the trade details provided in the <cite>trade_input</cite>.
+- The fee is returned in USDC and should be considered when evaluating the total cost of opening the trade.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For more detailed information on how the opening fee is calculated, refer to the <a class="reference internal" href="get_information_and_parameters.html"><span class="doc">Get Information and Parameters</span></a>.</p>
+</div>
+</li>
+<li><p><strong>Loss Protection</strong>:
+- Loss protection provides a percentage of the potential losses that are covered by Avantis’s system.
+- The percentage and the maximum rebate amount are calculated based on the trade’s parameters and current market conditions.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For more detailed information on loss protection, refer to the <a class="reference internal" href="get_information_and_parameters.html"><span class="doc">Get Information and Parameters</span></a>.</p>
+</div>
+</li>
+</ul>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>Always calculate the opening fee before confirming a trade to ensure you are aware of the total cost.</p></li>
+<li><p>Understanding the loss protection available can help mitigate risks, especially in volatile markets.</p></li>
+<li><p>The examples above demonstrate how to retrieve these values, but the actual decision to open a trade should consider both the opening fee and the level of loss protection.</p></li>
+</ul>
+</section>
+<section id="retrieving-open-trades-and-pending-limit-orders">
+<h2>Retrieving Open Trades and Pending Limit Orders<a class="headerlink" href="#retrieving-open-trades-and-pending-limit-orders" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_trades</span></code> method retrieves all the open trades and pending limit orders for a given trader. This is useful for managing positions, monitoring trades, and understanding the current state of your orders.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">trader</span></code> (str): The trader’s wallet address.</p></li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>A tuple containing:
+- A list of <a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse" title="avantis_trader_sdk.types.TradeExtendedResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TradeExtendedResponse</span></code></a> instances representing the trader’s open trades.
+- A list of <a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse" title="avantis_trader_sdk.types.PendingLimitOrderExtendedResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse</span></code></a> instances representing the trader’s pending limit orders.</p></li>
+</ul>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trades</span><span class="p">,</span> <span class="n">pending_open_limit_orders</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">get_trades</span><span class="p">(</span><span class="n">trader</span><span class="o">=</span><span class="s2">&quot;0xmywalletaddress&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print open trades</span>
+<span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="n">trades</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Trade Index: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">trade_index</span><span class="si">}</span><span class="s2">, Collateral: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">open_collateral</span><span class="si">}</span><span class="s2"> USDC, Leverage: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">leverage</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print pending limit orders</span>
+<span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">pending_open_limit_orders</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order Index: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">trade_index</span><span class="si">}</span><span class="s2">, Collateral: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">open_collateral</span><span class="si">}</span><span class="s2"> USDC, Leverage: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">leverage</span><span class="si">}</span><span class="s2">, Order Price: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">price</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Details:</strong></p>
+<ul class="simple">
+<li><p><strong>Trades</strong>:
+- Each trade includes detailed information such as the trading pair, collateral, leverage, take profit (TP), stop loss (SL), and more.
+- The method also retrieves additional info like open interest, last updated TP/SL timestamps, loss protection percentage, margin fee, and liquidation price.</p></li>
+<li><p><strong>Pending Limit Orders</strong>:
+- The method gathers all pending limit orders that haven’t been executed yet.
+- Each order includes details like collateral, leverage, order price, slippage, and the block in which it was placed.</p></li>
+</ul>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>This method interacts with the Multicall contract to fetch aggregated trade and order data for the specified trader.</p></li>
+<li><p>The returned data is formatted into structured responses (<cite>TradeExtendedResponse</cite> and <cite>PendingLimitOrderExtendedResponse</cite>) for ease of use.</p></li>
+<li><p>The information retrieved includes essential trade and order details, making it straightforward to manage and analyze positions.</p></li>
+</ul>
+</section>
+<section id="closing-a-trade">
+<h2>Closing a Trade<a class="headerlink" href="#closing-a-trade" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">close_trade</span></code> method allows you to close an open trade. You can close a trade fully or partially by specifying the amount of collateral to close. Below is an example of how to retrieve your trades, select one, and close it.</p>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get open and pending trades</span>
+<span class="n">trades</span><span class="p">,</span> <span class="n">pending_open_limit_orders</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">get_trades</span><span class="p">(</span><span class="n">trader</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trades: &quot;</span><span class="p">,</span> <span class="n">trades</span><span class="p">)</span>
+
+<span class="c1"># Select the first trade to close</span>
+<span class="n">trade_to_close</span> <span class="o">=</span> <span class="n">trades</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Close trade</span>
+<span class="n">close_transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">build_trade_close_tx</span><span class="p">(</span>
+    <span class="n">trader</span><span class="o">=</span><span class="n">trader</span><span class="p">,</span>
+    <span class="n">pair_index</span><span class="o">=</span><span class="n">trade_to_close</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">pair_index</span><span class="p">,</span>
+    <span class="n">trade_index</span><span class="o">=</span><span class="n">trade_to_close</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">trade_index</span><span class="p">,</span>
+    <span class="n">collateral_to_close</span><span class="o">=</span><span class="n">trade_to_close</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">open_collateral</span><span class="p">,</span>  <span class="c1"># Amount of collateral to close. Pass full amount to close the trade. Pass partial amount to partially close the trade.</span>
+    <span class="c1"># collateral_to_close=trade_to_close.trade.open_collateral/2, # Uncomment this to close half of the trade</span>
+<span class="p">)</span>
+
+<span class="n">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">sign_and_get_receipt</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">close_transaction</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">receipt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trade closed successfully!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Steps Explained:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Retrieve Open Trades:</strong>
+- Use the <cite>get_trades</cite> method to retrieve all open trades and pending limit orders for the trader.</p></li>
+<li><p><strong>Select a Trade to Close:</strong>
+- Select a specific trade from the list of open trades. In this example, the first trade is selected.</p></li>
+<li><p><strong>Build Close Transaction:</strong>
+- Use the <cite>build_trade_close_tx</cite> method to construct a transaction for closing the selected trade. You can close the entire trade or partially close it by specifying the amount of collateral to close.</p></li>
+<li><p><strong>Sign and Send Transaction:</strong>
+- Sign the transaction using your private key and send it to the network. The transaction receipt confirms the successful closure of the trade.</p></li>
+</ol>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>Ensure that the correct trade is selected for closure to avoid closing the wrong position.</p></li>
+<li><p>Partial closures allow for flexible position management, enabling traders to reduce exposure without completely exiting the market.</p></li>
+<li><p>An execution fee is charged in ETH to execute the close trade transaction. This fee is required to cover the gas costs on the Ethereum network. This is automatically calculated.</p></li>
+</ul>
+</section>
+<section id="placing-a-limit-order">
+<h2>Placing a Limit Order<a class="headerlink" href="#placing-a-limit-order" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">open_limit_order</span></code> method allows you to place a limit order. A limit order allows you to specify the desired execution price for the trade. This is similar to opening a market trade, but with the order type set to <cite>LIMIT</cite> and an open price specified.</p>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">TradeInput</span><span class="p">,</span> <span class="n">TradeInputOrderType</span>
+
+<span class="n">private_key</span> <span class="o">=</span> <span class="s2">&quot;0xmyprivatekey&quot;</span>
+<span class="n">trader</span> <span class="o">=</span> <span class="s2">&quot;0xmywalletaddress&quot;</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Initialize TraderClient</span>
+    <span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span>  <span class="c1"># Find provider URL for Base Mainnet Chain from https://chainlist.org/chain/8453 or use a dedicated node (Alchemy, Infura, etc.)</span>
+    <span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
+
+    <span class="c1"># Get pair index of the pair. For example, ETH/USD</span>
+    <span class="n">pair_index_of_eth_usd</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">pairs_cache</span><span class="o">.</span><span class="n">get_pair_index</span><span class="p">(</span><span class="s2">&quot;ETH/USD&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Prepare trade input</span>
+    <span class="n">trade_input</span> <span class="o">=</span> <span class="n">TradeInput</span><span class="p">(</span>
+        <span class="n">trader</span><span class="o">=</span><span class="n">trader</span><span class="p">,</span>  <span class="c1"># Trader&#39;s wallet address</span>
+        <span class="n">open_price</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>  <span class="c1"># Open price of the trade (Desired execution price)</span>
+        <span class="n">pair_index</span><span class="o">=</span><span class="n">pair_index_of_eth_usd</span><span class="p">,</span>  <span class="c1"># Pair index</span>
+        <span class="n">collateral_in_trade</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Amount of collateral in trade (in USDC)</span>
+        <span class="n">is_long</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># True for long, False for short</span>
+        <span class="n">leverage</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>  <span class="c1"># Leverage for the trade</span>
+        <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># This is the index of the trade for a pair (0 for the first trade, 1 for the second, etc.)</span>
+        <span class="n">tp</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span>  <span class="c1"># Take profit price. Max allowed is 500% of open price.</span>
+        <span class="n">sl</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Stop loss price</span>
+        <span class="n">timestamp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Timestamp of the trade. 0 for now</span>
+    <span class="p">)</span>
+
+    <span class="c1"># ---------------------------------------------</span>
+    <span class="c1"># Get opening fee data</span>
+    <span class="n">opening_fee_usdc</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">fee_parameters</span><span class="o">.</span><span class="n">get_opening_fee</span><span class="p">(</span>
+        <span class="n">trade_input</span><span class="o">=</span><span class="n">trade_input</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Opening fee for this trade: </span><span class="si">{</span><span class="n">opening_fee_usdc</span><span class="si">}</span><span class="s2"> USDC&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get loss protection percentage</span>
+    <span class="n">loss_protection_info</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trading_parameters</span><span class="o">.</span><span class="n">get_loss_protection_for_trade_input</span><span class="p">(</span>
+            <span class="n">trade_input</span><span class="p">,</span> <span class="n">opening_fee_usdc</span><span class="o">=</span><span class="n">opening_fee_usdc</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loss protection percentage for this trade: </span><span class="si">{</span><span class="n">loss_protection_info</span><span class="o">.</span><span class="n">percentage</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;You&#39;ll receive up to $</span><span class="si">{</span><span class="n">loss_protection_info</span><span class="o">.</span><span class="n">amount</span><span class="si">}</span><span class="s2"> as a loss rebate if the trade goes against you.&quot;</span><span class="p">)</span>
+    <span class="c1"># ---------------------------------------------</span>
+
+    <span class="c1"># 1% slippage</span>
+    <span class="n">slippage_percentage</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># Order type for the trade (LIMIT in this case)</span>
+    <span class="n">trade_input_order_type</span> <span class="o">=</span> <span class="n">TradeInputOrderType</span><span class="o">.</span><span class="n">LIMIT</span>
+
+    <span class="c1"># Open trade as a limit order</span>
+    <span class="n">open_transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">build_trade_open_tx</span><span class="p">(</span>
+        <span class="n">trade_input</span><span class="p">,</span> <span class="n">trade_input_order_type</span><span class="p">,</span> <span class="n">slippage_percentage</span>
+    <span class="p">)</span>
+
+    <span class="n">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">sign_and_get_receipt</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">open_transaction</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">receipt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Order placed successfully!&quot;</span><span class="p">)</span>
+
+<span class="c1"># Run the example</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Details:</strong></p>
+<ul class="simple">
+<li><p><strong>Limit Order:</strong>
+- A limit order is used when you want to specify the exact price at which you want to execute the trade. The order will only execute if the market reaches this price.
+- The <cite>open_price</cite> parameter in the <cite>TradeInput</cite> specifies the desired execution price.</p></li>
+</ul>
+<p><strong>Steps Explained:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Initialize TraderClient:</strong>
+- Connect to the Base Mainnet using a provider URL.</p></li>
+<li><p><strong>Get Pair Index:</strong>
+- Retrieve the index of the trading pair (e.g., ETH/USD).</p></li>
+<li><p><strong>Prepare Trade Input:</strong>
+- Define the trade details, including the trader’s address, collateral, leverage, and desired execution price.</p></li>
+<li><p><strong>Calculate Fees and Protection:</strong>
+- Retrieve the opening fee and loss protection information for the trade.</p></li>
+<li><p><strong>Set Order Type and Slippage:</strong>
+- Define the order type as <cite>LIMIT</cite> and set the slippage tolerance.</p></li>
+<li><p><strong>Build and Send Transaction:</strong>
+- Construct the transaction for the limit order and send it to the network. The transaction receipt confirms the successful placement of the order.</p></li>
+</ol>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>Ensure that the <cite>open_price</cite> is set to your desired execution price.</p></li>
+<li><p>Limit orders provide control over the trade execution price but may not be filled if the market doesn’t reach the specified price.</p></li>
+<li><p>An execution fee in ETH is required to place the order. This fee covers the gas costs on the Ethereum network. This is automatically calculated.</p></li>
+</ul>
+</section>
+<section id="canceling-a-limit-order">
+<h2>Canceling a Limit Order<a class="headerlink" href="#canceling-a-limit-order" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">cancel_limit_order</span></code> method allows you to cancel a pending limit order. This can be useful if you no longer wish to execute the order or if market conditions have changed.</p>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span>
+
+<span class="n">private_key</span> <span class="o">=</span> <span class="s2">&quot;0xmyprivatekey&quot;</span>
+<span class="n">trader</span> <span class="o">=</span> <span class="s2">&quot;0xmywalletaddress&quot;</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Initialize TraderClient</span>
+    <span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span>  <span class="c1"># Find provider URL for Base Mainnet Chain from https://chainlist.org/chain/8453 or use a dedicated node (Alchemy, Infura, etc.)</span>
+    <span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
+
+    <span class="c1"># Get open and pending trades</span>
+    <span class="n">trades</span><span class="p">,</span> <span class="n">pending_open_limit_orders</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">get_trades</span><span class="p">(</span><span class="n">trader</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pending Open Limit Orders: &quot;</span><span class="p">,</span> <span class="n">pending_open_limit_orders</span><span class="p">)</span>
+
+    <span class="c1"># Select first order to cancel</span>
+    <span class="n">order_to_cancel</span> <span class="o">=</span> <span class="n">pending_open_limit_orders</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Cancel the order</span>
+    <span class="n">close_transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">build_order_cancel_tx</span><span class="p">(</span>
+     <span class="n">trader</span><span class="o">=</span><span class="n">trader</span><span class="p">,</span>
+     <span class="n">pair_index</span><span class="o">=</span><span class="n">order_to_cancel</span><span class="o">.</span><span class="n">pair_index</span><span class="p">,</span>
+     <span class="n">trade_index</span><span class="o">=</span><span class="n">order_to_cancel</span><span class="o">.</span><span class="n">trade_index</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">sign_and_get_receipt</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">cancel_transaction</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">receipt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Order canceled successfully!&quot;</span><span class="p">)</span>
+
+<span class="c1"># Run the example</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Details:</strong></p>
+<ul class="simple">
+<li><p><strong>Canceling a Limit Order:</strong>
+- To cancel a limit order, you must specify the trading pair and trade index of the order you wish to cancel.
+- Once canceled, the limit order will not be executed, even if the market reaches the specified price.</p></li>
+</ul>
+<p><strong>Steps Explained:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Retrieve Pending Limit Orders:</strong>
+- Use the <cite>get_trades</cite> method to retrieve all open trades and pending limit orders for the trader.</p></li>
+<li><p><strong>Select an Order to Cancel:</strong>
+- Select a specific limit order from the list of pending orders. In this example, the first pending order is selected.</p></li>
+<li><p><strong>Build Cancel Transaction:</strong>
+- Use the <cite>build_order_cancel_tx</cite> method to construct a transaction for canceling the selected limit order.</p></li>
+<li><p><strong>Sign and Send Transaction:</strong>
+- Sign the transaction using your private key and send it to the network. The transaction receipt confirms the successful cancellation of the order.</p></li>
+</ol>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>Ensure that you cancel the correct limit order to avoid unintended cancellations.</p></li>
+<li><p>Once a limit order is canceled, it cannot be reinstated, so be certain before proceeding.</p></li>
+</ul>
+</section>
+<section id="updating-collateral-margin-update">
+<h2>Updating Collateral (Margin Update)<a class="headerlink" href="#updating-collateral-margin-update" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">update_margin</span></code> method allows you to deposit or withdraw collateral from an existing trade. This action adjusts the trade’s leverage while keeping the position size the same. The minimum leverage allowed on the platform is 2x.</p>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">MarginUpdateType</span>
+
+<span class="n">private_key</span> <span class="o">=</span> <span class="s2">&quot;0xmyprivatekey&quot;</span>
+<span class="n">trader</span> <span class="o">=</span> <span class="s2">&quot;0xmywalletaddress&quot;</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Initialize TraderClient</span>
+    <span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span>  <span class="c1"># Find provider URL for Base Mainnet Chain from https://chainlist.org/chain/8453 or use a dedicated node (Alchemy, Infura, etc.)</span>
+    <span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
+
+    <span class="c1"># Get open trades</span>
+    <span class="n">trades</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">get_trades</span><span class="p">(</span><span class="n">trader</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trades: &quot;</span><span class="p">,</span> <span class="n">trades</span><span class="p">)</span>
+
+    <span class="c1"># Select first trade to update</span>
+    <span class="n">trade_to_update</span> <span class="o">=</span> <span class="n">trades</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># ---------------------------------------------</span>
+    <span class="c1"># NOTE: Any accrued margin fee on the trade will</span>
+    <span class="c1"># be deducted from the deposited amount</span>
+    <span class="c1"># ---------------------------------------------</span>
+
+    <span class="c1"># Update trade margin</span>
+    <span class="n">deposit_transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">build_trade_margin_update_tx</span><span class="p">(</span>
+        <span class="n">trader</span><span class="o">=</span><span class="n">trader</span><span class="p">,</span>
+        <span class="n">pair_index</span><span class="o">=</span><span class="n">trade_to_update</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">pair_index</span><span class="p">,</span>
+        <span class="n">trade_index</span><span class="o">=</span><span class="n">trade_to_update</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">trade_index</span><span class="p">,</span>
+        <span class="n">margin_update_type</span><span class="o">=</span><span class="n">MarginUpdateType</span><span class="o">.</span><span class="n">DEPOSIT</span><span class="p">,</span>  <span class="c1"># Type of margin update (DEPOSIT or WITHDRAW)</span>
+        <span class="c1"># margin_update_type=MarginUpdateType.WITHDRAW, # Uncomment this to withdraw collateral</span>
+        <span class="n">collateral_change</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Amount of collateral to deposit or withdraw</span>
+    <span class="p">)</span>
+
+    <span class="n">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">sign_and_get_receipt</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">deposit_transaction</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">receipt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trade updated successfully!&quot;</span><span class="p">)</span>
+
+<span class="c1"># Run the example</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Details:</strong></p>
+<ul class="simple">
+<li><p><strong>Margin Update:</strong>
+- Margin updates allow you to deposit or withdraw collateral from an open trade, which in turn adjusts the leverage. Depositing collateral reduces leverage, while withdrawing collateral increases leverage.</p></li>
+<li><p><strong>Important Consideration:</strong>
+- Any accrued margin fee on the trade will be deducted from the deposited amount during a deposit operation. Ensure that the deposit amount is sufficient to cover any fees and still achieve the desired margin update.</p></li>
+</ul>
+<p><strong>Steps Explained:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Retrieve Open Trades:</strong>
+- Use the <cite>get_trades</cite> method to retrieve all open trades for the trader.</p></li>
+<li><p><strong>Select a Trade to Update:</strong>
+- Select the trade you wish to update from the list of open trades. In this example, the first trade is selected.</p></li>
+<li><p><strong>Build Margin Update Transaction:</strong>
+- Use the <cite>build_trade_margin_update_tx</cite> method to construct a transaction for depositing or withdrawing collateral from the selected trade.</p></li>
+<li><p><strong>Sign and Send Transaction:</strong>
+- Sign the transaction using your private key and send it to the network. The transaction receipt confirms the successful margin update.</p></li>
+</ol>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>Adjusting the collateral impacts the leverage of the trade. Depositing collateral decreases leverage, providing more security, while withdrawing collateral increases leverage, potentially increasing risk.</p></li>
+<li><p>The minimum leverage allowed on the platform is 2x. Ensure that after any margin update, the leverage remains above this minimum threshold.</p></li>
+<li><p>The maximum leverage allowed can vary from asset to asset, so be sure to check the specific leverage limits for the asset you are trading.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="get_information_and_parameters.html" class="btn btn-neutral float-right" title="Get Information and Parameters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Avantis Labs.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

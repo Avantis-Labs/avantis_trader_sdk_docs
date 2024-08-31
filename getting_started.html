@@ -16,7 +16,7 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -52,7 +52,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trade.html">Trade Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_information_and_parameters.html">Get Information and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_topics.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQs</a></li>
@@ -108,6 +110,30 @@ pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
 <p>If the installation was successful, this command should print the version number of the Avantis Trader SDK.</p>
+</li>
+<li><p>Get pair information:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">__version__</span>
+
+<span class="kn">import</span> <span class="nn">avantis_trader_sdk</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">avantis_trader_sdk</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+   <span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span>
+   <span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
+
+   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----- GETTING PAIR INFO -----&quot;</span><span class="p">)</span>
+   <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">pairs_cache</span><span class="o">.</span><span class="n">get_pairs_info</span><span class="p">()</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+   <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>This command should print a list of trading pairs with their information available on the Avantis platform.</p>
 </li>
 </ol>
 </section>

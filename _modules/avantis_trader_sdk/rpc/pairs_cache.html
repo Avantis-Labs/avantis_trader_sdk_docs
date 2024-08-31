@@ -15,7 +15,7 @@
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -45,7 +45,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trade.html">Trade Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_information_and_parameters.html">Get Information and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../advanced_topics.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">FAQs</a></li>
@@ -134,7 +136,10 @@
 
             <span class="n">group_indexes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">pair</span><span class="o">.</span><span class="n">group_index</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">decoded_data</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_group_indexes_cache</span> <span class="o">=</span> <span class="n">group_indexes</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_pair_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">from_</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">to</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">index</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pair_info_cache</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pair_mapping</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">from_</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">to</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">index</span>
+                <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pair_info_cache</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pair_info_cache</span></div>
 
@@ -186,6 +191,22 @@
             <span class="k">if</span> <span class="n">pair_info</span><span class="o">.</span><span class="n">from_</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">pair_info</span><span class="o">.</span><span class="n">to</span> <span class="o">==</span> <span class="n">pair</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">index</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pair </span><span class="si">{</span><span class="n">pair</span><span class="si">}</span><span class="s2"> not found in pairs info.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PairsCache.get_pair_name_from_index">
+<a class="viewcode-back" href="../../../avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pair_name_from_index">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_pair_name_from_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pair_index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the pair name from the index.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pair_index: The pair index.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The pair name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pairs_info</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pairs_info</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">pairs_info</span><span class="p">[</span><span class="n">pair_index</span><span class="p">]</span><span class="o">.</span><span class="n">from_</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">pairs_info</span><span class="p">[</span><span class="n">pair_index</span><span class="p">]</span><span class="o">.</span><span class="n">to</span></div>
 </div>
 
 </pre></div>

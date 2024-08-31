@@ -15,7 +15,7 @@
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -45,7 +45,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../trade.html">Trade Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_information_and_parameters.html">Get Information and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../advanced_topics.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faqs.html">FAQs</a></li>
@@ -89,7 +91,9 @@
 <span class="kn">from</span> <span class="nn">.rpc.fee_parameters</span> <span class="kn">import</span> <span class="n">FeeParametersRPC</span>
 <span class="kn">from</span> <span class="nn">.rpc.trading_parameters</span> <span class="kn">import</span> <span class="n">TradingParametersRPC</span>
 <span class="kn">from</span> <span class="nn">.rpc.snapshot</span> <span class="kn">import</span> <span class="n">SnapshotRPC</span>
+<span class="kn">from</span> <span class="nn">.rpc.trade</span> <span class="kn">import</span> <span class="n">TradeRPC</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">decoder</span>
+<span class="kn">from</span> <span class="nn">.feed.feed_client</span> <span class="kn">import</span> <span class="n">FeedClient</span>
 
 
 <div class="viewcode-block" id="TraderClient">
@@ -99,16 +103,31 @@
 <span class="sd">    This class provides methods to interact with the Avantis smart contracts.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider_url</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider_url</span><span class="p">,</span> <span class="n">l1_provider_url</span><span class="o">=</span><span class="s2">&quot;https://eth.llamarpc.com&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for the TraderClient class.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            provider_url: The URL of the Ethereum node provider.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">web3</span> <span class="o">=</span> <span class="n">Web3</span><span class="p">(</span><span class="n">Web3</span><span class="o">.</span><span class="n">HTTPProvider</span><span class="p">(</span><span class="n">provider_url</span><span class="p">,</span> <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">}))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span> <span class="o">=</span> <span class="n">AsyncWeb3</span><span class="p">(</span><span class="n">AsyncWeb3</span><span class="o">.</span><span class="n">AsyncHTTPProvider</span><span class="p">(</span><span class="n">provider_url</span><span class="p">,</span> <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">web3</span> <span class="o">=</span> <span class="n">Web3</span><span class="p">(</span>
+            <span class="n">Web3</span><span class="o">.</span><span class="n">HTTPProvider</span><span class="p">(</span><span class="n">provider_url</span><span class="p">,</span> <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">})</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span> <span class="o">=</span> <span class="n">AsyncWeb3</span><span class="p">(</span>
+            <span class="n">AsyncWeb3</span><span class="o">.</span><span class="n">AsyncHTTPProvider</span><span class="p">(</span><span class="n">provider_url</span><span class="p">,</span> <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">})</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">l1_web3</span> <span class="o">=</span> <span class="n">Web3</span><span class="p">(</span>
+            <span class="n">Web3</span><span class="o">.</span><span class="n">HTTPProvider</span><span class="p">(</span><span class="n">l1_provider_url</span><span class="p">,</span> <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">})</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">l1_async_web3</span> <span class="o">=</span> <span class="n">AsyncWeb3</span><span class="p">(</span>
+            <span class="n">AsyncWeb3</span><span class="o">.</span><span class="n">AsyncHTTPProvider</span><span class="p">(</span><span class="n">l1_provider_url</span><span class="p">,</span> <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">})</span>
+        <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">contracts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_contracts</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">chain_id</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">utils</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">decoder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">web3</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="p">}</span>
@@ -120,6 +139,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fee_parameters</span> <span class="o">=</span> <span class="n">FeeParametersRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trading_parameters</span> <span class="o">=</span> <span class="n">TradingParametersRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">snapshot</span> <span class="o">=</span> <span class="n">SnapshotRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trade</span> <span class="o">=</span> <span class="n">TradeRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FeedClient</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TraderClient.load_contract">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.load_contract">[docs]</a>
@@ -154,7 +174,7 @@
 
 <div class="viewcode-block" id="TraderClient.read_contract">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.read_contract">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">read_contract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">read_contract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calls a read-only function of a contract.</span>
 
@@ -176,6 +196,201 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">utils</span><span class="p">[</span><span class="s2">&quot;decoder&quot;</span><span class="p">](</span><span class="n">contract</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="n">raw_data</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">raw_data</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.write_contract">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.write_contract">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">write_contract</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calls a write function of a contract.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            private_key: The private key of the wallet.</span>
+<span class="sd">            contract_name: The name of the contract.</span>
+<span class="sd">            function_name: The name of the function.</span>
+<span class="sd">            args: The arguments to the function.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The transaction hash or the transaction object if private key is None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">contract</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">contract_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">contract</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Contract </span><span class="si">{</span><span class="n">contract_name</span><span class="si">}</span><span class="s2"> not found&quot;</span><span class="p">)</span>
+
+        <span class="n">transaction</span> <span class="o">=</span> <span class="n">contract</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="n">function_name</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">build_transaction</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">private_key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">transaction</span>
+
+        <span class="n">signed_txn</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">transaction</span><span class="p">)</span>
+        <span class="n">tx_hash</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_and_get_transaction_hash</span><span class="p">(</span><span class="n">signed_txn</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tx_hash</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.sign_transaction">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.sign_transaction">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Signs a transaction.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            private_key: The private key of the wallet.</span>
+<span class="sd">            transaction: The transaction object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The signed transaction object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">,</span> <span class="n">private_key</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.send_and_get_transaction_hash">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.send_and_get_transaction_hash">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">send_and_get_transaction_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signed_txn</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the transaction hash.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            signed_txn: The signed transaction object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The transaction hash.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">send_raw_transaction</span><span class="p">(</span><span class="n">signed_txn</span><span class="o">.</span><span class="n">rawTransaction</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.wait_for_transaction_receipt">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.wait_for_transaction_receipt">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wait_for_transaction_receipt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Waits for the transaction to be mined.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            tx_hash: The transaction hash.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The transaction receipt.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">wait_for_transaction_receipt</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.sign_and_get_receipt">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.sign_and_get_receipt">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_and_get_receipt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Signs a transaction and waits for it to be mined.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            private_key: The private key of the wallet.</span>
+<span class="sd">            transaction: The transaction object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The transaction receipt.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">signed_txn</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">transaction</span><span class="p">)</span>
+        <span class="n">tx_hash</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_and_get_transaction_hash</span><span class="p">(</span><span class="n">signed_txn</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait_for_transaction_receipt</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.get_transaction_count">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_transaction_count">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_transaction_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the transaction count.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            address: The address.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The transaction count.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">get_transaction_count</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.get_gas_price">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_gas_price">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_gas_price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the gas price.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The gas price.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">gas_price</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.get_chain_id">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_chain_id">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_chain_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the chain id.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The chain id.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">chain_id</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.get_balance">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_balance">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the balance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            address: The address.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The balance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">get_balance</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.get_usdc_balance">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_usdc_balance">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_usdc_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the USDC balance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            address: The address.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The USDC balance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">balance</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_contract</span><span class="p">(</span><span class="s2">&quot;USDC&quot;</span><span class="p">,</span> <span class="s2">&quot;balanceOf&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">balance</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.get_gas_estimate">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_gas_estimate">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_gas_estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the gas estimate.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            transaction: The transaction object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The gas estimate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">estimate_gas</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TraderClient.get_transaction_hex">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_transaction_hex">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_transaction_hex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the transaction hex.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            transaction: The transaction object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The transaction hex.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">transaction</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span></div>
 </div>
 
 </pre></div>

@@ -16,7 +16,7 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -46,7 +46,9 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trade.html">Trade Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_information_and_parameters.html">Get Information and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_topics.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQs</a></li>
@@ -100,9 +102,21 @@
 <li class="toctree-l2"><a class="reference internal" href="avantis_trader_sdk.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="avantis_trader_sdk.html#module-avantis_trader_sdk.client">avantis_trader_sdk.client module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient"><code class="docutils literal notranslate"><span class="pre">TraderClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_balance"><code class="docutils literal notranslate"><span class="pre">TraderClient.get_balance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_chain_id"><code class="docutils literal notranslate"><span class="pre">TraderClient.get_chain_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_gas_estimate"><code class="docutils literal notranslate"><span class="pre">TraderClient.get_gas_estimate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_gas_price"><code class="docutils literal notranslate"><span class="pre">TraderClient.get_gas_price()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_transaction_count"><code class="docutils literal notranslate"><span class="pre">TraderClient.get_transaction_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_transaction_hex"><code class="docutils literal notranslate"><span class="pre">TraderClient.get_transaction_hex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_usdc_balance"><code class="docutils literal notranslate"><span class="pre">TraderClient.get_usdc_balance()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.load_contract"><code class="docutils literal notranslate"><span class="pre">TraderClient.load_contract()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.load_contracts"><code class="docutils literal notranslate"><span class="pre">TraderClient.load_contracts()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.read_contract"><code class="docutils literal notranslate"><span class="pre">TraderClient.read_contract()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.send_and_get_transaction_hash"><code class="docutils literal notranslate"><span class="pre">TraderClient.send_and_get_transaction_hash()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.sign_and_get_receipt"><code class="docutils literal notranslate"><span class="pre">TraderClient.sign_and_get_receipt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.sign_transaction"><code class="docutils literal notranslate"><span class="pre">TraderClient.sign_transaction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.wait_for_transaction_receipt"><code class="docutils literal notranslate"><span class="pre">TraderClient.wait_for_transaction_receipt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.write_contract"><code class="docutils literal notranslate"><span class="pre">TraderClient.write_contract()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -114,43 +128,77 @@
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Depth.above"><code class="docutils literal notranslate"><span class="pre">Depth.above</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Depth.below"><code class="docutils literal notranslate"><span class="pre">Depth.below</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Depth.check_at_least_one"><code class="docutils literal notranslate"><span class="pre">Depth.check_at_least_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Depth.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Depth.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Depth.model_config"><code class="docutils literal notranslate"><span class="pre">Depth.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Depth.model_fields"><code class="docutils literal notranslate"><span class="pre">Depth.model_fields</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.DepthSingle"><code class="docutils literal notranslate"><span class="pre">DepthSingle</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.DepthSingle.above"><code class="docutils literal notranslate"><span class="pre">DepthSingle.above</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.DepthSingle.below"><code class="docutils literal notranslate"><span class="pre">DepthSingle.below</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.DepthSingle.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DepthSingle.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.DepthSingle.model_config"><code class="docutils literal notranslate"><span class="pre">DepthSingle.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.DepthSingle.model_fields"><code class="docutils literal notranslate"><span class="pre">DepthSingle.model_fields</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Fee"><code class="docutils literal notranslate"><span class="pre">Fee</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Fee.check_at_least_one"><code class="docutils literal notranslate"><span class="pre">Fee.check_at_least_one()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Fee.long"><code class="docutils literal notranslate"><span class="pre">Fee.long</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Fee.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Fee.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Fee.model_config"><code class="docutils literal notranslate"><span class="pre">Fee.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Fee.model_fields"><code class="docutils literal notranslate"><span class="pre">Fee.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Fee.short"><code class="docutils literal notranslate"><span class="pre">Fee.short</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.LossProtectionInfo"><code class="docutils literal notranslate"><span class="pre">LossProtectionInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.LossProtectionInfo.amount"><code class="docutils literal notranslate"><span class="pre">LossProtectionInfo.amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.LossProtectionInfo.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">LossProtectionInfo.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.LossProtectionInfo.model_config"><code class="docutils literal notranslate"><span class="pre">LossProtectionInfo.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.LossProtectionInfo.model_fields"><code class="docutils literal notranslate"><span class="pre">LossProtectionInfo.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.LossProtectionInfo.percentage"><code class="docutils literal notranslate"><span class="pre">LossProtectionInfo.percentage</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFee"><code class="docutils literal notranslate"><span class="pre">MarginFee</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFee.hourly_base_fee_parameter"><code class="docutils literal notranslate"><span class="pre">MarginFee.hourly_base_fee_parameter</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFee.hourly_margin_fee_long_bps"><code class="docutils literal notranslate"><span class="pre">MarginFee.hourly_margin_fee_long_bps</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFee.hourly_margin_fee_short_bps"><code class="docutils literal notranslate"><span class="pre">MarginFee.hourly_margin_fee_short_bps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFee.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">MarginFee.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFee.model_config"><code class="docutils literal notranslate"><span class="pre">MarginFee.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFee.model_fields"><code class="docutils literal notranslate"><span class="pre">MarginFee.model_fields</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFeeSingle"><code class="docutils literal notranslate"><span class="pre">MarginFeeSingle</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFeeSingle.hourly_base_fee_parameter"><code class="docutils literal notranslate"><span class="pre">MarginFeeSingle.hourly_base_fee_parameter</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFeeSingle.hourly_margin_fee_long_bps"><code class="docutils literal notranslate"><span class="pre">MarginFeeSingle.hourly_margin_fee_long_bps</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFeeSingle.hourly_margin_fee_short_bps"><code class="docutils literal notranslate"><span class="pre">MarginFeeSingle.hourly_margin_fee_short_bps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFeeSingle.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">MarginFeeSingle.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFeeSingle.model_config"><code class="docutils literal notranslate"><span class="pre">MarginFeeSingle.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFeeSingle.model_fields"><code class="docutils literal notranslate"><span class="pre">MarginFeeSingle.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginUpdateType"><code class="docutils literal notranslate"><span class="pre">MarginUpdateType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginUpdateType.DEPOSIT"><code class="docutils literal notranslate"><span class="pre">MarginUpdateType.DEPOSIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.MarginUpdateType.WITHDRAW"><code class="docutils literal notranslate"><span class="pre">MarginUpdateType.WITHDRAW</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterest"><code class="docutils literal notranslate"><span class="pre">OpenInterest</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterest.long"><code class="docutils literal notranslate"><span class="pre">OpenInterest.long</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterest.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">OpenInterest.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterest.model_config"><code class="docutils literal notranslate"><span class="pre">OpenInterest.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterest.model_fields"><code class="docutils literal notranslate"><span class="pre">OpenInterest.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterest.short"><code class="docutils literal notranslate"><span class="pre">OpenInterest.short</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterestLimits"><code class="docutils literal notranslate"><span class="pre">OpenInterestLimits</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterestLimits.limits"><code class="docutils literal notranslate"><span class="pre">OpenInterestLimits.limits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterestLimits.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">OpenInterestLimits.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterestLimits.model_config"><code class="docutils literal notranslate"><span class="pre">OpenInterestLimits.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterestLimits.model_fields"><code class="docutils literal notranslate"><span class="pre">OpenInterestLimits.model_fields</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo"><code class="docutils literal notranslate"><span class="pre">PairInfo</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.Config"><code class="docutils literal notranslate"><span class="pre">PairInfo.Config</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.backupFeed"><code class="docutils literal notranslate"><span class="pre">PairInfo.backupFeed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.backup_feed"><code class="docutils literal notranslate"><span class="pre">PairInfo.backup_feed</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.constant_spread_bps"><code class="docutils literal notranslate"><span class="pre">PairInfo.constant_spread_bps</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.convert_to_float_10"><code class="docutils literal notranslate"><span class="pre">PairInfo.convert_to_float_10()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.convert_to_float_10_bps"><code class="docutils literal notranslate"><span class="pre">PairInfo.convert_to_float_10_bps()</span></code></a></li>
@@ -160,6 +208,9 @@
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.group_index"><code class="docutils literal notranslate"><span class="pre">PairInfo.group_index</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.group_open_interest_percentage"><code class="docutils literal notranslate"><span class="pre">PairInfo.group_open_interest_percentage</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.max_wallet_oi"><code class="docutils literal notranslate"><span class="pre">PairInfo.max_wallet_oi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PairInfo.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.model_config"><code class="docutils literal notranslate"><span class="pre">PairInfo.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.model_fields"><code class="docutils literal notranslate"><span class="pre">PairInfo.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.price_impact_parameter"><code class="docutils literal notranslate"><span class="pre">PairInfo.price_impact_parameter</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.skew_impact_parameter"><code class="docutils literal notranslate"><span class="pre">PairInfo.skew_impact_parameter</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.to"><code class="docutils literal notranslate"><span class="pre">PairInfo.to</span></code></a></li>
@@ -171,7 +222,7 @@
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.asset_open_interest_limit"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.asset_open_interest_limit</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.asset_skew"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.asset_skew</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.asset_utilization"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.asset_utilization</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.backupFeed"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.backupFeed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.backup_feed"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.backup_feed</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.blended_skew"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.blended_skew</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.blended_utilization"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.blended_utilization</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.constant_spread_bps"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.constant_spread_bps</span></code></a></li>
@@ -182,6 +233,9 @@
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.group_open_interest_percentage"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.group_open_interest_percentage</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.margin_fee"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.margin_fee</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.max_wallet_oi"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.max_wallet_oi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.model_config"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.model_fields"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.new_1k_long_opening_fee_bps"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.new_1k_long_opening_fee_bps</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.new_1k_long_opening_spread_bps"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.new_1k_long_opening_spread_bps</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.new_1k_short_opening_fee_bps"><code class="docutils literal notranslate"><span class="pre">PairInfoExtended.new_1k_short_opening_fee_bps</span></code></a></li>
@@ -198,31 +252,102 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed"><code class="docutils literal notranslate"><span class="pre">PairInfoFeed</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.convert_max_deviation"><code class="docutils literal notranslate"><span class="pre">PairInfoFeed.convert_max_deviation()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.feedId"><code class="docutils literal notranslate"><span class="pre">PairInfoFeed.feedId</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.maxDeviationP"><code class="docutils literal notranslate"><span class="pre">PairInfoFeed.maxDeviationP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.feed_id"><code class="docutils literal notranslate"><span class="pre">PairInfoFeed.feed_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.max_deviation_percentage"><code class="docutils literal notranslate"><span class="pre">PairInfoFeed.max_deviation_percentage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PairInfoFeed.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.model_config"><code class="docutils literal notranslate"><span class="pre">PairInfoFeed.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.model_fields"><code class="docutils literal notranslate"><span class="pre">PairInfoFeed.model_fields</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairSpread"><code class="docutils literal notranslate"><span class="pre">PairSpread</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairSpread.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PairSpread.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairSpread.model_config"><code class="docutils literal notranslate"><span class="pre">PairSpread.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairSpread.model_fields"><code class="docutils literal notranslate"><span class="pre">PairSpread.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PairSpread.spread"><code class="docutils literal notranslate"><span class="pre">PairSpread.spread</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.block"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.block</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.buy"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.buy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.convert_liq_to_float_10"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.convert_liq_to_float_10()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.leverage"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.leverage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.liquidation_price"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.liquidation_price</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.model_config"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.model_fields"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.open_collateral"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.open_collateral</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.pair_index"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.pair_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.price"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.price</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.sl"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.sl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.slippage_percentage"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.slippage_percentage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.tp"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.trade_index"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.trade_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.trader"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderExtendedResponse.trader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.Config"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.block"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.block</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.buy"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.buy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.convert_to_float_10"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.convert_to_float_10()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.convert_to_float_6"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.convert_to_float_6()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.leverage"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.leverage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.model_config"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.model_fields"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.open_collateral"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.open_collateral</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.pair_index"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.pair_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.price"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.price</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.sl"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.sl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.slippage_percentage"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.slippage_percentage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.tp"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.trade_index"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.trade_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.trader"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.trader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.validate_eth_address"><code class="docutils literal notranslate"><span class="pre">PendingLimitOrderResponse.validate_eth_address()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.convert_ema_price"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.convert_ema_price()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.convert_price"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.convert_price()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.converted_ema_price"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.converted_ema_price</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.converted_price"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.converted_price</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.ema_price"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.ema_price</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.id"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.metadata"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.model_config"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.model_fields"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.pair"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.pair</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.price"><code class="docutils literal notranslate"><span class="pre">PriceFeedResponse.price</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedUpdatesResponse"><code class="docutils literal notranslate"><span class="pre">PriceFeedUpdatesResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedUpdatesResponse.binary"><code class="docutils literal notranslate"><span class="pre">PriceFeedUpdatesResponse.binary</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedUpdatesResponse.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PriceFeedUpdatesResponse.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedUpdatesResponse.model_config"><code class="docutils literal notranslate"><span class="pre">PriceFeedUpdatesResponse.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedUpdatesResponse.model_fields"><code class="docutils literal notranslate"><span class="pre">PriceFeedUpdatesResponse.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedUpdatesResponse.parsed"><code class="docutils literal notranslate"><span class="pre">PriceFeedUpdatesResponse.parsed</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeesUpdateBinary"><code class="docutils literal notranslate"><span class="pre">PriceFeesUpdateBinary</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeesUpdateBinary.data"><code class="docutils literal notranslate"><span class="pre">PriceFeesUpdateBinary.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeesUpdateBinary.encoding"><code class="docutils literal notranslate"><span class="pre">PriceFeesUpdateBinary.encoding</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeesUpdateBinary.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PriceFeesUpdateBinary.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeesUpdateBinary.model_config"><code class="docutils literal notranslate"><span class="pre">PriceFeesUpdateBinary.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeesUpdateBinary.model_fields"><code class="docutils literal notranslate"><span class="pre">PriceFeesUpdateBinary.model_fields</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Skew"><code class="docutils literal notranslate"><span class="pre">Skew</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Skew.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Skew.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Skew.model_config"><code class="docutils literal notranslate"><span class="pre">Skew.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Skew.model_fields"><code class="docutils literal notranslate"><span class="pre">Skew.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Skew.skew"><code class="docutils literal notranslate"><span class="pre">Skew.skew</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Snapshot"><code class="docutils literal notranslate"><span class="pre">Snapshot</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Snapshot.groups"><code class="docutils literal notranslate"><span class="pre">Snapshot.groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Snapshot.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Snapshot.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Snapshot.model_config"><code class="docutils literal notranslate"><span class="pre">Snapshot.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Snapshot.model_fields"><code class="docutils literal notranslate"><span class="pre">Snapshot.model_fields</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotGroup"><code class="docutils literal notranslate"><span class="pre">SnapshotGroup</span></code></a><ul>
@@ -230,28 +355,67 @@
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotGroup.group_open_interest_limit"><code class="docutils literal notranslate"><span class="pre">SnapshotGroup.group_open_interest_limit</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotGroup.group_skew"><code class="docutils literal notranslate"><span class="pre">SnapshotGroup.group_skew</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotGroup.group_utilization"><code class="docutils literal notranslate"><span class="pre">SnapshotGroup.group_utilization</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotGroup.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">SnapshotGroup.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotGroup.model_config"><code class="docutils literal notranslate"><span class="pre">SnapshotGroup.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotGroup.model_fields"><code class="docutils literal notranslate"><span class="pre">SnapshotGroup.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotGroup.pairs"><code class="docutils literal notranslate"><span class="pre">SnapshotGroup.pairs</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotOpenInterest"><code class="docutils literal notranslate"><span class="pre">SnapshotOpenInterest</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotOpenInterest.long"><code class="docutils literal notranslate"><span class="pre">SnapshotOpenInterest.long</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotOpenInterest.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">SnapshotOpenInterest.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotOpenInterest.model_config"><code class="docutils literal notranslate"><span class="pre">SnapshotOpenInterest.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotOpenInterest.model_fields"><code class="docutils literal notranslate"><span class="pre">SnapshotOpenInterest.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotOpenInterest.short"><code class="docutils literal notranslate"><span class="pre">SnapshotOpenInterest.short</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Spread"><code class="docutils literal notranslate"><span class="pre">Spread</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Spread.check_at_least_one"><code class="docutils literal notranslate"><span class="pre">Spread.check_at_least_one()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Spread.long"><code class="docutils literal notranslate"><span class="pre">Spread.long</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Spread.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Spread.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Spread.model_config"><code class="docutils literal notranslate"><span class="pre">Spread.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Spread.model_fields"><code class="docutils literal notranslate"><span class="pre">Spread.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Spread.short"><code class="docutils literal notranslate"><span class="pre">Spread.short</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.Config"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.additional_info"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.additional_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.convert_to_float_10"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.convert_to_float_10()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.convert_to_float_6"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.convert_to_float_6()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.liquidation_price"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.liquidation_price</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.margin_fee"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.margin_fee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.model_config"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.model_fields"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.trade"><code class="docutils literal notranslate"><span class="pre">TradeExtendedResponse.trade</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo"><code class="docutils literal notranslate"><span class="pre">TradeInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.Config"><code class="docutils literal notranslate"><span class="pre">TradeInfo.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.being_market_closed"><code class="docutils literal notranslate"><span class="pre">TradeInfo.being_market_closed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.convert_to_float_6"><code class="docutils literal notranslate"><span class="pre">TradeInfo.convert_to_float_6()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.loss_protection_percentage"><code class="docutils literal notranslate"><span class="pre">TradeInfo.loss_protection_percentage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">TradeInfo.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.model_config"><code class="docutils literal notranslate"><span class="pre">TradeInfo.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.model_fields"><code class="docutils literal notranslate"><span class="pre">TradeInfo.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.open_interest_usdc"><code class="docutils literal notranslate"><span class="pre">TradeInfo.open_interest_usdc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.sl_last_updated"><code class="docutils literal notranslate"><span class="pre">TradeInfo.sl_last_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.tp_last_updated"><code class="docutils literal notranslate"><span class="pre">TradeInfo.tp_last_updated</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput"><code class="docutils literal notranslate"><span class="pre">TradeInput</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.Config"><code class="docutils literal notranslate"><span class="pre">TradeInput.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.assign_and_validate_collateral_and_position_size_usdc"><code class="docutils literal notranslate"><span class="pre">TradeInput.assign_and_validate_collateral_and_position_size_usdc()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.buy"><code class="docutils literal notranslate"><span class="pre">TradeInput.buy</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.convert_to_float_10"><code class="docutils literal notranslate"><span class="pre">TradeInput.convert_to_float_10()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.convert_to_float_6"><code class="docutils literal notranslate"><span class="pre">TradeInput.convert_to_float_6()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.index"><code class="docutils literal notranslate"><span class="pre">TradeInput.index</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.initialPosToken"><code class="docutils literal notranslate"><span class="pre">TradeInput.initialPosToken</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.leverage"><code class="docutils literal notranslate"><span class="pre">TradeInput.leverage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">TradeInput.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.model_config"><code class="docutils literal notranslate"><span class="pre">TradeInput.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.model_fields"><code class="docutils literal notranslate"><span class="pre">TradeInput.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.openPrice"><code class="docutils literal notranslate"><span class="pre">TradeInput.openPrice</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.pairIndex"><code class="docutils literal notranslate"><span class="pre">TradeInput.pairIndex</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.positionSizeUSDC"><code class="docutils literal notranslate"><span class="pre">TradeInput.positionSizeUSDC</span></code></a></li>
@@ -264,24 +428,37 @@
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.validate_tp"><code class="docutils literal notranslate"><span class="pre">TradeInput.validate_tp()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInputOrderType"><code class="docutils literal notranslate"><span class="pre">TradeInputOrderType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInputOrderType.LIMIT"><code class="docutils literal notranslate"><span class="pre">TradeInputOrderType.LIMIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInputOrderType.MARKET"><code class="docutils literal notranslate"><span class="pre">TradeInputOrderType.MARKET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInputOrderType.STOP_LIMIT"><code class="docutils literal notranslate"><span class="pre">TradeInputOrderType.STOP_LIMIT</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse"><code class="docutils literal notranslate"><span class="pre">TradeResponse</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.buy"><code class="docutils literal notranslate"><span class="pre">TradeResponse.buy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.Config"><code class="docutils literal notranslate"><span class="pre">TradeResponse.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.collateral_in_trade"><code class="docutils literal notranslate"><span class="pre">TradeResponse.collateral_in_trade</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.convert_to_float_10"><code class="docutils literal notranslate"><span class="pre">TradeResponse.convert_to_float_10()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.convert_to_float_6"><code class="docutils literal notranslate"><span class="pre">TradeResponse.convert_to_float_6()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.index"><code class="docutils literal notranslate"><span class="pre">TradeResponse.index</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.initialPosToken"><code class="docutils literal notranslate"><span class="pre">TradeResponse.initialPosToken</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.is_long"><code class="docutils literal notranslate"><span class="pre">TradeResponse.is_long</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.leverage"><code class="docutils literal notranslate"><span class="pre">TradeResponse.leverage</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.openPrice"><code class="docutils literal notranslate"><span class="pre">TradeResponse.openPrice</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.pairIndex"><code class="docutils literal notranslate"><span class="pre">TradeResponse.pairIndex</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.positionSizeUSDC"><code class="docutils literal notranslate"><span class="pre">TradeResponse.positionSizeUSDC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">TradeResponse.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.model_config"><code class="docutils literal notranslate"><span class="pre">TradeResponse.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.model_fields"><code class="docutils literal notranslate"><span class="pre">TradeResponse.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.open_collateral"><code class="docutils literal notranslate"><span class="pre">TradeResponse.open_collateral</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.open_price"><code class="docutils literal notranslate"><span class="pre">TradeResponse.open_price</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.pair_index"><code class="docutils literal notranslate"><span class="pre">TradeResponse.pair_index</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.sl"><code class="docutils literal notranslate"><span class="pre">TradeResponse.sl</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.timestamp"><code class="docutils literal notranslate"><span class="pre">TradeResponse.timestamp</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.tp"><code class="docutils literal notranslate"><span class="pre">TradeResponse.tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.trade_index"><code class="docutils literal notranslate"><span class="pre">TradeResponse.trade_index</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.trader"><code class="docutils literal notranslate"><span class="pre">TradeResponse.trader</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.validate_eth_address"><code class="docutils literal notranslate"><span class="pre">TradeResponse.validate_eth_address()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Utilization"><code class="docutils literal notranslate"><span class="pre">Utilization</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Utilization.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Utilization.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Utilization.model_config"><code class="docutils literal notranslate"><span class="pre">Utilization.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Utilization.model_fields"><code class="docutils literal notranslate"><span class="pre">Utilization.model_fields</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.Utilization.utilization"><code class="docutils literal notranslate"><span class="pre">Utilization.utilization</span></code></a></li>
 </ul>
 </li>

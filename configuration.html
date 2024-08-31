@@ -16,12 +16,12 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="next" title="Examples" href="examples.html" />
     <link rel="prev" title="Getting Started" href="getting_started.html" /> 
 </head>
 
@@ -47,8 +47,14 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#trading-configuration">Trading Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feed-configuration-optional">Feed Configuration (Optional)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trade.html">Trade Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_information_and_parameters.html">Get Information and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_topics.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQs</a></li>
@@ -83,35 +89,50 @@
   <section id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
 <p>To configure the Avantis Trader SDK for use in your project, follow these steps:</p>
+<section id="trading-configuration">
+<h2>Trading Configuration<a class="headerlink" href="#trading-configuration" title="Link to this heading"></a></h2>
+<p>Used for opening trades and getting trade-related parameters.</p>
 <ol class="arabic">
 <li><p>Import the required modules and classes from the SDK:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">FeedClient</span><span class="p">,</span> <span class="n">__version__</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">FeedClient</span>
 <span class="kn">from</span> <span class="nn">avantis_trader_sdk.types</span> <span class="kn">import</span> <span class="n">TradeInput</span>
 </pre></div>
 </div>
 </li>
-<li><p>Print the version of the SDK to verify the installation (optional):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">avantis_trader_sdk</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">avantis_trader_sdk</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Create an instance of the <cite>TraderClient</cite> class with the provider URL for the <a class="reference external" href="basemainnetnetwork">https://docs.base.org/network-information/</a>.</p>
+<li><p>Create an instance of the <cite>TraderClient</cite> class with the provider URL for the Base Mainnet Chain: <a class="reference external" href="https://docs.base.org/network-information/">https://docs.base.org/network-information/</a> or <a class="reference external" href="https://chainlist.org/chain/8453">https://chainlist.org/chain/8453</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span>
 <span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
+</ol>
+<p>The final file should look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">FeedClient</span>
+<span class="kn">from</span> <span class="nn">avantis_trader_sdk.types</span> <span class="kn">import</span> <span class="n">TradeInput</span>
+
+<span class="kn">import</span> <span class="nn">avantis_trader_sdk</span>
+
+<span class="c1"># Trader client configuration (used for getting trade related parameters)</span>
+<span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span> <span class="c1"># Replace with the provider URL for the Base Mainnet Chain</span>
+<span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="feed-configuration-optional">
+<h2>Feed Configuration (Optional)<a class="headerlink" href="#feed-configuration-optional" title="Link to this heading"></a></h2>
+<p>Used for getting real-time price updates. This step can be skipped if you don’t need real-time price updates.</p>
+<ol class="arabic">
 <li><p>Create an instance of the <cite>FeedClient</cite> class with the WebSocket URL for real-time price feeds.</p>
 <blockquote>
 <div><p><strong>Parameters:</strong></p>
 <ul class="simple">
 <li><p><cite>ws_url</cite> (str): The WebSocket URL for real-time price feeds.</p></li>
-<li><p><cite>on_error</cite> (Callable, optional): A callback function to handle WebSocket errors.</p></li>
-<li><p><cite>on_close</cite> (Callable, optional): A callback function to handle WebSocket close events.</p></li>
+<li><p><cite>on_error</cite> (Callable, optional): A custom user-defined callback function to handle WebSocket errors.</p></li>
+<li><p><cite>on_close</cite> (Callable, optional): A custom user-defined callback function to handle WebSocket close events.</p></li>
 </ul>
 </div></blockquote>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ws_url</span> <span class="o">=</span> <span class="s2">&quot;wss://&lt;YOUR-WEBSOCKET-ENDPOINT&gt;&quot;</span>
+
 <span class="n">feed_client</span> <span class="o">=</span> <span class="n">FeedClient</span><span class="p">(</span>
     <span class="n">ws_url</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="n">ws_error_handler</span><span class="p">,</span> <span class="n">on_close</span><span class="o">=</span><span class="n">ws_error_handler</span>
 <span class="p">)</span>
@@ -121,6 +142,7 @@
 <li><p>Register callbacks for price feed updates:</p>
 <p>You can register callbacks using either the feed ID or the pair name (e.g., “ETH/USD”). For more details on this method, see <a class="reference internal" href="avantis_trader_sdk.feed.html#avantis_trader_sdk.feed.feed_client.FeedClient.register_price_feed_callback" title="avantis_trader_sdk.feed.feed_client.FeedClient.register_price_feed_callback"><code class="xref py py-meth docutils literal notranslate"><span class="pre">register_price_feed_callback()</span></code></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using feed ID</span>
+<span class="c1"># Get the feed ID from https://pyth.network/developers/price-feed-ids</span>
 <span class="n">feed_client</span><span class="o">.</span><span class="n">register_price_feed_callback</span><span class="p">(</span>
     <span class="c1"># Feed ID for ETH/USD</span>
     <span class="s2">&quot;0xff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace&quot;</span><span class="p">,</span>
@@ -140,11 +162,48 @@
 <li><p>Define a handler for WebSocket errors:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ws_error_handler</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Websocket error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Trigger custom error handling logic here</span>
+    <span class="c1"># For example, reconnect to the WebSocket server</span>
 </pre></div>
 </div>
 </li>
 </ol>
 <p>With this configuration, you can now use the Avantis Trader SDK to interact with the Avantis platform, and receive real-time price updates.</p>
+<p>The final file should look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">FeedClient</span>
+<span class="kn">from</span> <span class="nn">avantis_trader_sdk.types</span> <span class="kn">import</span> <span class="n">TradeInput</span>
+
+<span class="kn">import</span> <span class="nn">avantis_trader_sdk</span>
+
+<span class="c1"># Trader client configuration (used for getting trade related parameters)</span>
+<span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span> <span class="c1"># Replace with the provider URL for the Base Mainnet Chain</span>
+<span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
+
+<span class="c1"># Real-time price feed configuration (used for getting real-time prices of the pairs)</span>
+<span class="c1"># **This can be skipped if you don&#39;t need real-time price updates**</span>
+<span class="n">ws_url</span> <span class="o">=</span> <span class="s2">&quot;wss://&lt;YOUR-WEBSOCKET-ENDPOINT&gt;&quot;</span>
+
+<span class="k">def</span> <span class="nf">ws_error_handler</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Websocket error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">feed_client</span> <span class="o">=</span> <span class="n">FeedClient</span><span class="p">(</span>
+    <span class="n">ws_url</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="n">ws_error_handler</span><span class="p">,</span> <span class="n">on_close</span><span class="o">=</span><span class="n">ws_error_handler</span>
+<span class="p">)</span>
+
+<span class="n">feed_client</span><span class="o">.</span><span class="n">register_price_feed_callback</span><span class="p">(</span>
+    <span class="s2">&quot;0xff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace&quot;</span><span class="p">,</span>
+    <span class="k">lambda</span> <span class="n">data</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">feed_client</span><span class="o">.</span><span class="n">register_price_feed_callback</span><span class="p">(</span><span class="s2">&quot;ETH/USD&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">data</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+<span class="k">await</span> <span class="n">feed_client</span><span class="o">.</span><span class="n">listen_for_price_updates</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">ws_error_handler</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Websocket error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -152,7 +211,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

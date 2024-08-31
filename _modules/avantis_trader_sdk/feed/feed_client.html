@@ -15,7 +15,7 @@
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -43,10 +43,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html#getting-started">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trade.html">Trade Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_information_and_parameters.html">Get Information and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../advanced_topics.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">FAQs</a></li>
@@ -82,7 +83,9 @@
 <span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">websockets</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">PriceFeedResponse</span>
+<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">PriceFeedResponse</span><span class="p">,</span> <span class="n">PriceFeedUpdatesResponse</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">requests</span>
 
 
 <div class="viewcode-block" id="FeedClient">
@@ -92,16 +95,20 @@
 <span class="sd">    Client for interacting with the Pyth price feed websocket.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ws_url</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_close</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ws_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_close</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for the FeedClient class.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            ws_url: The websocket URL to connect to.</span>
+<span class="sd">            ws_url: Optional - The websocket URL to connect to.</span>
 <span class="sd">            on_error: Optional callback for handling websocket errors.</span>
 <span class="sd">            on_close: Optional callback for handling websocket close events.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">ws_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ws://&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ws_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;wss://&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">ws_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">ws_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ws://&quot;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">ws_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;wss://&quot;</span><span class="p">)</span>
+        <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ws_url must start with ws:// or wss://&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ws_url</span> <span class="o">=</span> <span class="n">ws_url</span>
@@ -243,6 +250,50 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">price_feed_callbacks</span><span class="p">[</span><span class="n">price_feed_id</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">price_feed_callbacks</span><span class="p">[</span><span class="n">price_feed_id</span><span class="p">]:</span>
                 <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">price_feed_callbacks</span><span class="p">[</span><span class="n">price_feed_id</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="FeedClient.get_latest_price_updates">
+<a class="viewcode-back" href="../../../avantis_trader_sdk.feed.html#avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_price_updates">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_latest_price_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifiers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the latest price updates for the specified feed ids.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            feedIds: The list of feed ids to retrieve the latest price updates for.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A PriceFeedUpdatesResponse object containing the latest price updates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://hermes.pyth.network/v2/updates/price/latest&quot;</span>
+
+        <span class="n">feedIds</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="n">identifiers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pair_feeds</span><span class="p">:</span>
+                <span class="n">price_feed_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pair_feeds</span><span class="p">[</span><span class="n">identifier</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">feed_pairs</span><span class="p">:</span>
+                <span class="n">price_feed_id</span> <span class="o">=</span> <span class="n">identifier</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown identifier: </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">price_feed_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;0x&quot;</span><span class="p">):</span>
+                <span class="n">price_feed_id</span> <span class="o">=</span> <span class="n">price_feed_id</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+
+            <span class="n">feedIds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">price_feed_id</span><span class="p">)</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ids[]&quot;</span><span class="p">:</span> <span class="n">feedIds</span><span class="p">}</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;parsed&quot;</span><span class="p">])):</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;parsed&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">PriceFeedResponse</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;parsed&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="k">return</span> <span class="n">PriceFeedUpdatesResponse</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span></div>
 </div>
 
 </pre></div>

@@ -15,7 +15,7 @@
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -45,7 +45,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trade.html">Trade Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_information_and_parameters.html">Get Information and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../advanced_topics.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">FAQs</a></li>
@@ -131,7 +133,7 @@
             <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="p">]</span>
         <span class="n">decoded_response</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">group_index</span><span class="p">:</span> <span class="n">value</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">):</span> <span class="n">value</span>
             <span class="k">for</span> <span class="n">group_index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">group_indexes</span><span class="p">,</span> <span class="n">decoded_response</span><span class="p">)</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">OpenInterestLimits</span><span class="p">(</span><span class="n">limits</span><span class="o">=</span><span class="n">decoded_response</span><span class="p">)</span></div>
@@ -158,7 +160,6 @@
 
             <span class="n">call_data</span> <span class="o">=</span> <span class="n">PairStorage</span><span class="o">.</span><span class="n">encodeABI</span><span class="p">(</span><span class="n">fn_name</span><span class="o">=</span><span class="s2">&quot;groupOIs&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">group_index</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
             <span class="n">short_calls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">PairStorage</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">call_data</span><span class="p">))</span>
-            
 
         <span class="n">long_task</span> <span class="o">=</span> <span class="n">Multicall</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">long_calls</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
         <span class="n">short_task</span> <span class="o">=</span> <span class="n">Multicall</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">short_calls</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
@@ -174,11 +175,11 @@
         <span class="p">]</span>
 
         <span class="n">long_response</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">group_index</span><span class="p">:</span> <span class="n">value</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">):</span> <span class="n">value</span>
             <span class="k">for</span> <span class="n">group_index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">group_indexes</span><span class="p">,</span> <span class="n">long_response</span><span class="p">)</span>
         <span class="p">}</span>
         <span class="n">short_response</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">group_index</span><span class="p">:</span> <span class="n">value</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">):</span> <span class="n">value</span>
             <span class="k">for</span> <span class="n">group_index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">group_indexes</span><span class="p">,</span> <span class="n">short_response</span><span class="p">)</span>
         <span class="p">}</span>
 
@@ -198,11 +199,11 @@
 
     <span class="c1">#     long_response = {}</span>
     <span class="c1">#     short_response = {}</span>
-        
+
     <span class="c1">#     for group_index in group_indexes:</span>
     <span class="c1">#         long_response[group_index] = 0</span>
     <span class="c1">#         short_response[group_index] = 0</span>
-        
+
     <span class="c1">#     for pair_key, oi in pair_oi.long.items():</span>
     <span class="c1">#         if pair_key in self.client.pairs_cache._pair_mapping:</span>
     <span class="c1">#             pair_index = self.client.pairs_cache._pair_mapping[pair_key]</span>
@@ -274,16 +275,14 @@
         <span class="n">oi_limits_task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_oi_limits</span><span class="p">()</span>
         <span class="n">oi_task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_oi</span><span class="p">()</span>
 
-        <span class="n">oi_limits</span><span class="p">,</span> <span class="n">oi</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
-            <span class="n">oi_limits_task</span><span class="p">,</span> <span class="n">oi_task</span>
-        <span class="p">)</span>
+        <span class="n">oi_limits</span><span class="p">,</span> <span class="n">oi</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">oi_limits_task</span><span class="p">,</span> <span class="n">oi_task</span><span class="p">)</span>
 
         <span class="n">utilization</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">for</span> <span class="n">group_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">oi</span><span class="o">.</span><span class="n">long</span><span class="p">)):</span>
             <span class="n">current_oi</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">long</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">)]</span> <span class="o">+</span> <span class="n">oi</span><span class="o">.</span><span class="n">short</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">)]</span>
             <span class="n">limit</span> <span class="o">=</span> <span class="n">oi_limits</span><span class="o">.</span><span class="n">limits</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">)]</span>
-            <span class="n">utilization</span><span class="p">[</span><span class="n">group_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_oi</span> <span class="o">/</span> <span class="n">limit</span> <span class="k">if</span> <span class="n">limit</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">utilization</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group_index</span><span class="p">)]</span> <span class="o">=</span> <span class="n">current_oi</span> <span class="o">/</span> <span class="n">limit</span> <span class="k">if</span> <span class="n">limit</span> <span class="k">else</span> <span class="mi">0</span>
 
         <span class="k">return</span> <span class="n">Utilization</span><span class="p">(</span><span class="n">utilization</span><span class="o">=</span><span class="n">utilization</span><span class="p">)</span></div>
 
