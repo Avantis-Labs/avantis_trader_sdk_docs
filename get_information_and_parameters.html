@@ -704,7 +704,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">get_opening_fee</span></code> method retrieves the opening fee for trading pairs. The opening fee is charged when opening a new position and can be calculated for specific pairs, long or short positions, or based on a provided <cite>trade_input</cite>.</p>
 <p><strong>Parameters:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">position_size</span></code> (int, optional): The size of the position (collateral * leverage). Supports up to 6 decimals. Defaults to 0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position_size</span></code> (float, optional): The size of the position (collateral * leverage). Supports up to 6 decimals. Defaults to 0.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">is_long</span></code> (Optional[bool], optional): A boolean indicating if the position is a buy (long) or sell (short). Defaults to None. If None, the opening fee for both buy and sell will be returned.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pair_index</span></code> (int, optional): The pair index for which the opening fee is to be calculated. Defaults to None. If None, the opening fee for all trading pairs will be returned.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pair</span></code> (str, optional): The trading pair for which the opening fee is to be calculated. Defaults to None. If None, the opening fee for all trading pairs will be returned.</p></li>
