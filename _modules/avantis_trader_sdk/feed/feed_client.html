@@ -95,7 +95,13 @@
 <span class="sd">    Client for interacting with the Pyth price feed websocket.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ws_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_close</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ws_url</span><span class="o">=</span><span class="s2">&quot;wss://hermes.pyth.network/ws&quot;</span><span class="p">,</span>
+        <span class="n">on_error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">on_close</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">hermes_url</span><span class="o">=</span><span class="s2">&quot;https://hermes.pyth.network/v2/updates/price/latest&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for the FeedClient class.</span>
 
@@ -112,6 +118,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ws_url must start with ws:// or wss://&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ws_url</span> <span class="o">=</span> <span class="n">ws_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hermes_url</span> <span class="o">=</span> <span class="n">hermes_url</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pair_feeds</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">feed_pairs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">price_feed_callbacks</span> <span class="o">=</span> <span class="p">{}</span>
@@ -264,7 +271,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A PriceFeedUpdatesResponse object containing the latest price updates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://hermes.pyth.network/v2/updates/price/latest&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hermes_url</span>
 
         <span class="n">feedIds</span> <span class="o">=</span> <span class="p">[]</span>
 

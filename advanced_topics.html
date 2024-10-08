@@ -95,14 +95,14 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">contract_name</span></code> (str): The name of the contract.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">function_name</span></code> (str): The name of the function.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">args</span></code>: The arguments to the function.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">decode</span></code> (bool, optional): A boolean indicating whether to decode the result.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">decode</span></code> (bool, optional, default is True): A boolean indicating whether to decode the result.</p></li>
 </ul>
 <p><strong>Returns:</strong></p>
 <ul class="simple">
 <li><p>The result of the function call.</p></li>
 </ul>
 <p><strong>Example Usage:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pairs_count</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">read_contract</span><span class="p">(</span><span class="s2">&quot;PairStorage&quot;</span><span class="p">,</span> <span class="s2">&quot;pairsCount&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pairs_count</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">read_contract</span><span class="p">(</span><span class="s2">&quot;PairStorage&quot;</span><span class="p">,</span> <span class="s2">&quot;pairsCount&quot;</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pairs Count:&quot;</span><span class="p">,</span> <span class="n">pairs_count</span><span class="p">)</span>
 </pre></div>
 </div>
