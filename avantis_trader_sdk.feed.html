@@ -85,90 +85,11 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="module-avantis_trader_sdk.feed.feed_client">
-<span id="avantis-trader-sdk-feed-feed-client-module"></span><h2>avantis_trader_sdk.feed.feed_client module<a class="headerlink" href="#module-avantis_trader_sdk.feed.feed_client" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.feed.feed_client.</span></span><span class="sig-name descname"><span class="pre">FeedClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wss://hermes.pyth.network/ws'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hermes_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://hermes.pyth.network/v2/updates/price/latest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Client for interacting with the Pyth price feed websocket.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_price_updates">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_latest_price_updates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.get_latest_price_updates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_price_updates" title="Link to this definition"></a></dt>
-<dd><p>Retrieves the latest price updates for the specified feed ids.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>feedIds</strong> – The list of feed ids to retrieve the latest price updates for.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A PriceFeedUpdatesResponse object containing the latest price updates.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.get_pair_from_feed_id">
-<span class="sig-name descname"><span class="pre">get_pair_from_feed_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feed_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.get_pair_from_feed_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.get_pair_from_feed_id" title="Link to this definition"></a></dt>
-<dd><p>Retrieves the pair string from the feed id.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>feed_id</strong> – The feed id to retrieve the pair string for.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The pair string.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.listen_for_price_updates">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">listen_for_price_updates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.listen_for_price_updates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.listen_for_price_updates" title="Link to this definition"></a></dt>
-<dd><p>Listens for price updates from the Pyth price feed websocket.
-When a price update is received, the registered callbacks will
-be called with the updated price feed data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>Exception</strong> – If an error occurs while listening for price updates.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.register_price_feed_callback">
-<span class="sig-name descname"><span class="pre">register_price_feed_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.register_price_feed_callback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.register_price_feed_callback" title="Link to this definition"></a></dt>
-<dd><p>Registers a callback for price feed updates.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>identifier</strong> – The identifier of the price feed to register the callback for.</p></li>
-<li><p><strong>callback</strong> – The callback to register.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If the identifier is unknown.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.unregister_price_feed_callback">
-<span class="sig-name descname"><span class="pre">unregister_price_feed_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.unregister_price_feed_callback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.unregister_price_feed_callback" title="Link to this definition"></a></dt>
-<dd><p>Unregisters a callback for price feed updates.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>identifier</strong> – The identifier of the price feed to unregister the callback for.</p></li>
-<li><p><strong>callback</strong> – The callback to unregister.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+<section id="avantis-trader-sdk-feed-feed-client-module">
+<h2>avantis_trader_sdk.feed.feed_client module<a class="headerlink" href="#avantis-trader-sdk-feed-feed-client-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-avantis_trader_sdk.feed">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-avantis_trader_sdk.feed" title="Link to this heading"></a></h2>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 </section>
 </section>
 
