@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
@@ -5,18 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>avantis_trader_sdk.client &mdash; Avantis Trader SDK  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -95,6 +93,10 @@
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">decoder</span>
 <span class="kn">from</span> <span class="nn">.feed.feed_client</span> <span class="kn">import</span> <span class="n">FeedClient</span>
 
+<span class="kn">from</span> <span class="nn">.signers.base</span> <span class="kn">import</span> <span class="n">BaseSigner</span>
+<span class="kn">from</span> <span class="nn">.signers.local_signer</span> <span class="kn">import</span> <span class="n">LocalSigner</span>
+<span class="kn">from</span> <span class="nn">.signers.kms_signer</span> <span class="kn">import</span> <span class="n">KMSSigner</span>
+
 
 <div class="viewcode-block" id="TraderClient">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient">[docs]</a>
@@ -103,12 +105,14 @@
 <span class="sd">    This class provides methods to interact with the Avantis smart contracts.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider_url</span><span class="p">,</span> <span class="n">l1_provider_url</span><span class="o">=</span><span class="s2">&quot;https://eth.llamarpc.com&quot;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider_url</span><span class="p">,</span> <span class="n">l1_provider_url</span><span class="o">=</span><span class="s2">&quot;https://eth.llamarpc.com&quot;</span><span class="p">,</span> <span class="n">signer</span><span class="p">:</span> <span class="n">BaseSigner</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for the TraderClient class.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            provider_url: The URL of the Ethereum node provider.</span>
+<span class="sd">            l1_provider_url (optional): The URL of the L1 Ethereum node provider.</span>
+<span class="sd">            signer (optional): The signer to use for signing transactions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">web3</span> <span class="o">=</span> <span class="n">Web3</span><span class="p">(</span>
             <span class="n">Web3</span><span class="o">.</span><span class="n">HTTPProvider</span><span class="p">(</span><span class="n">provider_url</span><span class="p">,</span> <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">})</span>
@@ -140,6 +144,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">trading_parameters</span> <span class="o">=</span> <span class="n">TradingParametersRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">snapshot</span> <span class="o">=</span> <span class="n">SnapshotRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trade</span> <span class="o">=</span> <span class="n">TradeRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FeedClient</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">signer</span> <span class="o">=</span> <span class="n">signer</span>
 
 <div class="viewcode-block" id="TraderClient.load_contract">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.load_contract">[docs]</a>
@@ -201,48 +207,105 @@
 <div class="viewcode-block" id="TraderClient.write_contract">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.write_contract">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">write_contract</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calls a write function of a contract.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            private_key: The private key of the wallet.</span>
 <span class="sd">            contract_name: The name of the contract.</span>
 <span class="sd">            function_name: The name of the function.</span>
 <span class="sd">            args: The arguments to the function.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            The transaction hash or the transaction object if private key is None.</span>
+<span class="sd">            The transaction hash or the transaction object if signer is None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">contract</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">contract_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">contract</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Contract </span><span class="si">{</span><span class="n">contract_name</span><span class="si">}</span><span class="s2"> not found&quot;</span><span class="p">)</span>
 
-        <span class="n">transaction</span> <span class="o">=</span> <span class="n">contract</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="n">function_name</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">build_transaction</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_signer</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;from&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;from&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_signer</span><span class="p">()</span><span class="o">.</span><span class="n">get_ethereum_address</span><span class="p">()</span>
+        
+        <span class="n">transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="n">contract</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="n">function_name</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">build_transaction</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">private_key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_signer</span><span class="p">():</span>
             <span class="k">return</span> <span class="n">transaction</span>
-
-        <span class="n">signed_txn</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">transaction</span><span class="p">)</span>
+        
+        <span class="n">signed_txn</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
         <span class="n">tx_hash</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_and_get_transaction_hash</span><span class="p">(</span><span class="n">signed_txn</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">tx_hash</span></div>
 
 
+<div class="viewcode-block" id="TraderClient.set_signer">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.set_signer">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signer</span><span class="p">:</span> <span class="n">BaseSigner</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the signer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signer</span> <span class="o">=</span> <span class="n">signer</span></div>
+
+    
+<div class="viewcode-block" id="TraderClient.get_signer">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_signer">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the signer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">signer</span></div>
+
+    
+<div class="viewcode-block" id="TraderClient.remove_signer">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.remove_signer">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes the signer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signer</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+        
+<div class="viewcode-block" id="TraderClient.has_signer">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.has_signer">[docs]</a>
+    <span class="k">def</span> <span class="nf">has_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the signer is set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">signer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+    
+<div class="viewcode-block" id="TraderClient.set_local_signer">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.set_local_signer">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_local_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the local signer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signer</span> <span class="o">=</span> <span class="n">LocalSigner</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="TraderClient.set_aws_kms_signer">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.set_aws_kms_signer">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_aws_kms_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kms_key_id</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s2">&quot;us-east-1&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the AWS KMS signer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signer</span> <span class="o">=</span> <span class="n">KMSSigner</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="p">,</span> <span class="n">kms_key_id</span><span class="p">,</span> <span class="n">region_name</span><span class="p">)</span></div>
+
+    
 <div class="viewcode-block" id="TraderClient.sign_transaction">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.sign_transaction">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Signs a transaction.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            private_key: The private key of the wallet.</span>
 <span class="sd">            transaction: The transaction object.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The signed transaction object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">,</span> <span class="n">private_key</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_signer</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No signer is set. Please set a signer using `set_signer`.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">signer</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TraderClient.send_and_get_transaction_hash">
@@ -277,34 +340,37 @@
 
 <div class="viewcode-block" id="TraderClient.sign_and_get_receipt">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.sign_and_get_receipt">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_and_get_receipt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_and_get_receipt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Signs a transaction and waits for it to be mined.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            private_key: The private key of the wallet.</span>
 <span class="sd">            transaction: The transaction object.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The transaction receipt.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">signed_txn</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">private_key</span><span class="p">,</span> <span class="n">transaction</span><span class="p">)</span>
+        <span class="n">gas_estimate</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_gas_estimate</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
+        <span class="n">transaction</span><span class="p">[</span><span class="s2">&quot;gas&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gas_estimate</span>        
+        <span class="n">signed_txn</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
         <span class="n">tx_hash</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_and_get_transaction_hash</span><span class="p">(</span><span class="n">signed_txn</span><span class="p">)</span>
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait_for_transaction_receipt</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TraderClient.get_transaction_count">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_transaction_count">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_transaction_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_transaction_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the transaction count.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            address: The address.</span>
+<span class="sd">            address (optional): The address.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The transaction count.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_signer</span><span class="p">()</span><span class="o">.</span><span class="n">get_ethereum_address</span><span class="p">()</span>
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">get_transaction_count</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></div>
 
 
@@ -334,33 +400,74 @@
 
 <div class="viewcode-block" id="TraderClient.get_balance">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_balance">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the balance.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            address: The address.</span>
+<span class="sd">            address (optional): The address.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The balance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_signer</span><span class="p">()</span><span class="o">.</span><span class="n">get_ethereum_address</span><span class="p">()</span>
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">get_balance</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TraderClient.get_usdc_balance">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_usdc_balance">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_usdc_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_usdc_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the USDC balance.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            address: The address.</span>
+<span class="sd">            address (optional): The address.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The USDC balance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_signer</span><span class="p">()</span><span class="o">.</span><span class="n">get_ethereum_address</span><span class="p">()</span>
         <span class="n">balance</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_contract</span><span class="p">(</span><span class="s2">&quot;USDC&quot;</span><span class="p">,</span> <span class="s2">&quot;balanceOf&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">balance</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span></div>
+
+    
+<div class="viewcode-block" id="TraderClient.get_usdc_allowance_for_trading">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_usdc_allowance_for_trading">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_usdc_allowance_for_trading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the USDC allowance for the Trading Storage contract.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            address (optional): The address.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The USDC allowance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_signer</span><span class="p">()</span><span class="o">.</span><span class="n">get_ethereum_address</span><span class="p">()</span>
+            
+        <span class="n">trading_storage_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contracts</span><span class="p">[</span><span class="s2">&quot;TradingStorage&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">address</span>
+        
+        <span class="n">allowance</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_contract</span><span class="p">(</span><span class="s2">&quot;USDC&quot;</span><span class="p">,</span> <span class="s2">&quot;allowance&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">trading_storage_address</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">allowance</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span></div>
+
+    
+<div class="viewcode-block" id="TraderClient.approve_usdc_for_trading">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.approve_usdc_for_trading">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">approve_usdc_for_trading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Approves the USDC amount for the Trading Storage contract.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            amount (optional): The amount to approve. Defaults to $100,000.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The transaction hash.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">trading_storage_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contracts</span><span class="p">[</span><span class="s2">&quot;TradingStorage&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">address</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_contract</span><span class="p">(</span><span class="s2">&quot;USDC&quot;</span><span class="p">,</span> <span class="s2">&quot;approve&quot;</span><span class="p">,</span> <span class="n">trading_storage_address</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">amount</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="TraderClient.get_gas_estimate">

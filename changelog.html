@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -6,18 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Changelog &mdash; Avantis Trader SDK  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -85,6 +83,43 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
+<p><strong>Version 0.3.0 (2024-10-20)</strong></p>
+<ul>
+<li><p><strong>Breaking Changes:</strong></p>
+<ul>
+<li><p>Refactored transaction signing:</p>
+<p>Existing integrations may require updates to align with the new signing approach (see updated examples: <a class="reference internal" href="trade.html"><span class="doc">trade</span></a> and <a class="reference external" href="https://github.com/Avantis-Labs/avantis_trader_sdk/tree/main/examples">GitHub Examples</a>).</p>
+</li>
+<li><p>Made the <cite>trader</cite> parameter optional in select trading methods:</p>
+<p>Ensure your code accounts for cases where <cite>trader</cite> may not be explicitly provided. Affected methods include:</p>
+<ul class="simple">
+<li><p><cite>build_trade_close_tx</cite></p></li>
+<li><p><cite>build_order_cancel_tx</cite></p></li>
+<li><p><cite>build_trade_margin_update_tx</cite></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><dl class="simple">
+<dt><strong>New Features:</strong></dt><dd><ul class="simple">
+<li><p>Added support for approving USDC for trading.</p></li>
+<li><p>Introduced support for transaction signing via AWS KMS.</p></li>
+<li><p>Implemented a <cite>BaseSigner</cite> class to allow custom signer integrations.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Improvements:</strong></dt><dd><ul class="simple">
+<li><p>Refactored transaction signing for better flexibility and integration.</p></li>
+<li><p>Enhanced examples to demonstrate the new allowance and approve methods.</p></li>
+<li><p>Updated examples to utilize the new signer methods.</p></li>
+<li><p>Expanded documentation with additional examples and use cases.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 <dl class="simple">
 <dt><strong>Version 0.2.2 (2024-10-16)</strong></dt><dd><ul class="simple">
 <li><p>Added support for Python v3.6</p></li>
