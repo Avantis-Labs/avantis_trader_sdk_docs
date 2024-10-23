@@ -130,7 +130,7 @@
         <span class="k">return</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span></div>
 
 
-    
+
 <div class="viewcode-block" id="KMSSigner">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner">[docs]</a>
 <span class="k">class</span> <span class="nc">KMSSigner</span><span class="p">(</span><span class="n">BaseSigner</span><span class="p">):</span>
@@ -139,7 +139,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_id</span> <span class="o">=</span> <span class="n">kms_key_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kms_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;kms&quot;</span><span class="p">,</span> <span class="n">region_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_public_key</span><span class="p">()</span>
-        
+
 <div class="viewcode-block" id="KMSSigner.sign_transaction">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.sign_transaction">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
@@ -154,7 +154,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign_transaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span></div>
 
-    
+
 <div class="viewcode-block" id="KMSSigner.get_public_key">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.get_public_key">[docs]</a>
     <span class="k">def</span> <span class="nf">get_public_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -164,7 +164,7 @@
         <span class="n">eth_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_eth_address</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">Web3</span><span class="o">.</span><span class="n">to_checksum_address</span><span class="p">(</span><span class="n">eth_address</span><span class="p">)</span></div>
 
-    
+
 <div class="viewcode-block" id="KMSSigner.get_ethereum_address">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.get_ethereum_address">[docs]</a>
     <span class="k">def</span> <span class="nf">get_ethereum_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -177,9 +177,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span></div>
 
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_sign_transaction</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">transaction_dict</span><span class="p">:</span> <span class="nb">dict</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SignedTransaction</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SignedTransaction</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Somewhat fixed up version of Account.sign_transaction, to use the custom PrivateKey</span>
 <span class="sd">        impl -- BasicKmsAccount</span>
@@ -187,7 +185,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">transaction_dict</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;transaction_dict must be dict-like, got </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">transaction_dict</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;transaction_dict must be dict-like, got </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">transaction_dict</span>
+            <span class="p">)</span>
 
         <span class="c1"># allow from field, *only* if it matches the private key</span>
         <span class="k">if</span> <span class="s2">&quot;from&quot;</span> <span class="ow">in</span> <span class="n">transaction_dict</span><span class="p">:</span>
@@ -203,9 +203,11 @@
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">sanitized_transaction</span> <span class="o">=</span> <span class="n">transaction_dict</span>
-            
+
         <span class="k">if</span> <span class="s2">&quot;nonce&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sanitized_transaction</span><span class="p">:</span>
-            <span class="n">sanitized_transaction</span><span class="p">[</span><span class="s2">&quot;nonce&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">get_transaction_count</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+            <span class="n">sanitized_transaction</span><span class="p">[</span><span class="s2">&quot;nonce&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">get_transaction_count</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">address</span>
+            <span class="p">)</span>
 
         <span class="c1"># sign transaction</span>
         <span class="p">(</span>
@@ -223,7 +225,6 @@
             <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span>
             <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>
         <span class="p">)</span>
-    
 
 <div class="viewcode-block" id="KMSSigner.get_eth_address">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.get_eth_address">[docs]</a>
@@ -232,7 +233,7 @@
         <span class="n">pubkey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kms_client</span><span class="o">.</span><span class="n">get_public_key</span><span class="p">(</span><span class="n">KeyId</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_id</span><span class="p">)[</span><span class="s2">&quot;PublicKey&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">der_encoded_public_key_to_eth_address</span><span class="p">(</span><span class="n">pubkey</span><span class="p">)</span></div>
 
-    
+
 <div class="viewcode-block" id="KMSSigner.sign_msg_hash">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.sign_msg_hash">[docs]</a>
     <span class="k">def</span> <span class="nf">sign_msg_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg_hash</span><span class="p">:</span> <span class="n">HexBytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>

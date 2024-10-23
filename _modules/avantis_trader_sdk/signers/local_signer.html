@@ -81,6 +81,7 @@
 <span></span><span class="kn">from</span> <span class="nn">web3</span> <span class="kn">import</span> <span class="n">AsyncWeb3</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseSigner</span>
 
+
 <div class="viewcode-block" id="LocalSigner">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.local_signer.LocalSigner">[docs]</a>
 <span class="k">class</span> <span class="nc">LocalSigner</span><span class="p">(</span><span class="n">BaseSigner</span><span class="p">):</span>
@@ -91,9 +92,11 @@
 <div class="viewcode-block" id="LocalSigner.sign_transaction">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.local_signer.LocalSigner.sign_transaction">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">private_key</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span>
+            <span class="n">transaction</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">private_key</span>
+        <span class="p">)</span></div>
 
-    
+
 <div class="viewcode-block" id="LocalSigner.get_ethereum_address">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.local_signer.LocalSigner.get_ethereum_address">[docs]</a>
     <span class="k">def</span> <span class="nf">get_ethereum_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
