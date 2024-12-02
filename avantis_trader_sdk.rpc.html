@@ -18,9 +18,7 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="FAQs" href="faqs.html" />
-    <link rel="prev" title="avantis_trader_sdk package" href="avantis_trader_sdk.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,7 +40,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
@@ -50,23 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="trade.html">Trade Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get_information_and_parameters.html">Get Information and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_topics.html">Advanced Topics</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="modules.html">avantis_trader_sdk</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="avantis_trader_sdk.html">avantis_trader_sdk package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="avantis_trader_sdk.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#module-avantis_trader_sdk.client">avantis_trader_sdk.client module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#module-avantis_trader_sdk.config">avantis_trader_sdk.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#avantis-trader-sdk-exceptions-module">avantis_trader_sdk.exceptions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#module-avantis_trader_sdk.types">avantis_trader_sdk.types module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#module-avantis_trader_sdk.utils">avantis_trader_sdk.utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="avantis_trader_sdk.html#module-avantis_trader_sdk">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
@@ -86,9 +68,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="api_reference.html">API Reference</a></li>
-          <li class="breadcrumb-item"><a href="modules.html">avantis_trader_sdk</a></li>
-          <li class="breadcrumb-item"><a href="avantis_trader_sdk.html">avantis_trader_sdk package</a></li>
       <li class="breadcrumb-item active">avantis_trader_sdk.rpc package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/avantis_trader_sdk.rpc.rst.txt" rel="nofollow"> View page source</a>
@@ -350,9 +329,23 @@ related to trades.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_new_trade_opening_fee">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_new_trade_opening_fee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trade_input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/fee_parameters.html#FeeParametersRPC.get_new_trade_opening_fee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_new_trade_opening_fee" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the opening fee for a trade with referral rebate in USDC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trade_input</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput" title="avantis_trader_sdk.types.TradeInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">TradeInput</span></code></a></span>) – The trade input object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Final opening fee in USDC</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_opening_fee">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_opening_fee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_long</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pair_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pair</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trade_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/fee_parameters.html#FeeParametersRPC.get_opening_fee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_opening_fee" title="Link to this definition"></a></dt>
-<dd><p>Retrieves the opening fee for all trading pairs.</p>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_opening_fee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_long</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pair_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pair</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/fee_parameters.html#FeeParametersRPC.get_opening_fee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_opening_fee" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the opening fee for all trading pairs in bps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -360,11 +353,10 @@ related to trades.</p>
 <li><p><strong>position_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – The size of the position (collateral * leverage). Supports upto 6 decimals. Defaults to 0.</p></li>
 <li><p><strong>pair_index</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The pair index for which the opening fee is to be calculated. Defaults to None. If None, the opening fee for all trading pairs will be returned.</p></li>
 <li><p><strong>pair</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The trading pair for which the opening fee is to be calculated. Defaults to None. If None, the opening fee for all trading pairs will be returned.</p></li>
-<li><p><strong>trade_input</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput" title="avantis_trader_sdk.types.TradeInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">TradeInput</span></code></a></span>) – The trade input object. Defaults to None. If provided, the pair index will be extracted from the trade input.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A Fee instance containing the opening Fee for each trading pair in bps or final opening fee in USDC if trade_input is provided.</p>
+<dd class="field-even"><p>A Fee instance containing the opening Fee for each trading pair in bps.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -465,10 +457,7 @@ related to trades.</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="avantis_trader_sdk.html" class="btn btn-neutral float-left" title="avantis_trader_sdk package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="faqs.html" class="btn btn-neutral float-right" title="FAQs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

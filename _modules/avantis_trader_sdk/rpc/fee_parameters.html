@@ -165,28 +165,19 @@
         <span class="n">is_long</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">pair_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">pair</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">trade_input</span><span class="p">:</span> <span class="n">TradeInput</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the opening fee for all trading pairs.</span>
+<span class="sd">        Retrieves the opening fee for all trading pairs in bps.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            is_long: A boolean indicating if the position is a buy or sell. Defaults to None. If None, the opening fee for both buy and sell will be returned.</span>
 <span class="sd">            position_size: The size of the position (collateral * leverage). Supports upto 6 decimals. Defaults to 0.</span>
 <span class="sd">            pair_index: The pair index for which the opening fee is to be calculated. Defaults to None. If None, the opening fee for all trading pairs will be returned.</span>
 <span class="sd">            pair: The trading pair for which the opening fee is to be calculated. Defaults to None. If None, the opening fee for all trading pairs will be returned.</span>
-<span class="sd">            trade_input: The trade input object. Defaults to None. If provided, the pair index will be extracted from the trade input.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A Fee instance containing the opening Fee for each trading pair in bps or final opening fee in USDC if trade_input is provided.</span>
+<span class="sd">            A Fee instance containing the opening Fee for each trading pair in bps.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">trade_input</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">position_size</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">trade_input</span><span class="o">.</span><span class="n">positionSizeUSDC</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="o">*</span> <span class="n">trade_input</span><span class="o">.</span><span class="n">leverage</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
-            <span class="p">)</span>
-            <span class="n">pair_index</span> <span class="o">=</span> <span class="n">trade_input</span><span class="o">.</span><span class="n">pairIndex</span>
-            <span class="n">is_long</span> <span class="o">=</span> <span class="n">trade_input</span><span class="o">.</span><span class="n">buy</span>
-
         <span class="n">position_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">position_size</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
 
         <span class="n">Multicall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Multicall&quot;</span><span class="p">)</span>
@@ -294,19 +285,49 @@
                     <span class="p">],</span>
                 <span class="p">)</span>
                 <span class="k">return</span> <span class="n">Fee</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="n">decoded_response</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">trade_input</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">referral_rebate_percentage</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">trading_parameters</span><span class="o">.</span><span class="n">get_trade_referral_rebate_percentage</span><span class="p">(</span>
-                <span class="n">trade_input</span><span class="o">.</span><span class="n">trader</span>
-            <span class="p">)</span>
-            <span class="n">referral_rebate_percentage</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">referral_rebate_percentage</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
-            <span class="k">return</span> <span class="nb">round</span><span class="p">(</span>
-                <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">12</span> <span class="o">*</span> <span class="n">position_size</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="o">*</span> <span class="n">referral_rebate_percentage</span><span class="p">,</span>
-                <span class="mi">18</span><span class="p">,</span>
-            <span class="p">)</span>
         <span class="k">elif</span> <span class="n">is_long</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Fee</span><span class="p">(</span><span class="n">long</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span><span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Fee</span><span class="p">(</span><span class="n">short</span><span class="o">=</span><span class="p">{</span><span class="n">pair</span><span class="p">:</span> <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="FeeParametersRPC.get_new_trade_opening_fee">
+<a class="viewcode-back" href="../../../avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_new_trade_opening_fee">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_new_trade_opening_fee</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">trade_input</span><span class="p">:</span> <span class="n">TradeInput</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the opening fee for a trade with referral rebate in USDC.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            trade_input: The trade input object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Final opening fee in USDC</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">position_size</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">trade_input</span><span class="o">.</span><span class="n">positionSizeUSDC</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="o">*</span> <span class="n">trade_input</span><span class="o">.</span><span class="n">leverage</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
+        <span class="p">)</span>
+
+        <span class="n">position_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">position_size</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+
+        <span class="n">PriceAggregator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">contracts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PriceAggregator&quot;</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">PriceAggregator</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">openFeeP</span><span class="p">(</span>
+            <span class="n">trade_input</span><span class="o">.</span><span class="n">pairIndex</span><span class="p">,</span> <span class="n">position_size</span><span class="p">,</span> <span class="n">trade_input</span><span class="o">.</span><span class="n">buy</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
+
+        <span class="n">referral_rebate_percentage</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">trading_parameters</span><span class="o">.</span><span class="n">get_trade_referral_rebate_percentage</span><span class="p">(</span>
+                <span class="n">trade_input</span><span class="o">.</span><span class="n">trader</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">referral_rebate_percentage</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">referral_rebate_percentage</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span>
+            <span class="n">response</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">12</span> <span class="o">*</span> <span class="n">position_size</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="o">*</span> <span class="n">referral_rebate_percentage</span><span class="p">,</span>
+            <span class="mi">18</span><span class="p">,</span>
+        <span class="p">)</span></div>
 </div>
 
 </pre></div>

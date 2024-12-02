@@ -83,6 +83,27 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
+<p><strong>Version 0.4.0 (2024-12-02)</strong>
+- <strong>Breaking Changes:</strong></p>
+<blockquote>
+<div><ul>
+<li><p><strong>Modified Methods</strong>:
+- <strong>`get_opening_fee`</strong>:
+- <strong>Previous Behavior</strong>: Returned a <cite>Fee</cite> instance with fee details based on input parameters. If the parameters included <cite>trade_input</cite>, it would calculate and return the final fee in USDC.
+- <strong>New Behavior</strong>: Now strictly returns fee details in <strong>basis points (bps)</strong> based on input parameters. It no longer accepts <cite>trade_input</cite> as an argument. This ensures consistent behavior and avoids ambiguity.</p></li>
+<li><p><strong>New Methods</strong>:
+- <strong>`get_new_trade_opening_fee`</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Description</strong>: Introduced a new method specifically for calculating the <strong>final opening fee in USDC</strong> for a trade, based on the provided <cite>trade_input</cite>.</p></li>
+<li><p><strong>Purpose</strong>: To handle trade-specific fee calculations consistently and separately from the broader <cite>get_opening_fee</cite> method.</p></li>
+<li><p><strong>Input</strong>: Accepts a <cite>TradeInput</cite> object.</p></li>
+<li><p><strong>Output</strong>: Returns the calculated opening fee in USDC, adjusted for referral rebates.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
 <dl class="simple">
 <dt><strong>Version 0.3.1 (2024-10-23)</strong></dt><dd><ul class="simple">
 <li><p>Added feed ids for new pairs</p></li>
