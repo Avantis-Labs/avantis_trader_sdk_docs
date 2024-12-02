@@ -88,9 +88,14 @@
 <blockquote>
 <div><ul>
 <li><p><strong>Modified Methods</strong>:
-- <strong>`get_opening_fee`</strong>:
-- <strong>Previous Behavior</strong>: Returned a <cite>Fee</cite> instance with fee details based on input parameters. If the parameters included <cite>trade_input</cite>, it would calculate and return the final fee in USDC.
-- <strong>New Behavior</strong>: Now strictly returns fee details in <strong>basis points (bps)</strong> based on input parameters. It no longer accepts <cite>trade_input</cite> as an argument. This ensures consistent behavior and avoids ambiguity.</p></li>
+- <strong>`get_opening_fee`</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Previous Behavior</strong>: Returned a <cite>Fee</cite> instance with fee details based on input parameters. If the parameters included <cite>trade_input</cite>, it would calculate and return the final fee in USDC.</p></li>
+<li><p><strong>New Behavior</strong>: Now strictly returns fee details in <strong>basis points (bps)</strong> based on input parameters. It no longer accepts <cite>trade_input</cite> as an argument. This ensures consistent behavior and avoids ambiguity.</p></li>
+</ul>
+</div></blockquote>
+</li>
 <li><p><strong>New Methods</strong>:
 - <strong>`get_new_trade_opening_fee`</strong>:</p>
 <blockquote>
