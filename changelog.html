@@ -43,6 +43,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notice.html">Notice</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
@@ -83,6 +84,44 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
+<p><strong>Version 0.5.0 (2024-12-02)</strong>
+- <strong>Breaking Changes:</strong></p>
+<blockquote>
+<div><ul>
+<li><p><strong>Modified Methods</strong>:
+- <strong>`build_trade_close_tx`</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Previous Behavior</strong>: Required a 6 decimal precision float for collateral_to_close. e.g. 100500000 for 100.5 USDC</p></li>
+<li><p><strong>New Behavior</strong>: Now requires a normal float value for collateral_to_close. e.g. 100.5 for 100.5 USDC</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>New Methods</strong>:
+- <strong>`build_trade_tp_sl_update_tx`</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Description</strong>: Introduced a new method specifically for updating the take profit and stop loss of a trade.</p></li>
+<li><p><strong>Purpose</strong>: To allow traders to update the take profit and stop loss of a trade without having to close and open a new trade.</p></li>
+<li><p><strong>Input</strong>: Accepts a <cite>pair_index</cite>, <cite>trade_index</cite>, <cite>take_profit_price</cite>, <cite>stop_loss_price</cite>, and <cite>trader</cite> (optional).</p></li>
+<li><p><strong>Output</strong>: Returns the transaction object to update the take profit and stop loss of a trade.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Improvements:</strong></dt><dd><ul>
+<li><p>Added warning for upcoming v1.5 contracts upgrade</p></li>
+<li><p>Fixed margin update and USDC approval methods</p></li>
+<li><p>Optimized fee values for margin updates</p></li>
+<li><p><cite>write_contract</cite> will now auto fill the <cite>nonce</cite> and <cite>chainId</cite> if not provided</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 <p><strong>Version 0.4.0 (2024-12-02)</strong>
 - <strong>Breaking Changes:</strong></p>
 <blockquote>
@@ -186,7 +225,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Avantis Labs.</p>
+    <p>&#169; Copyright 2025, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

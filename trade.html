@@ -43,6 +43,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notice.html">Notice</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
@@ -55,6 +56,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#placing-a-limit-order">Placing a Limit Order</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#canceling-a-limit-order">Canceling a Limit Order</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#updating-collateral-margin-update">Updating Collateral (Margin Update)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-take-profit-and-stop-loss">Updating Take Profit and Stop Loss</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="get_information_and_parameters.html">Get Information and Parameters</a></li>
@@ -605,6 +607,77 @@
 <li><p>The maximum leverage allowed can vary from asset to asset, so be sure to check the specific leverage limits for the asset you are trading.</p></li>
 </ul>
 </section>
+<section id="updating-take-profit-and-stop-loss">
+<h2>Updating Take Profit and Stop Loss<a class="headerlink" href="#updating-take-profit-and-stop-loss" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">build_trade_tp_sl_update_tx</span></code> method allows you to update the take profit and stop loss of an open trade. This feature provides flexibility to modify trade parameters without closing and reopening a position.</p>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span>
+
+<span class="n">private_key</span> <span class="o">=</span> <span class="s2">&quot;0xmyprivatekey&quot;</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Initialize TraderClient</span>
+    <span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span>  <span class="c1"># Find provider URL for Base Mainnet Chain from https://chainlist.org/chain/8453 or use a dedicated node (Alchemy, Infura, etc.)</span>
+    <span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
+
+    <span class="c1"># Set local signer</span>
+    <span class="n">trader_client</span><span class="o">.</span><span class="n">set_local_signer</span><span class="p">(</span><span class="n">private_key</span><span class="p">)</span>
+
+    <span class="n">trader</span> <span class="o">=</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">get_signer</span><span class="p">()</span><span class="o">.</span><span class="n">get_ethereum_address</span><span class="p">()</span>
+
+    <span class="c1"># Get open trades</span>
+    <span class="n">trades</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">get_trades</span><span class="p">(</span><span class="n">trader</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trades: &quot;</span><span class="p">,</span> <span class="n">trades</span><span class="p">)</span>
+
+    <span class="c1"># Select first trade to update</span>
+    <span class="n">trade_to_update</span> <span class="o">=</span> <span class="n">trades</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Update take profit and stop loss</span>
+    <span class="n">update_tp_sl_transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">build_trade_tp_sl_update_tx</span><span class="p">(</span>
+        <span class="n">pair_index</span><span class="o">=</span><span class="n">trade_to_update</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">pair_index</span><span class="p">,</span>
+        <span class="n">trade_index</span><span class="o">=</span><span class="n">trade_to_update</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">trade_index</span><span class="p">,</span>
+        <span class="n">take_profit_price</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span>  <span class="c1"># Desired take profit price</span>
+        <span class="n">stop_loss_price</span><span class="o">=</span><span class="mi">3288</span><span class="p">,</span>  <span class="c1"># Desired stop loss price (pass 0 to remove the stop loss)</span>
+        <span class="n">trader</span><span class="o">=</span><span class="n">trader</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Sign and send transaction</span>
+    <span class="n">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">sign_and_get_receipt</span><span class="p">(</span><span class="n">update_tp_sl_transaction</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">receipt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trade updated successfully!&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Details:</strong></p>
+<ul class="simple">
+<li><p><strong>Take Profit (TP):</strong>
+- The price at which the trade will automatically close to secure profits.
+- Must be set to a valid price above (for long) or below (for short) the entry/current price.</p></li>
+<li><p><strong>Stop Loss (SL):</strong>
+- The price at which the trade will automatically close to limit losses.
+- Pass <cite>0</cite> if you wish to remove the stop loss.</p></li>
+</ul>
+<p><strong>Steps Explained:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Retrieve Open Trades:</strong>
+- Use the <cite>get_trades</cite> method to retrieve all open trades for the trader.</p></li>
+<li><p><strong>Select a Trade to Update:</strong>
+- Choose the specific trade to modify from the list of open trades.</p></li>
+<li><p><strong>Build Update Transaction:</strong>
+- Use the <cite>build_trade_tp_sl_update_tx</cite> method to construct a transaction for updating TP/SL parameters.</p></li>
+<li><p><strong>Sign and Send Transaction:</strong>
+- Sign the transaction using your private key and send it to the network. The receipt confirms the successful update.</p></li>
+</ol>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>Ensure the specified <cite>take_profit_price</cite> and <cite>stop_loss_price</cite> are valid and within allowed limits.</p></li>
+<li><p>Updating TP/SL parameters can help manage risk and optimize trade outcomes without requiring additional actions on the trader’s part.</p></li>
+</ul>
+</section>
 </section>
 
 
@@ -618,7 +691,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Avantis Labs.</p>
+    <p>&#169; Copyright 2025, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

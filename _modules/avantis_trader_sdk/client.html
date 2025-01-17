@@ -230,6 +230,12 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_signer</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;from&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_signer</span><span class="p">()</span><span class="o">.</span><span class="n">get_ethereum_address</span><span class="p">()</span>
 
+        <span class="k">if</span> <span class="s2">&quot;chainId&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;chainId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain_id</span>
+
+        <span class="k">if</span> <span class="s2">&quot;nonce&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;nonce&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_transaction_count</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">])</span>
+
         <span class="n">transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="n">contract</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="n">function_name</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">build_transaction</span><span class="p">(</span>
             <span class="n">kwargs</span>
         <span class="p">)</span>
@@ -520,7 +526,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Avantis Labs.</p>
+    <p>&#169; Copyright 2025, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
