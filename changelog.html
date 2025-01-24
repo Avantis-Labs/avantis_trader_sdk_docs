@@ -84,6 +84,66 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
+<p><strong>Version 0.6.0 (2025-01-24)</strong></p>
+<ul>
+<li><p><strong>Breaking Changes:</strong>
+- <strong>Modified ABI</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>`PairStorage` ABI</strong>:
+- <strong>Previous Behavior</strong>: The ABI had a simpler structure for accessing pair data.
+- <strong>New Behavior</strong>: Updated to include more detailed and flexible structures for pair data access.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p><strong>Modified Data Models</strong>:
+- <strong>`PairInfo`</strong>:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Previous Behavior</strong>: Limited fields for leverage and pair metrics.</p></li>
+<li><p><strong>New Behavior</strong>: Enhanced with additional fields to accommodate new metrics:
+- <strong>Leverages</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>min_leverage</cite>: Minimum leverage for pairs.</p></li>
+<li><p><cite>max_leverage</cite>: Maximum leverage for pairs.</p></li>
+<li><p><cite>pnl_min_leverage</cite>: Minimum leverage for PnL calculations.</p></li>
+<li><p><cite>pnl_max_leverage</cite>: Maximum leverage for PnL calculations.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Values</strong>:
+- <cite>max_gain_percentage</cite>: Maximum allowable gain percentage.
+- <cite>max_sl_percentage</cite>: Maximum stop-loss percentage.
+- <cite>max_long_oi_percentage</cite>: Maximum open interest percentage for long trades.
+- <cite>max_short_oi_percentage</cite>: Maximum open interest percentage for short trades.
+- <cite>group_open_interest_percentage</cite>: Group-level open interest percentage limit.
+- <cite>max_wallet_oi_percentage</cite>: Maximum open interest percentage per wallet.
+- <cite>is_usdc_aligned</cite>: Boolean indicating USDC alignment.</p></li>
+<li><p><strong>Additional Fields</strong>:
+- <cite>backup_feed</cite>: Backup source for price feeds.
+- <cite>constant_pnl_spread_bps</cite>: Basis points for constant PnL spreads.</p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>New Data Models</strong>:
+- <strong>`PairInfoWithData`</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Combines detailed pair data (<cite>PairInfo</cite>) with additional metrics (<cite>PairData</cite>).</p></li>
+<li><p>Includes all new fields from <cite>PairInfo</cite> as well as the following:
+- <cite>PairData</cite>: Contains essential details such as <cite>from</cite>, <cite>to</cite>, and pair-related attributes.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Improvements:</strong>
+- Enhanced data model flexibility for pair configurations.
+- Updated documentation to reflect the new ABI structure.</p></li>
+</ul>
 <p><strong>Version 0.5.0 (2025-01-17)</strong>
 - <strong>Breaking Changes:</strong></p>
 <blockquote>
