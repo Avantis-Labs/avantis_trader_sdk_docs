@@ -20,6 +20,7 @@ This section outlines the changes made in each version of the Avantis Trader SDK
           - `max_leverage`: Maximum leverage for pairs.
           - `pnl_min_leverage`: Minimum leverage for PnL calculations.
           - `pnl_max_leverage`: Maximum leverage for PnL calculations.
+
         - **Values**:
           - `max_gain_percentage`: Maximum allowable gain percentage.
           - `max_sl_percentage`: Maximum stop-loss percentage.
@@ -28,6 +29,7 @@ This section outlines the changes made in each version of the Avantis Trader SDK
           - `group_open_interest_percentage`: Group-level open interest percentage limit.
           - `max_wallet_oi_percentage`: Maximum open interest percentage per wallet.
           - `is_usdc_aligned`: Boolean indicating USDC alignment.
+          
         - **Additional Fields**:
           - `backup_feed`: Backup source for price feeds.
           - `constant_pnl_spread_bps`: Basis points for constant PnL spreads.
