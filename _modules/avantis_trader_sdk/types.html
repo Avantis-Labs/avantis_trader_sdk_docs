@@ -93,29 +93,20 @@
 <span class="kn">import</span> <span class="nn">re</span>
 
 
-<div class="viewcode-block" id="PairInfoFeed">
-<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed">[docs]</a>
 <span class="k">class</span> <span class="nc">PairInfoFeed</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">max_open_deviation_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;maxOpenDeviationP&quot;</span><span class="p">)</span>
     <span class="n">max_close_deviation_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;maxCloseDeviationP&quot;</span><span class="p">)</span>
 
     <span class="n">feed_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;feedId&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PairInfoFeed.convert_max_deviation">
-<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.convert_max_deviation">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span>
         <span class="s2">&quot;max_open_deviation_percentage&quot;</span><span class="p">,</span> <span class="s2">&quot;max_close_deviation_percentage&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">convert_max_deviation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span></div>
+        <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
 
-
-<div class="viewcode-block" id="PairInfoFeed.Config">
-<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.Config">[docs]</a>
     <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
-        <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
-</div>
-
+        <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span>
 
 
 <div class="viewcode-block" id="PairInfoBackupFeed">
@@ -129,6 +120,12 @@
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;max_deviation_percentage&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">convert_max_deviation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span></div>
+
+
+<div class="viewcode-block" id="PairInfoBackupFeed.Config">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoBackupFeed.Config">[docs]</a>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
 
@@ -239,10 +236,27 @@
 
 
 
+<div class="viewcode-block" id="PairInfoFeed">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed">[docs]</a>
+<span class="k">class</span> <span class="nc">PairInfoFeed</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">from_</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;from&quot;</span><span class="p">)</span>
+    <span class="n">to</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">feed</span><span class="p">:</span> <span class="n">PairInfoFeed</span>
+    <span class="n">backup_feed</span><span class="p">:</span> <span class="n">PairInfoBackupFeed</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;backupFeed&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PairInfoFeed.Config">
+<a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.Config">[docs]</a>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+
 <div class="viewcode-block" id="OpenInterest">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterest">[docs]</a>
 <span class="k">class</span> <span class="nc">OpenInterest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">long</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+
     <span class="n">short</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span></div>
 
 

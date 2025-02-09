@@ -1028,6 +1028,17 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </ul>
 </dd>
 </dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoBackupFeed.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfoBackupFeed.Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoBackupFeed.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoBackupFeed.Config.populate_by_name">
+<span class="sig-name descname"><span class="pre">populate_by_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoBackupFeed.Config.populate_by_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoBackupFeed.convert_max_deviation">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert_max_deviation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfoBackupFeed.convert_max_deviation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoBackupFeed.convert_max_deviation" title="Link to this definition"></a></dt>
@@ -1051,7 +1062,7 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoBackupFeed.model_config">
-<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoBackupFeed.model_config" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'populate_by_name':</span> <span class="pre">True}</span></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoBackupFeed.model_config" title="Link to this definition"></a></dt>
 <dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
 </dd></dl>
 
@@ -1226,9 +1237,10 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>maxOpenDeviationP</strong> (<em>float</em>)</p></li>
-<li><p><strong>maxCloseDeviationP</strong> (<em>float</em>)</p></li>
-<li><p><strong>feedId</strong> (<em>str</em>)</p></li>
+<li><p><strong>from_</strong> (<em>str</em>)</p></li>
+<li><p><strong>to</strong> (<em>str</em>)</p></li>
+<li><p><strong>feed</strong> (<a class="reference internal" href="#avantis_trader_sdk.types.PairInfoFeed" title="avantis_trader_sdk.types.PairInfoFeed"><em>PairInfoFeed</em></a>)</p></li>
+<li><p><strong>backupFeed</strong> (<a class="reference internal" href="#avantis_trader_sdk.types.PairInfoBackupFeed" title="avantis_trader_sdk.types.PairInfoBackupFeed"><em>PairInfoBackupFeed</em></a>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -1243,24 +1255,19 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoFeed.convert_max_deviation">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert_max_deviation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/types.html#PairInfoFeed.convert_max_deviation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.convert_max_deviation" title="Link to this definition"></a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoFeed.backup_feed">
+<span class="sig-name descname"><span class="pre">backup_feed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#avantis_trader_sdk.types.PairInfoBackupFeed" title="avantis_trader_sdk.types.PairInfoBackupFeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">PairInfoBackupFeed</span></code></a></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.backup_feed" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoFeed.feed_id">
-<span class="sig-name descname"><span class="pre">feed_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.feed_id" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoFeed.feed">
+<span class="sig-name descname"><span class="pre">feed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#avantis_trader_sdk.types.PairInfoFeed" title="avantis_trader_sdk.types.PairInfoFeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">PairInfoFeed</span></code></a></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.feed" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoFeed.max_close_deviation_percentage">
-<span class="sig-name descname"><span class="pre">max_close_deviation_percentage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.max_close_deviation_percentage" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoFeed.max_open_deviation_percentage">
-<span class="sig-name descname"><span class="pre">max_open_deviation_percentage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.max_open_deviation_percentage" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoFeed.from_">
+<span class="sig-name descname"><span class="pre">from_</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.from_" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1277,11 +1284,16 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoFeed.model_fields">
-<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'feed_id':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True,</span> <span class="pre">alias='feedId',</span> <span class="pre">alias_priority=2),</span> <span class="pre">'max_close_deviation_percentage':</span> <span class="pre">FieldInfo(annotation=float,</span> <span class="pre">required=True,</span> <span class="pre">alias='maxCloseDeviationP',</span> <span class="pre">alias_priority=2),</span> <span class="pre">'max_open_deviation_percentage':</span> <span class="pre">FieldInfo(annotation=float,</span> <span class="pre">required=True,</span> <span class="pre">alias='maxOpenDeviationP',</span> <span class="pre">alias_priority=2)}</span></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.model_fields" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'backup_feed':</span> <span class="pre">FieldInfo(annotation=PairInfoBackupFeed,</span> <span class="pre">required=True,</span> <span class="pre">alias='backupFeed',</span> <span class="pre">alias_priority=2),</span> <span class="pre">'feed':</span> <span class="pre">FieldInfo(annotation=PairInfoFeed,</span> <span class="pre">required=True),</span> <span class="pre">'from_':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True,</span> <span class="pre">alias='from',</span> <span class="pre">alias_priority=2),</span> <span class="pre">'to':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.model_fields" title="Link to this definition"></a></dt>
 <dd><p>Metadata about the fields defined on the model,
 mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="avantis_trader_sdk.types.PairInfoFeed.to">
+<span class="sig-name descname"><span class="pre">to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#avantis_trader_sdk.types.PairInfoFeed.to" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

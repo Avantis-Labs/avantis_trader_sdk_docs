@@ -40,6 +40,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notice.html">Notice</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
@@ -80,10 +81,13 @@
   <h1>Source code for avantis_trader_sdk.feed.feed_client</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">websockets</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">PriceFeedResponse</span><span class="p">,</span> <span class="n">PriceFeedUpdatesResponse</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">PriceFeedResponse</span><span class="p">,</span> <span class="n">PriceFeedUpdatesResponse</span><span class="p">,</span> <span class="n">PairInfoFeed</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span>
 <span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">ValidationError</span>
+<span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">AVANTIS_SOCKET_API</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
 
 
 <div class="viewcode-block" id="FeedClient">
@@ -99,6 +103,7 @@
         <span class="n">on_error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">on_close</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">hermes_url</span><span class="o">=</span><span class="s2">&quot;https://hermes.pyth.network/v2/updates/price/latest&quot;</span><span class="p">,</span>
+        <span class="n">pair_fetcher</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for the FeedClient class.</span>
@@ -124,6 +129,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span> <span class="o">=</span> <span class="n">on_error</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_close</span> <span class="o">=</span> <span class="n">on_close</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pair_fetcher</span> <span class="o">=</span> <span class="n">pair_fetcher</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_pair_fetcher</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_pair_feeds</span><span class="p">()</span>
 
 <div class="viewcode-block" id="FeedClient.listen_for_price_updates">
@@ -180,14 +186,68 @@
                 <span class="k">raise</span> <span class="n">e</span></div>
 
 
+<div class="viewcode-block" id="FeedClient.default_pair_fetcher">
+<a class="viewcode-back" href="../../../avantis_trader_sdk.feed.html#avantis_trader_sdk.feed.feed_client.FeedClient.default_pair_fetcher">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">default_pair_fetcher</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Default pair fetcher that retrieves data from the Avantis API.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of validated trading pairs.</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError if API response is invalid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">AVANTIS_SOCKET_API</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;AVANTIS_SOCKET_API is not set&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">AVANTIS_SOCKET_API</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;pairInfos&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">pairs</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span><span class="p">,</span> <span class="n">ValidationError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching pair feeds: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+
     <span class="k">def</span> <span class="nf">_load_pair_feeds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads the pair feeds from the json file.</span>
+<span class="sd">        Loads the pair feeds dynamically using the provided pair_fetcher function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">feed_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;feedIds.json&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">feed_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">feed_file</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pair_feeds</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">feed_file</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">feed_pairs</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pair_feeds</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="n">asyncio</span><span class="o">.</span><span class="n">set_event_loop</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">())</span>
+
+            <span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+                <span class="n">future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pair_fetcher</span><span class="p">()))</span>
+                <span class="n">pairs</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pairs</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Fetched pair feed data is empty or invalid.&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pairs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">pairs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pairs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pairs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;model_dump_json&quot;</span><span class="p">):</span>
+                <span class="n">pairs</span> <span class="o">=</span> <span class="p">[</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pair</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">())</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">]</span>
+
+            <span class="n">validated_pairs</span> <span class="o">=</span> <span class="p">[</span><span class="n">PairInfoFeed</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">pair_feeds</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pair</span><span class="o">.</span><span class="n">from_</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">pair</span><span class="o">.</span><span class="n">to</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">pair</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">feed_id</span><span class="p">}</span>
+                <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">validated_pairs</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">feed_pairs</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">pair</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">feed_id</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pair</span><span class="o">.</span><span class="n">from_</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">pair</span><span class="o">.</span><span class="n">to</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">validated_pairs</span>
+            <span class="p">}</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to load pair feeds: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="FeedClient.get_pair_from_feed_id">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.feed.html#avantis_trader_sdk.feed.feed_client.FeedClient.get_pair_from_feed_id">[docs]</a>
@@ -310,7 +370,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Avantis Labs.</p>
+    <p>&#169; Copyright 2025, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

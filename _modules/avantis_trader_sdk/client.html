@@ -244,9 +244,8 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_signer</span><span class="p">():</span>
             <span class="k">return</span> <span class="n">transaction</span>
 
-        <span class="n">signed_txn</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
-        <span class="n">tx_hash</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_and_get_transaction_hash</span><span class="p">(</span><span class="n">signed_txn</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">tx_hash</span></div>
+        <span class="n">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign_and_get_receipt</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">receipt</span></div>
 
 
 <div class="viewcode-block" id="TraderClient.set_signer">
@@ -426,7 +425,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_signer</span><span class="p">()</span><span class="o">.</span><span class="n">get_ethereum_address</span><span class="p">()</span>
-        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">get_balance</span><span class="p">(</span><span class="n">address</span><span class="p">)</span></div>
+        <span class="n">balance</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">get_balance</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">balance</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">18</span></div>
 
 
 <div class="viewcode-block" id="TraderClient.get_usdc_balance">

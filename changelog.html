@@ -84,22 +84,52 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
-<p><strong>Version 0.6.0 (2025-01-24)</strong></p>
-<ul>
-<li><p><strong>Breaking Changes:</strong>
-- <strong>Modified ABI</strong>:</p>
+<p><strong>Version 0.7.0 (2025-02-09)</strong>
+- <strong>Breaking Changes:</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li><p><strong>`PairStorage` ABI</strong>:
-- <strong>Previous Behavior</strong>: The ABI had a simpler structure for accessing pair data.
-- <strong>New Behavior</strong>: Updated to include more detailed and flexible structures for pair data access.</p></li>
+<li><p><strong>Modified Write Contract</strong>:</p>
+<ul>
+<li><p><strong>Previous Behavior</strong>: The <cite>write_contract</cite> method would return the transaction hash.</p></li>
+<li><p><strong>New Behavior</strong>: The <cite>write_contract</cite> method now returns the transaction receipt.</p></li>
+</ul>
+</li>
+<li><p><strong>Modified Get Balance</strong>:</p>
+<ul>
+<li><p><strong>Previous Behavior</strong>: The <cite>get_balance</cite> method would return the balance of the account in wei.</p></li>
+<li><p><strong>New Behavior</strong>: The <cite>get_balance</cite> method now returns the balance of the account in ETH.</p></li>
+</ul>
+</li>
 </ul>
 </div></blockquote>
+<ul class="simple">
+<li><p><strong>Improvements:</strong></p>
 <ul>
-<li><p><strong>Modified Data Models</strong>:
-- <strong>`PairInfo`</strong>:</p>
-<blockquote>
-<div><ul>
+<li><p>Removed dependency on hardcoded pair feed ids.</p></li>
+<li><p>Added support for fetching feed mappings dynamically from an API or trader client.</p></li>
+<li><p>Introduced an optional <cite>pair_fetcher</cite> function in feed client for full customization.</p></li>
+<li><p>Revised example to demonstrate how to use both an API or trader client to retrieve the latest price updates.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Version 0.6.0 (2025-01-24)</strong></p>
+<ul>
+<li><p><strong>Breaking Changes:</strong></p>
+<ul>
+<li><p><strong>Modified ABI</strong>:</p>
+<ul class="simple">
+<li><p><strong>`PairStorage` ABI</strong>:</p>
+<ul>
+<li><p><strong>Previous Behavior</strong>: The ABI had a simpler structure for accessing pair data.</p></li>
+<li><p><strong>New Behavior</strong>: Updated to include more detailed and flexible structures for pair data access.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Modified Data Models</strong>:</p>
+<ul>
+<li><p><strong>`PairInfo`</strong>:</p>
+<ul>
 <li><p><strong>Previous Behavior</strong>: Limited fields for leverage and pair metrics.</p></li>
 <li><p><strong>New Behavior</strong>: Enhanced with additional fields to accommodate new metrics:
 - <strong>Leverages</strong>:</p>
@@ -112,21 +142,28 @@
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li><p><strong>Values</strong>:
-- <cite>max_gain_percentage</cite>: Maximum allowable gain percentage.
-- <cite>max_sl_percentage</cite>: Maximum stop-loss percentage.
-- <cite>max_long_oi_percentage</cite>: Maximum open interest percentage for long trades.
-- <cite>max_short_oi_percentage</cite>: Maximum open interest percentage for short trades.
-- <cite>group_open_interest_percentage</cite>: Group-level open interest percentage limit.
-- <cite>max_wallet_oi_percentage</cite>: Maximum open interest percentage per wallet.
-- <cite>is_usdc_aligned</cite>: Boolean indicating USDC alignment.</p></li>
-<li><p><strong>Additional Fields</strong>:
-- <cite>backup_feed</cite>: Backup source for price feeds.
-- <cite>constant_pnl_spread_bps</cite>: Basis points for constant PnL spreads.</p></li>
+<li><p><strong>Values</strong>:</p>
+<ul>
+<li><p><cite>max_gain_percentage</cite>: Maximum allowable gain percentage.</p></li>
+<li><p><cite>max_sl_percentage</cite>: Maximum stop-loss percentage.</p></li>
+<li><p><cite>max_long_oi_percentage</cite>: Maximum open interest percentage for long trades.</p></li>
+<li><p><cite>max_short_oi_percentage</cite>: Maximum open interest percentage for short trades.</p></li>
+<li><p><cite>group_open_interest_percentage</cite>: Group-level open interest percentage limit.</p></li>
+<li><p><cite>max_wallet_oi_percentage</cite>: Maximum open interest percentage per wallet.</p></li>
+<li><p><cite>is_usdc_aligned</cite>: Boolean indicating USDC alignment.</p></li>
+</ul>
+</li>
+<li><p><strong>Additional Fields</strong>:</p>
+<ul>
+<li><p><cite>backup_feed</cite>: Backup source for price feeds.</p></li>
+<li><p><cite>constant_pnl_spread_bps</cite>: Basis points for constant PnL spreads.</p></li>
 </ul>
 </li>
 </ul>
-</div></blockquote>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 </li>
