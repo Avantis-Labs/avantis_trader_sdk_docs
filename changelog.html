@@ -84,16 +84,64 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
-<p><strong>Version 0.7.0 (2025-02-09)</strong>
-- <strong>Breaking Changes:</strong></p>
+<p><strong>Version 0.8.0 (2025-02-21)</strong></p>
+<ul>
+<li><p>More Info: <a class="reference external" href="https://avantisfi.notion.site/avantis-contracts-v1-5-upgrade">https://avantisfi.notion.site/avantis-contracts-v1-5-upgrade</a></p></li>
+<li><p><strong>Breaking Changes:</strong></p>
+<ul>
+<li><p><strong>New ABIs Introduced</strong>:
+- <strong>PairInfos ABI</strong>
+- <strong>PriceAggregator ABI</strong>
+- <strong>Trading ABI</strong>
+- <strong>TradingCallbacks ABI</strong>
+- <strong>TradingStorage ABI</strong></p></li>
+<li><p><strong>Price Impact Spread Calculations</strong>:</p>
+<ul class="simple">
+<li><p>The following methods now support the <strong>isPnl</strong> parameter:</p>
+<ul>
+<li><p><cite>get_price_impact_spread</cite></p></li>
+<li><p><cite>get_skew_impact_spread</cite></p></li>
+<li><p><cite>get_opening_price_impact_spread</cite></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Trade Transactions</strong>:</p>
+<ul class="simple">
+<li><p><strong>Open and Close Trade Transactions</strong>: The last parameter for <cite>execution_fee</cite> has been <strong>removed</strong> in the contract.</p></li>
+<li><p><strong>Previous Behavior</strong>: Required <cite>execution_fee</cite> as the last parameter.</p></li>
+<li><p><strong>New Behavior</strong>: No longer requires <cite>execution_fee</cite>. Ensure transaction-building logic is updated accordingly.</p></li>
+<li><p>⚠️ <em>This is an important change—ensure your integration reflects this update.</em></p></li>
+</ul>
+</li>
+<li><p><strong>Loss Protection Tier</strong>:
+- Updated <cite>get_loss_protection_tier</cite> to support the new <strong>PnL order type</strong>.</p></li>
+<li><p><strong>Referral Rebates</strong>:
+- Updated <cite>get_trade_referral_rebate_percentage</cite>: The contract method for tiers has changed to <cite>referralTiers</cite>.</p></li>
+<li><p><strong>Order Type Enum Update</strong>:</p>
+<ul class="simple">
+<li><p>The <cite>TradeInputOrderType</cite> enum has been updated to support the <strong>new PnL order type</strong>:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TradeInputOrderType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">MARKET_PNL</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Version 0.7.0 (2025-02-09)</strong></p>
+<ul>
+<li><p><strong>Breaking Changes:</strong>
+- <strong>Modified Write Contract</strong>:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><strong>Modified Write Contract</strong>:</p>
-<ul>
 <li><p><strong>Previous Behavior</strong>: The <cite>write_contract</cite> method would return the transaction hash.</p></li>
 <li><p><strong>New Behavior</strong>: The <cite>write_contract</cite> method now returns the transaction receipt.</p></li>
 </ul>
-</li>
+</div></blockquote>
+<ul class="simple">
 <li><p><strong>Modified Get Balance</strong>:</p>
 <ul>
 <li><p><strong>Previous Behavior</strong>: The <cite>get_balance</cite> method would return the balance of the account in wei.</p></li>
@@ -101,10 +149,9 @@
 </ul>
 </li>
 </ul>
-</div></blockquote>
-<ul class="simple">
+</li>
 <li><p><strong>Improvements:</strong></p>
-<ul>
+<ul class="simple">
 <li><p>Removed dependency on hardcoded pair feed ids.</p></li>
 <li><p>Added support for fetching feed mappings dynamically from an API or trader client.</p></li>
 <li><p>Introduced an optional <cite>pair_fetcher</cite> function in feed client for full customization.</p></li>
@@ -114,10 +161,10 @@
 </ul>
 <p><strong>Version 0.6.0 (2025-01-24)</strong></p>
 <ul>
-<li><p><strong>Breaking Changes:</strong></p>
-<ul>
-<li><p><strong>Modified ABI</strong>:</p>
-<ul class="simple">
+<li><p><strong>Breaking Changes:</strong>
+- <strong>Modified ABI</strong>:</p>
+<blockquote>
+<div><ul class="simple">
 <li><p><strong>`PairStorage` ABI</strong>:</p>
 <ul>
 <li><p><strong>Previous Behavior</strong>: The ABI had a simpler structure for accessing pair data.</p></li>
@@ -125,7 +172,8 @@
 </ul>
 </li>
 </ul>
-</li>
+</div></blockquote>
+<ul>
 <li><p><strong>Modified Data Models</strong>:</p>
 <ul>
 <li><p><strong>`PairInfo`</strong>:</p>
