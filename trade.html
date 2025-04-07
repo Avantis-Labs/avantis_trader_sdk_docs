@@ -18,9 +18,7 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Get Information and Parameters" href="get_information_and_parameters.html" />
-    <link rel="prev" title="Examples" href="examples.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,31 +40,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="notice.html">Notice</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Trade Operations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#opening-a-trade">Opening a Trade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#calculating-opening-fee-and-loss-protection">Calculating Opening Fee and Loss Protection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#retrieving-open-trades-and-pending-limit-orders">Retrieving Open Trades and Pending Limit Orders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#closing-a-trade">Closing a Trade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#placing-a-limit-order">Placing a Limit Order</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#canceling-a-limit-order">Canceling a Limit Order</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#updating-collateral-margin-update">Updating Collateral (Margin Update)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#updating-take-profit-and-stop-loss">Updating Take Profit and Stop Loss</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Trade Operations</a><ul>
+<li><a class="reference internal" href="#opening-a-trade">Opening a Trade</a></li>
+<li><a class="reference internal" href="#calculating-opening-fee-and-loss-protection">Calculating Opening Fee and Loss Protection</a></li>
+<li><a class="reference internal" href="#retrieving-open-trades-and-pending-limit-orders">Retrieving Open Trades and Pending Limit Orders</a></li>
+<li><a class="reference internal" href="#closing-a-trade">Closing a Trade</a></li>
+<li><a class="reference internal" href="#placing-a-limit-order">Placing a Limit Order</a></li>
+<li><a class="reference internal" href="#canceling-a-limit-order">Canceling a Limit Order</a></li>
+<li><a class="reference internal" href="#updating-collateral-margin-update">Updating Collateral (Margin Update)</a></li>
+<li><a class="reference internal" href="#updating-take-profit-and-stop-loss">Updating Take Profit and Stop Loss</a></li>
+<li><a class="reference internal" href="#opening-a-zero-fee-market-trade">Opening a Zero Fee Market Trade</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="get_information_and_parameters.html">Get Information and Parameters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_topics.html">Advanced Topics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
-
+</div>
         </div>
       </div>
     </nav>
@@ -96,7 +85,7 @@
 <p>The Avantis Trader SDK provides powerful methods for managing trades, including opening, closing, canceling, and editing trades. This section will guide you through each operation with clear examples to help you interact with the Avantis contracts effectively.</p>
 <section id="opening-a-trade">
 <h2>Opening a Trade<a class="headerlink" href="#opening-a-trade" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">open_trade</span></code> method allows you to open a new trade. Follow the steps below to open a trade using the SDK.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">build_trade_open_tx</span></code> method with <code class="docutils literal notranslate"><span class="pre">trade_input_order_type</span></code> set to <code class="docutils literal notranslate"><span class="pre">MARKET</span></code> allows you to open a new market trade. Follow the steps below to open a trade using the SDK.</p>
 <p><strong>Example Usage:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">TradeInput</span><span class="p">,</span> <span class="n">TradeInputOrderType</span>
@@ -168,7 +157,7 @@
     <span class="c1"># 1% slippage</span>
     <span class="n">slippage_percentage</span> <span class="o">=</span> <span class="mi">1</span>
 
-    <span class="c1"># Order type for the trade (MARKET, LIMIT, or STOP_LIMIT)</span>
+    <span class="c1"># Order type for the trade (MARKET or LIMIT or STOP_LIMIT or MARKET_ZERO_FEE)</span>
     <span class="n">trade_input_order_type</span> <span class="o">=</span> <span class="n">TradeInputOrderType</span><span class="o">.</span><span class="n">MARKET</span>
 
     <span class="c1"># Open trade</span>
@@ -196,7 +185,7 @@
 <li><p><strong>Calculate Fees and Protection:</strong>
 - Retrieve the opening fee and loss protection information for the trade.</p></li>
 <li><p><strong>Set Slippage and Order Type:</strong>
-- Define slippage tolerance and choose the order type (MARKET, LIMIT, STOP_LIMIT).</p></li>
+- Define slippage tolerance and choose the order type (MARKET, LIMIT, STOP_LIMIT, or MARKET_ZERO_FEE).</p></li>
 <li><p><strong>Build and Send Transaction:</strong>
 - Construct the transaction to open the trade and send it to the blockchain.</p></li>
 </ol>
@@ -340,7 +329,7 @@
 </section>
 <section id="placing-a-limit-order">
 <h2>Placing a Limit Order<a class="headerlink" href="#placing-a-limit-order" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">open_limit_order</span></code> method allows you to place a limit order. A limit order allows you to specify the desired execution price for the trade. This is similar to opening a market trade, but with the order type set to <cite>LIMIT</cite> and an open price specified.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">build_trade_open_tx</span></code> method with <code class="docutils literal notranslate"><span class="pre">trade_input_order_type</span></code> set to <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> allows you to place a limit order. A limit order allows you to specify the desired execution price for the trade. This is similar to opening a market trade, but with the order type set to <cite>LIMIT</cite> and an open price specified.</p>
 <p><strong>Example Usage:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">TradeInput</span><span class="p">,</span> <span class="n">TradeInputOrderType</span>
@@ -678,15 +667,110 @@
 <li><p>Updating TP/SL parameters can help manage risk and optimize trade outcomes without requiring additional actions on the trader’s part.</p></li>
 </ul>
 </section>
+<section id="opening-a-zero-fee-market-trade">
+<h2>Opening a Zero Fee Market Trade<a class="headerlink" href="#opening-a-zero-fee-market-trade" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">build_trade_open_tx</span></code> method with <code class="docutils literal notranslate"><span class="pre">trade_input_order_type</span></code> set to <code class="docutils literal notranslate"><span class="pre">MARKET_ZERO_FEE</span></code> allows you to open a new market trade with zero fees. Follow the steps below to open a trade using the SDK.</p>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">avantis_trader_sdk</span> <span class="kn">import</span> <span class="n">TraderClient</span><span class="p">,</span> <span class="n">TradeInput</span><span class="p">,</span> <span class="n">TradeInputOrderType</span>
+
+<span class="n">private_key</span> <span class="o">=</span> <span class="s2">&quot;0xmyprivatekey&quot;</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Initialize TraderClient</span>
+    <span class="n">provider_url</span> <span class="o">=</span> <span class="s2">&quot;https://mainnet.base.org&quot;</span>  <span class="c1"># Find provider URL for Base Mainnet Chain from https://chainlist.org/chain/8453 or use a dedicated node (Alchemy, Infura, etc.)</span>
+    <span class="n">trader_client</span> <span class="o">=</span> <span class="n">TraderClient</span><span class="p">(</span><span class="n">provider_url</span><span class="p">)</span>
+
+    <span class="c1"># Set local signer</span>
+    <span class="n">trader_client</span><span class="o">.</span><span class="n">set_local_signer</span><span class="p">(</span><span class="n">private_key</span><span class="p">)</span> <span class="c1"># Alternatively, you can use set_aws_kms_signer() to use a key from AWS KMS or create your own signer by inheriting BaseSigner class</span>
+
+    <span class="n">trader</span> <span class="o">=</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">get_signer</span><span class="p">()</span><span class="o">.</span><span class="n">get_ethereum_address</span><span class="p">()</span>
+
+    <span class="c1"># Check allowance of USDC</span>
+    <span class="n">allowance</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">get_usdc_allowance_for_trading</span><span class="p">(</span><span class="n">trader</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Allowance of </span><span class="si">{</span><span class="n">trader</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">allowance</span><span class="si">}</span><span class="s2"> USDC&quot;</span><span class="p">)</span>
+
+    <span class="n">amount_of_collateral</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">if</span> <span class="n">allowance</span> <span class="o">&lt;</span> <span class="n">amount_of_collateral</span><span class="p">:</span>
+     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Allowance of </span><span class="si">{</span><span class="n">trader</span><span class="si">}</span><span class="s2"> is less than </span><span class="si">{</span><span class="n">amount_of_collateral</span><span class="si">}</span><span class="s2"> USDC. Approving...&quot;</span><span class="p">)</span>
+     <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">approve_usdc_for_trading</span><span class="p">(</span><span class="n">amount_of_collateral</span><span class="p">)</span>
+     <span class="n">allowance</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">get_usdc_allowance_for_trading</span><span class="p">(</span><span class="n">trader</span><span class="p">)</span>
+     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New allowance of </span><span class="si">{</span><span class="n">trader</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">allowance</span><span class="si">}</span><span class="s2"> USDC&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get pair index of the pair. For example, ETH/USD</span>
+    <span class="n">pair_index_of_eth_usd</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">pairs_cache</span><span class="o">.</span><span class="n">get_pair_index</span><span class="p">(</span><span class="s2">&quot;ETH/USD&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Prepare trade input</span>
+    <span class="n">trade_input</span> <span class="o">=</span> <span class="n">TradeInput</span><span class="p">(</span>
+        <span class="n">trader</span><span class="o">=</span><span class="n">trader</span><span class="p">,</span>  <span class="c1"># Trader&#39;s wallet address</span>
+        <span class="n">open_price</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># (Optional) Open price of the trade. Current price in case of Market orders. If None then it will default to the current price</span>
+        <span class="n">pair_index</span><span class="o">=</span><span class="n">pair_index_of_eth_usd</span><span class="p">,</span>  <span class="c1"># Pair index</span>
+        <span class="n">collateral_in_trade</span><span class="o">=</span><span class="n">amount_of_collateral</span><span class="p">,</span>  <span class="c1"># Amount of collateral in trade (in USDC)</span>
+        <span class="n">is_long</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># True for long, False for short</span>
+        <span class="n">leverage</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>  <span class="c1"># Leverage for the trade</span>
+        <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># This is the index of the trade for a pair (0 for the first trade, 1 for the second, etc.)</span>
+        <span class="n">tp</span><span class="o">=</span><span class="mf">4000.5</span><span class="p">,</span>  <span class="c1"># Take profit price. Max allowed is 500% of open price.</span>
+        <span class="n">sl</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Stop loss price</span>
+        <span class="n">timestamp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Timestamp of the trade. 0 for now</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 1% slippage</span>
+    <span class="n">slippage_percentage</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># Order type for the trade (MARKET or LIMIT or STOP_LIMIT or MARKET_ZERO_FEE)</span>
+    <span class="n">trade_input_order_type</span> <span class="o">=</span> <span class="n">TradeInputOrderType</span><span class="o">.</span><span class="n">MARKET_ZERO_FEE</span>
+
+    <span class="c1"># Notes:</span>
+    <span class="c1"># - Limit orders are not supported for zero fee trades</span>
+    <span class="c1"># - Withdrawing collateral is not supported for zero fee trades</span>
+    <span class="c1"># - No referral discounts are applied for zero fee trades</span>
+    <span class="c1"># - Loss protection is not applied for zero fee trades</span>
+
+    <span class="c1"># Open trade</span>
+    <span class="n">open_transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">trade</span><span class="o">.</span><span class="n">build_trade_open_tx</span><span class="p">(</span>
+        <span class="n">trade_input</span><span class="p">,</span> <span class="n">trade_input_order_type</span><span class="p">,</span> <span class="n">slippage_percentage</span>
+    <span class="p">)</span>
+
+    <span class="n">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="n">trader_client</span><span class="o">.</span><span class="n">sign_and_get_receipt</span><span class="p">(</span><span class="n">open_transaction</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">receipt</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trade opened successfully!&quot;</span><span class="p">)</span>
+
+<span class="c1"># Run the example</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Steps Explained:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Initialize the TraderClient:</strong>
+- Connect to the Base Mainnet using a provider URL.</p></li>
+<li><p><strong>Get Pair Index:</strong>
+- Retrieve the index of the trading pair (e.g., ETH/USD).</p></li>
+<li><p><strong>Prepare Trade Input:</strong>
+- Define the trade details such as trader’s address, collateral, leverage, and more.</p></li>
+<li><p><strong>Set Slippage and Order Type:</strong>
+- Define slippage tolerance and choose the order type (MARKET_ZERO_FEE for zero fee market trades).</p></li>
+<li><p><strong>Build and Send Transaction:</strong>
+- Construct the transaction to open the trade and send it to the blockchain.</p></li>
+</ol>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>Limit orders are not supported for zero fee trades.</p></li>
+<li><p>Withdrawing collateral is not supported for zero fee trades.</p></li>
+<li><p>No referral discounts are applied for zero fee trades.</p></li>
+<li><p>Loss protection is not applied for zero fee trades.</p></li>
+<li><p>Ensure that the parameters such as <cite>trade_input</cite>, <cite>slippage_percentage</cite>, and <cite>trade_input_order_type</cite> are correctly set.</p></li>
+<li><p>An execution fee is charged in ETH to execute the close trade transaction. This fee is required to cover the gas costs on the Ethereum network. This is automatically calculated.</p></li>
+<li><p>Refer to the Avantis documentation for more details on trading fees mechanisms - <a class="reference external" href="https://docs.avantisfi.com/">https://docs.avantisfi.com/</a>.</p></li>
+</ul>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="get_information_and_parameters.html" class="btn btn-neutral float-right" title="Get Information and Parameters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
