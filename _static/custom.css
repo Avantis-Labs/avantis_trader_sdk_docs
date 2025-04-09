@@ -63,7 +63,8 @@ a {
   color: #a8acb8;
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
-  background-color: inherit; }
+  background-color: inherit;
+  line-height: 21px; }
   .wy-menu-vertical a:hover {
     background-color: unset;
     opacity: 1; }
