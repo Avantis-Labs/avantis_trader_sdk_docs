@@ -9,6 +9,8 @@
   <title>avantis_trader_sdk.rpc package &mdash; Avantis Trader SDK  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a6a68382" />
+      <link rel="stylesheet" type="text/css" href="_static/fonts.css?v=5583d106" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -40,72 +42,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">avantis_trader_sdk.rpc package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-avantis_trader_sdk.rpc.asset_parameters">avantis_trader_sdk.rpc.asset_parameters module</a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC</span></code></a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_asset_skew"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_asset_skew()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_oi"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_oi()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_oi_limits"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_oi_limits()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_one_percent_depth"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_one_percent_depth()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_opening_price_impact_spread"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_opening_price_impact_spread()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_price_impact_spread"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_price_impact_spread()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_skew_impact_spread"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_skew_impact_spread()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.asset_parameters.AssetParametersRPC.get_utilization"><code class="docutils literal notranslate"><span class="pre">AssetParametersRPC.get_utilization()</span></code></a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trade.html">Trade Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_information_and_parameters.html">Get Information and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-avantis_trader_sdk.rpc.blended">avantis_trader_sdk.rpc.blended module</a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.blended.BlendedRPC"><code class="docutils literal notranslate"><span class="pre">BlendedRPC</span></code></a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.blended.BlendedRPC.get_blended_skew"><code class="docutils literal notranslate"><span class="pre">BlendedRPC.get_blended_skew()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.blended.BlendedRPC.get_blended_utilization_ratio"><code class="docutils literal notranslate"><span class="pre">BlendedRPC.get_blended_utilization_ratio()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-avantis_trader_sdk.rpc.category_parameters">avantis_trader_sdk.rpc.category_parameters module</a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.category_parameters.CategoryParametersRPC"><code class="docutils literal notranslate"><span class="pre">CategoryParametersRPC</span></code></a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.category_parameters.CategoryParametersRPC.get_category_skew"><code class="docutils literal notranslate"><span class="pre">CategoryParametersRPC.get_category_skew()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.category_parameters.CategoryParametersRPC.get_oi"><code class="docutils literal notranslate"><span class="pre">CategoryParametersRPC.get_oi()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.category_parameters.CategoryParametersRPC.get_oi_limits"><code class="docutils literal notranslate"><span class="pre">CategoryParametersRPC.get_oi_limits()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.category_parameters.CategoryParametersRPC.get_utilization"><code class="docutils literal notranslate"><span class="pre">CategoryParametersRPC.get_utilization()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-avantis_trader_sdk.rpc.fee_parameters">avantis_trader_sdk.rpc.fee_parameters module</a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC</span></code></a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.constant_spread_parameter"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC.constant_spread_parameter()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_margin_fee"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC.get_margin_fee()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_new_trade_opening_fee"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC.get_new_trade_opening_fee()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.fee_parameters.FeeParametersRPC.get_opening_fee"><code class="docutils literal notranslate"><span class="pre">FeeParametersRPC.get_opening_fee()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-avantis_trader_sdk.rpc.pairs_cache">avantis_trader_sdk.rpc.pairs_cache module</a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache"><code class="docutils literal notranslate"><span class="pre">PairsCache</span></code></a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_group_indexes"><code class="docutils literal notranslate"><span class="pre">PairsCache.get_group_indexes()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pair_index"><code class="docutils literal notranslate"><span class="pre">PairsCache.get_pair_index()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pair_name_from_index"><code class="docutils literal notranslate"><span class="pre">PairsCache.get_pair_name_from_index()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pairs_count"><code class="docutils literal notranslate"><span class="pre">PairsCache.get_pairs_count()</span></code></a></li>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pairs_info"><code class="docutils literal notranslate"><span class="pre">PairsCache.get_pairs_info()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-avantis_trader_sdk.rpc.rpc_helpers">avantis_trader_sdk.rpc.rpc_helpers module</a><ul>
-<li><a class="reference internal" href="#avantis_trader_sdk.rpc.rpc_helpers.map_output_to_pairs"><code class="docutils literal notranslate"><span class="pre">map_output_to_pairs()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-avantis_trader_sdk.rpc">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
