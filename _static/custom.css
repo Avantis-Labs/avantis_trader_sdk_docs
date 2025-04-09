@@ -190,3 +190,6 @@ a {
 
 .wy-menu-vertical li.current a {
   padding: 0.55em 2.427em !important; }
+
+.wy-nav-top > a {
+  color: #fff !important; }
