@@ -18,11 +18,11 @@ Then you can edit and make changes to this file and see the results by doing the
     background: #101115; } }
 
 a {
-  color: #b84ff3; }
+  color: #7d17ff; }
   a:hover {
-    color: #ddabf8; }
-  a:visited {
     color: #b84ff3; }
+  a:visited {
+    color: #7d17ff; }
 
 .rst-content {
   color: #3d3d3d; }
