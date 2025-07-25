@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Changelog &mdash; Avantis Trader SDK  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a6a68382" />
       <link rel="stylesheet" type="text/css" href="_static/fonts.css?v=5583d106" />
@@ -16,7 +16,7 @@
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -85,6 +85,11 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
+<p><strong>Version 0.8.3 (2025-07-25)</strong></p>
+<ul class="simple">
+<li><p><strong>New Features:</strong>
+- Added support for using a custom socket API for pair feeds.</p></li>
+</ul>
 <p><strong>Version 0.8.2 (2025-04-07)</strong></p>
 <ul class="simple">
 <li><p><strong>Bug Fixes:</strong>
@@ -133,7 +138,7 @@
 <ul class="simple">
 <li><p>The <cite>TradeInputOrderType</cite> enum has been updated to support the <strong>new PnL order type</strong>:</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TradeInputOrderType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">TradeInputOrderType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="o">...</span>
     <span class="n">MARKET_PNL</span> <span class="o">=</span> <span class="mi">3</span>
 </pre></div>

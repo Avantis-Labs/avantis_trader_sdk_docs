@@ -6,14 +6,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>avantis_trader_sdk.client &mdash; Avantis Trader SDK  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=a6a68382" />
+      <link rel="stylesheet" type="text/css" href="../../_static/fonts.css?v=5583d106" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -39,8 +41,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../trade.html">Trade Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_information_and_parameters.html">Get Information and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faqs.html">FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support.html">Support</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -66,38 +80,39 @@
            <div itemprop="articleBody">
              
   <h1>Source code for avantis_trader_sdk.client</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">web3</span> <span class="kn">import</span> <span class="n">Web3</span><span class="p">,</span> <span class="n">AsyncWeb3</span>
-<span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">CONTRACT_ADDRESSES</span>
-<span class="kn">from</span> <span class="nn">.rpc.pairs_cache</span> <span class="kn">import</span> <span class="n">PairsCache</span>
-<span class="kn">from</span> <span class="nn">.rpc.asset_parameters</span> <span class="kn">import</span> <span class="n">AssetParametersRPC</span>
-<span class="kn">from</span> <span class="nn">.rpc.category_parameters</span> <span class="kn">import</span> <span class="n">CategoryParametersRPC</span>
-<span class="kn">from</span> <span class="nn">.rpc.blended</span> <span class="kn">import</span> <span class="n">BlendedRPC</span>
-<span class="kn">from</span> <span class="nn">.rpc.fee_parameters</span> <span class="kn">import</span> <span class="n">FeeParametersRPC</span>
-<span class="kn">from</span> <span class="nn">.rpc.trading_parameters</span> <span class="kn">import</span> <span class="n">TradingParametersRPC</span>
-<span class="kn">from</span> <span class="nn">.rpc.snapshot</span> <span class="kn">import</span> <span class="n">SnapshotRPC</span>
-<span class="kn">from</span> <span class="nn">.rpc.trade</span> <span class="kn">import</span> <span class="n">TradeRPC</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">decoder</span>
-<span class="kn">from</span> <span class="nn">.feed.feed_client</span> <span class="kn">import</span> <span class="n">FeedClient</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">web3</span><span class="w"> </span><span class="kn">import</span> <span class="n">Web3</span><span class="p">,</span> <span class="n">AsyncWeb3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">CONTRACT_ADDRESSES</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rpc.pairs_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">PairsCache</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rpc.asset_parameters</span><span class="w"> </span><span class="kn">import</span> <span class="n">AssetParametersRPC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rpc.category_parameters</span><span class="w"> </span><span class="kn">import</span> <span class="n">CategoryParametersRPC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rpc.blended</span><span class="w"> </span><span class="kn">import</span> <span class="n">BlendedRPC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rpc.fee_parameters</span><span class="w"> </span><span class="kn">import</span> <span class="n">FeeParametersRPC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rpc.trading_parameters</span><span class="w"> </span><span class="kn">import</span> <span class="n">TradingParametersRPC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rpc.snapshot</span><span class="w"> </span><span class="kn">import</span> <span class="n">SnapshotRPC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rpc.trade</span><span class="w"> </span><span class="kn">import</span> <span class="n">TradeRPC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">decoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.feed.feed_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">FeedClient</span>
 
-<span class="kn">from</span> <span class="nn">.signers.base</span> <span class="kn">import</span> <span class="n">BaseSigner</span>
-<span class="kn">from</span> <span class="nn">.signers.local_signer</span> <span class="kn">import</span> <span class="n">LocalSigner</span>
-<span class="kn">from</span> <span class="nn">.signers.kms_signer</span> <span class="kn">import</span> <span class="n">KMSSigner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.signers.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSigner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.signers.local_signer</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalSigner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.signers.kms_signer</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMSSigner</span>
 
 
 <div class="viewcode-block" id="TraderClient">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient">[docs]</a>
-<span class="k">class</span> <span class="nc">TraderClient</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TraderClient</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class provides methods to interact with the Avantis smart contracts.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">provider_url</span><span class="p">,</span>
         <span class="n">l1_provider_url</span><span class="o">=</span><span class="s2">&quot;https://eth.llamarpc.com&quot;</span><span class="p">,</span>
         <span class="n">signer</span><span class="p">:</span> <span class="n">BaseSigner</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">feed_client</span><span class="p">:</span> <span class="n">FeedClient</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for the TraderClient class.</span>
@@ -136,13 +151,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fee_parameters</span> <span class="o">=</span> <span class="n">FeeParametersRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trading_parameters</span> <span class="o">=</span> <span class="n">TradingParametersRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">snapshot</span> <span class="o">=</span> <span class="n">SnapshotRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trade</span> <span class="o">=</span> <span class="n">TradeRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FeedClient</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feed_client</span> <span class="o">=</span> <span class="n">feed_client</span> <span class="ow">or</span> <span class="n">FeedClient</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trade</span> <span class="o">=</span> <span class="n">TradeRPC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">feed_client</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">signer</span> <span class="o">=</span> <span class="n">signer</span>
 
 <div class="viewcode-block" id="TraderClient.load_contract">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.load_contract">[docs]</a>
-    <span class="k">def</span> <span class="nf">load_contract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_contract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads the contract ABI and address from the local filesystem.</span>
 
@@ -161,7 +177,7 @@
 
 <div class="viewcode-block" id="TraderClient.load_contracts">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.load_contracts">[docs]</a>
-    <span class="k">def</span> <span class="nf">load_contracts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_contracts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads all the contracts mentioned in the config from the local filesystem.</span>
 
@@ -173,7 +189,7 @@
 
 <div class="viewcode-block" id="TraderClient.read_contract">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.read_contract">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">read_contract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_contract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calls a read-only function of a contract.</span>
 
@@ -199,7 +215,7 @@
 
 <div class="viewcode-block" id="TraderClient.write_contract">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.write_contract">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">write_contract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">write_contract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contract_name</span><span class="p">,</span> <span class="n">function_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calls a write function of a contract.</span>
 
@@ -237,7 +253,7 @@
 
 <div class="viewcode-block" id="TraderClient.set_signer">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.set_signer">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signer</span><span class="p">:</span> <span class="n">BaseSigner</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signer</span><span class="p">:</span> <span class="n">BaseSigner</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the signer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -246,7 +262,7 @@
 
 <div class="viewcode-block" id="TraderClient.get_signer">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_signer">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the signer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -255,7 +271,7 @@
 
 <div class="viewcode-block" id="TraderClient.remove_signer">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.remove_signer">[docs]</a>
-    <span class="k">def</span> <span class="nf">remove_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Removes the signer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -264,7 +280,7 @@
 
 <div class="viewcode-block" id="TraderClient.has_signer">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.has_signer">[docs]</a>
-    <span class="k">def</span> <span class="nf">has_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">has_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks if the signer is set.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -273,7 +289,7 @@
 
 <div class="viewcode-block" id="TraderClient.set_local_signer">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.set_local_signer">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_local_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_local_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">private_key</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the local signer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -282,7 +298,7 @@
 
 <div class="viewcode-block" id="TraderClient.set_aws_kms_signer">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.set_aws_kms_signer">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_aws_kms_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kms_key_id</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s2">&quot;us-east-1&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_aws_kms_signer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kms_key_id</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s2">&quot;us-east-1&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the AWS KMS signer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -291,7 +307,7 @@
 
 <div class="viewcode-block" id="TraderClient.sign_transaction">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.sign_transaction">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Signs a transaction.</span>
 
@@ -310,7 +326,7 @@
 
 <div class="viewcode-block" id="TraderClient.send_and_get_transaction_hash">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.send_and_get_transaction_hash">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">send_and_get_transaction_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signed_txn</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_and_get_transaction_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signed_txn</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the transaction hash.</span>
 
@@ -325,7 +341,7 @@
 
 <div class="viewcode-block" id="TraderClient.wait_for_transaction_receipt">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.wait_for_transaction_receipt">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">wait_for_transaction_receipt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">wait_for_transaction_receipt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx_hash</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Waits for the transaction to be mined.</span>
 
@@ -340,7 +356,7 @@
 
 <div class="viewcode-block" id="TraderClient.sign_and_get_receipt">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.sign_and_get_receipt">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_and_get_receipt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">sign_and_get_receipt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Signs a transaction and waits for it to be mined.</span>
 
@@ -359,7 +375,7 @@
 
 <div class="viewcode-block" id="TraderClient.get_transaction_count">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_transaction_count">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_transaction_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_transaction_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the transaction count.</span>
 
@@ -376,7 +392,7 @@
 
 <div class="viewcode-block" id="TraderClient.get_gas_price">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_gas_price">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_gas_price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_gas_price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the gas price.</span>
 
@@ -388,7 +404,7 @@
 
 <div class="viewcode-block" id="TraderClient.get_chain_id">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_chain_id">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_chain_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_chain_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the chain id.</span>
 
@@ -400,7 +416,7 @@
 
 <div class="viewcode-block" id="TraderClient.get_balance">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_balance">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the balance.</span>
 
@@ -418,7 +434,7 @@
 
 <div class="viewcode-block" id="TraderClient.get_usdc_balance">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_usdc_balance">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_usdc_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_usdc_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the USDC balance.</span>
 
@@ -436,7 +452,7 @@
 
 <div class="viewcode-block" id="TraderClient.get_usdc_allowance_for_trading">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_usdc_allowance_for_trading">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_usdc_allowance_for_trading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_usdc_allowance_for_trading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the USDC allowance for the Trading Storage contract.</span>
 
@@ -459,7 +475,7 @@
 
 <div class="viewcode-block" id="TraderClient.approve_usdc_for_trading">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.approve_usdc_for_trading">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">approve_usdc_for_trading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">100000</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">approve_usdc_for_trading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">100000</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Approves the USDC amount for the Trading Storage contract.</span>
 
@@ -477,7 +493,7 @@
 
 <div class="viewcode-block" id="TraderClient.get_gas_estimate">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_gas_estimate">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_gas_estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_gas_estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the gas estimate.</span>
 
@@ -492,7 +508,7 @@
 
 <div class="viewcode-block" id="TraderClient.get_transaction_hex">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.client.TraderClient.get_transaction_hex">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_transaction_hex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_transaction_hex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the transaction hex.</span>
 

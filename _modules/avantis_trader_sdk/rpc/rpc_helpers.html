@@ -6,14 +6,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>avantis_trader_sdk.rpc.rpc_helpers &mdash; Avantis Trader SDK  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=a6a68382" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/fonts.css?v=5583d106" />
 
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -80,7 +82,7 @@
   <h1>Source code for avantis_trader_sdk.rpc.rpc_helpers</h1><div class="highlight"><pre>
 <div class="viewcode-block" id="map_output_to_pairs">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.rpc_helpers.map_output_to_pairs">[docs]</a>
-<span></span><span class="k">def</span> <span class="nf">map_output_to_pairs</span><span class="p">(</span><span class="n">pairs_info</span><span class="p">,</span> <span class="n">decoded_response</span><span class="p">):</span>
+<span></span><span class="k">def</span><span class="w"> </span><span class="nf">map_output_to_pairs</span><span class="p">(</span><span class="n">pairs_info</span><span class="p">,</span> <span class="n">decoded_response</span><span class="p">):</span>
     <span class="n">pairs_mapped_response</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">pair_info</span> <span class="ow">in</span> <span class="n">pairs_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">pairs_mapped_response</span><span class="p">[</span><span class="n">pair_info</span><span class="o">.</span><span class="n">from_</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">pair_info</span><span class="o">.</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">decoded_response</span><span class="p">[</span>
@@ -98,7 +100,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Avantis Labs.</p>
+    <p>&#169; Copyright 2025, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

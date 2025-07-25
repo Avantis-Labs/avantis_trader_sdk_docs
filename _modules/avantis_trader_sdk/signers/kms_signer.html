@@ -6,14 +6,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>avantis_trader_sdk.signers.kms_signer &mdash; Avantis Trader SDK  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=a6a68382" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/fonts.css?v=5583d106" />
 
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -78,37 +80,37 @@
            <div itemprop="articleBody">
              
   <h1>Source code for avantis_trader_sdk.signers.kms_signer</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Tuple</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mapping</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">import</span> <span class="nn">boto3</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseSigner</span>
-<span class="kn">from</span> <span class="nn">eth_account._utils.signing</span> <span class="kn">import</span> <span class="n">sign_transaction_dict</span>
-<span class="kn">from</span> <span class="nn">eth_utils.curried</span> <span class="kn">import</span> <span class="n">keccak</span>
-<span class="kn">from</span> <span class="nn">hexbytes</span> <span class="kn">import</span> <span class="n">HexBytes</span>
-<span class="kn">from</span> <span class="nn">toolz</span> <span class="kn">import</span> <span class="n">dissoc</span>
-<span class="kn">from</span> <span class="nn">web3</span> <span class="kn">import</span> <span class="n">Web3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">boto3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSigner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eth_account._utils.signing</span><span class="w"> </span><span class="kn">import</span> <span class="n">sign_transaction_dict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eth_utils.curried</span><span class="w"> </span><span class="kn">import</span> <span class="n">keccak</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hexbytes</span><span class="w"> </span><span class="kn">import</span> <span class="n">HexBytes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">toolz</span><span class="w"> </span><span class="kn">import</span> <span class="n">dissoc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">web3</span><span class="w"> </span><span class="kn">import</span> <span class="n">Web3</span>
 
-<span class="kn">from</span> <span class="nn">..crypto.spki</span> <span class="kn">import</span> <span class="n">der_encoded_public_key_to_eth_address</span><span class="p">,</span> <span class="n">get_sig_r_s_v</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..crypto.spki</span><span class="w"> </span><span class="kn">import</span> <span class="n">der_encoded_public_key_to_eth_address</span><span class="p">,</span> <span class="n">get_sig_r_s_v</span>
 
 
 <div class="viewcode-block" id="Signature">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.Signature">[docs]</a>
-<span class="k">class</span> <span class="nc">Signature</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Signature</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Kinda compatible Signature class&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">r</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">s</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">v</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">vrs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">vrs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span></div>
 
 
 
-<span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
@@ -117,7 +119,7 @@
 
 <div class="viewcode-block" id="SignedTransaction">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.SignedTransaction">[docs]</a>
-<span class="k">class</span> <span class="nc">SignedTransaction</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SignedTransaction</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Kinda compatible SignedTransaction class&quot;&quot;&quot;</span>
 
     <span class="n">rawTransaction</span><span class="p">:</span> <span class="n">HexBytes</span>
@@ -126,15 +128,15 @@
     <span class="n">s</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">v</span><span class="p">:</span> <span class="nb">int</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="KMSSigner">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner">[docs]</a>
-<span class="k">class</span> <span class="nc">KMSSigner</span><span class="p">(</span><span class="n">BaseSigner</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">web3</span><span class="p">,</span> <span class="n">kms_key_id</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s2">&quot;us-east-1&quot;</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">KMSSigner</span><span class="p">(</span><span class="n">BaseSigner</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">web3</span><span class="p">,</span> <span class="n">kms_key_id</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s2">&quot;us-east-1&quot;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_web3</span> <span class="o">=</span> <span class="n">web3</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_id</span> <span class="o">=</span> <span class="n">kms_key_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kms_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;kms&quot;</span><span class="p">,</span> <span class="n">region_name</span><span class="p">)</span>
@@ -142,7 +144,7 @@
 
 <div class="viewcode-block" id="KMSSigner.sign_transaction">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.sign_transaction">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Signs a transaction using AWS KMS.</span>
 
@@ -157,7 +159,7 @@
 
 <div class="viewcode-block" id="KMSSigner.get_public_key">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.get_public_key">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_public_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_public_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves the public key associated with the KMS key.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -167,7 +169,7 @@
 
 <div class="viewcode-block" id="KMSSigner.get_ethereum_address">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.get_ethereum_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_ethereum_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_ethereum_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Derives the Ethereum wallet address from the public key.</span>
 
@@ -177,7 +179,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span></div>
 
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SignedTransaction</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_sign_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SignedTransaction</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Somewhat fixed up version of Account.sign_transaction, to use the custom PrivateKey</span>
 <span class="sd">        impl -- BasicKmsAccount</span>
@@ -228,7 +230,7 @@
 
 <div class="viewcode-block" id="KMSSigner.get_eth_address">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.get_eth_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_eth_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_eth_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate ethereum address for given AWS KMS key.&quot;&quot;&quot;</span>
         <span class="n">pubkey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kms_client</span><span class="o">.</span><span class="n">get_public_key</span><span class="p">(</span><span class="n">KeyId</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_id</span><span class="p">)[</span><span class="s2">&quot;PublicKey&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">der_encoded_public_key_to_eth_address</span><span class="p">(</span><span class="n">pubkey</span><span class="p">)</span></div>
@@ -236,7 +238,7 @@
 
 <div class="viewcode-block" id="KMSSigner.sign_msg_hash">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.sign_msg_hash">[docs]</a>
-    <span class="k">def</span> <span class="nf">sign_msg_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg_hash</span><span class="p">:</span> <span class="n">HexBytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sign_msg_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg_hash</span><span class="p">:</span> <span class="n">HexBytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signature</span><span class="p">:</span>
         <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kms_client</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span>
             <span class="n">KeyId</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_id</span><span class="p">,</span>
             <span class="n">Message</span><span class="o">=</span><span class="nb">bytes</span><span class="p">(</span><span class="n">msg_hash</span><span class="p">),</span>
@@ -257,7 +259,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Avantis Labs.</p>
+    <p>&#169; Copyright 2025, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

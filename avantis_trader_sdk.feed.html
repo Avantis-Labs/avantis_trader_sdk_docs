@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>avantis_trader_sdk.feed package &mdash; Avantis Trader SDK  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a6a68382" />
       <link rel="stylesheet" type="text/css" href="_static/fonts.css?v=5583d106" />
@@ -16,7 +16,7 @@
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -89,12 +89,15 @@
 <span id="avantis-trader-sdk-feed-feed-client-module"></span><h2>avantis_trader_sdk.feed.feed_client module<a class="headerlink" href="#module-avantis_trader_sdk.feed.feed_client" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.feed.feed_client.</span></span><span class="sig-name descname"><span class="pre">FeedClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wss://hermes.pyth.network/ws'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hermes_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://hermes.pyth.network/v2/updates/price/latest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pair_fetcher</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.feed.feed_client.</span></span><span class="sig-name descname"><span class="pre">FeedClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wss://hermes.pyth.network/ws'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hermes_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://hermes.pyth.network/v2/updates/price/latest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">socket_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AVANTIS_SOCKET_API</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pair_fetcher</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Client for interacting with the Pyth price feed websocket.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>pair_fetcher</strong> (<em>Callable</em>)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>socket_api</strong> (<em>str</em>)</p></li>
+<li><p><strong>pair_fetcher</strong> (<em>Callable</em>)</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
@@ -155,6 +158,12 @@ be called with the updated price feed data.</p>
 <dd class="field-odd"><p><strong>Exception</strong> – If an error occurs while listening for price updates.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.load_pair_feeds">
+<span class="sig-name descname"><span class="pre">load_pair_feeds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.load_pair_feeds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.load_pair_feeds" title="Link to this definition"></a></dt>
+<dd><p>Loads the pair feeds dynamically using the provided pair_fetcher function.</p>
 </dd></dl>
 
 <dl class="py method">

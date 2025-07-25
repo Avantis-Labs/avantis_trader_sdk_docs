@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>avantis_trader_sdk.types &mdash; Avantis Trader SDK  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=a6a68382" />
       <link rel="stylesheet" type="text/css" href="../../_static/fonts.css?v=5583d106" />
@@ -15,7 +15,7 @@
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -80,7 +80,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for avantis_trader_sdk.types</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="p">(</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseModel</span><span class="p">,</span>
     <span class="n">Field</span><span class="p">,</span>
     <span class="n">conint</span><span class="p">,</span>
@@ -88,13 +88,13 @@
     <span class="n">ValidationError</span><span class="p">,</span>
     <span class="n">model_validator</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 
 
-<span class="k">class</span> <span class="nc">PairInfoFeed</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairInfoFeed</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">max_open_deviation_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;maxOpenDeviationP&quot;</span><span class="p">)</span>
     <span class="n">max_close_deviation_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;maxCloseDeviationP&quot;</span><span class="p">)</span>
 
@@ -103,29 +103,29 @@
     <span class="nd">@field_validator</span><span class="p">(</span>
         <span class="s2">&quot;max_open_deviation_percentage&quot;</span><span class="p">,</span> <span class="s2">&quot;max_close_deviation_percentage&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_max_deviation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_max_deviation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span>
 
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span>
 
 
 <div class="viewcode-block" id="PairInfoBackupFeed">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoBackupFeed">[docs]</a>
-<span class="k">class</span> <span class="nc">PairInfoBackupFeed</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairInfoBackupFeed</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">max_deviation_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;maxDeviationP&quot;</span><span class="p">)</span>
     <span class="n">feed_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;feedId&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PairInfoBackupFeed.convert_max_deviation">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoBackupFeed.convert_max_deviation">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;max_deviation_percentage&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_max_deviation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_max_deviation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span></div>
 
 
 <div class="viewcode-block" id="PairInfoBackupFeed.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoBackupFeed.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
@@ -133,7 +133,7 @@
 
 <div class="viewcode-block" id="PairInfoLeverages">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoLeverages">[docs]</a>
-<span class="k">class</span> <span class="nc">PairInfoLeverages</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairInfoLeverages</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">min_leverage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;minLeverage&quot;</span><span class="p">)</span>
     <span class="n">max_leverage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;maxLeverage&quot;</span><span class="p">)</span>
     <span class="n">pnl_min_leverage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;pnlMinLeverage&quot;</span><span class="p">)</span>
@@ -148,7 +148,7 @@
         <span class="s2">&quot;pnl_max_leverage&quot;</span><span class="p">,</span>
         <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_max_deviation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_max_deviation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span></div>
 </div>
 
@@ -156,7 +156,7 @@
 
 <div class="viewcode-block" id="PairInfoValues">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoValues">[docs]</a>
-<span class="k">class</span> <span class="nc">PairInfoValues</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairInfoValues</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">max_gain_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;maxGainP&quot;</span><span class="p">)</span>
     <span class="n">max_sl_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;maxSlP&quot;</span><span class="p">)</span>
     <span class="n">max_long_oi_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;maxLongOiP&quot;</span><span class="p">)</span>
@@ -171,7 +171,7 @@
 
 <div class="viewcode-block" id="PairInfo">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo">[docs]</a>
-<span class="k">class</span> <span class="nc">PairInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">feed</span><span class="p">:</span> <span class="n">PairInfoFeed</span>
     <span class="n">backup_feed</span><span class="p">:</span> <span class="n">PairInfoBackupFeed</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;backupFeed&quot;</span><span class="p">)</span>
     <span class="n">constant_spread_bps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;spreadP&quot;</span><span class="p">)</span>
@@ -186,20 +186,20 @@
 <div class="viewcode-block" id="PairInfo.convert_to_float_10">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.convert_to_float_10">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;price_impact_parameter&quot;</span><span class="p">,</span> <span class="s2">&quot;skew_impact_parameter&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span></div>
 
 
 <div class="viewcode-block" id="PairInfo.convert_to_float_10_bps">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.convert_to_float_10_bps">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;constant_spread_bps&quot;</span><span class="p">,</span> <span class="s2">&quot;constant_pnl_spread_bps&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_10_bps</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_10_bps</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">100</span></div>
 
 
 <div class="viewcode-block" id="PairInfo.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfo.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
@@ -207,7 +207,7 @@
 
 <div class="viewcode-block" id="PairData">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairData">[docs]</a>
-<span class="k">class</span> <span class="nc">PairData</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairData</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">from_</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;from&quot;</span><span class="p">)</span>
     <span class="n">to</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">num_tiers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;numTiers&quot;</span><span class="p">)</span>
@@ -217,7 +217,7 @@
 <div class="viewcode-block" id="PairData.convert_tuple_to_dict">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairData.convert_tuple_to_dict">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;tier_thresholds&quot;</span><span class="p">,</span> <span class="s2">&quot;tier_timers&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_tuple_to_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_tuple_to_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">v</span><span class="p">)}</span>
         <span class="k">return</span> <span class="n">v</span></div>
@@ -227,10 +227,10 @@
 
 <div class="viewcode-block" id="PairInfoWithData">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoWithData">[docs]</a>
-<span class="k">class</span> <span class="nc">PairInfoWithData</span><span class="p">(</span><span class="n">PairInfo</span><span class="p">,</span> <span class="n">PairData</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairInfoWithData</span><span class="p">(</span><span class="n">PairInfo</span><span class="p">,</span> <span class="n">PairData</span><span class="p">):</span>
 <div class="viewcode-block" id="PairInfoWithData.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoWithData.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
@@ -239,7 +239,7 @@
 
 <div class="viewcode-block" id="PairInfoFeed">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed">[docs]</a>
-<span class="k">class</span> <span class="nc">PairInfoFeed</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairInfoFeed</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">from_</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;from&quot;</span><span class="p">)</span>
     <span class="n">to</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">feed</span><span class="p">:</span> <span class="n">PairInfoFeed</span>
@@ -247,7 +247,7 @@
 
 <div class="viewcode-block" id="PairInfoFeed.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoFeed.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
@@ -255,7 +255,7 @@
 
 <div class="viewcode-block" id="OpenInterest">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterest">[docs]</a>
-<span class="k">class</span> <span class="nc">OpenInterest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OpenInterest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">long</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 
     <span class="n">short</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span></div>
@@ -264,28 +264,28 @@
 
 <div class="viewcode-block" id="OpenInterestLimits">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.OpenInterestLimits">[docs]</a>
-<span class="k">class</span> <span class="nc">OpenInterestLimits</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OpenInterestLimits</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">limits</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span></div>
 
 
 
 <div class="viewcode-block" id="Utilization">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.Utilization">[docs]</a>
-<span class="k">class</span> <span class="nc">Utilization</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Utilization</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">utilization</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span></div>
 
 
 
 <div class="viewcode-block" id="Skew">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.Skew">[docs]</a>
-<span class="k">class</span> <span class="nc">Skew</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Skew</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">skew</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span></div>
 
 
 
 <div class="viewcode-block" id="MarginFee">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFee">[docs]</a>
-<span class="k">class</span> <span class="nc">MarginFee</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MarginFee</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">hourly_base_fee_parameter</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
     <span class="n">hourly_margin_fee_long_bps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
     <span class="n">hourly_margin_fee_short_bps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span></div>
@@ -294,7 +294,7 @@
 
 <div class="viewcode-block" id="MarginFeeSingle">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.MarginFeeSingle">[docs]</a>
-<span class="k">class</span> <span class="nc">MarginFeeSingle</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MarginFeeSingle</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">hourly_base_fee_parameter</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">hourly_margin_fee_long_bps</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">hourly_margin_fee_short_bps</span><span class="p">:</span> <span class="nb">float</span></div>
@@ -303,7 +303,7 @@
 
 <div class="viewcode-block" id="DepthSingle">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.DepthSingle">[docs]</a>
-<span class="k">class</span> <span class="nc">DepthSingle</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DepthSingle</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">above</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">below</span><span class="p">:</span> <span class="nb">float</span></div>
 
@@ -311,7 +311,7 @@
 
 <div class="viewcode-block" id="PairInfoExtended">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended">[docs]</a>
-<span class="k">class</span> <span class="nc">PairInfoExtended</span><span class="p">(</span><span class="n">PairInfoWithData</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairInfoExtended</span><span class="p">(</span><span class="n">PairInfoWithData</span><span class="p">):</span>
     <span class="n">asset_open_interest_limit</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">asset_open_interest</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
     <span class="n">asset_utilization</span><span class="p">:</span> <span class="nb">float</span>
@@ -333,7 +333,7 @@
 
 <div class="viewcode-block" id="PairInfoExtended.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairInfoExtended.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
@@ -341,14 +341,14 @@
 
 <div class="viewcode-block" id="PairSpread">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PairSpread">[docs]</a>
-<span class="k">class</span> <span class="nc">PairSpread</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairSpread</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">spread</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span></div>
 
 
 
 <div class="viewcode-block" id="PriceFeedResponse">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse">[docs]</a>
-<span class="k">class</span> <span class="nc">PriceFeedResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PriceFeedResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">price</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">ema_price</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -360,7 +360,7 @@
 <div class="viewcode-block" id="PriceFeedResponse.convert_price">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedResponse.convert_price">[docs]</a>
     <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_price</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_price</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="n">price_info</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;price&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">price_info</span><span class="p">:</span>
             <span class="n">values</span><span class="p">[</span><span class="s2">&quot;converted_price&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">price_info</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="nb">int</span><span class="p">(</span>
@@ -380,7 +380,7 @@
 
 <div class="viewcode-block" id="PriceFeesUpdateBinary">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeesUpdateBinary">[docs]</a>
-<span class="k">class</span> <span class="nc">PriceFeesUpdateBinary</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PriceFeesUpdateBinary</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">encoding</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></div>
 
@@ -388,7 +388,7 @@
 
 <div class="viewcode-block" id="PriceFeedUpdatesResponse">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PriceFeedUpdatesResponse">[docs]</a>
-<span class="k">class</span> <span class="nc">PriceFeedUpdatesResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PriceFeedUpdatesResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">binary</span><span class="p">:</span> <span class="n">PriceFeesUpdateBinary</span>
     <span class="n">parsed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PriceFeedResponse</span><span class="p">]</span></div>
 
@@ -396,14 +396,14 @@
 
 <div class="viewcode-block" id="Spread">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.Spread">[docs]</a>
-<span class="k">class</span> <span class="nc">Spread</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Spread</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">long</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">short</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Spread.check_at_least_one">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.Spread.check_at_least_one">[docs]</a>
     <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">check_at_least_one</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_at_least_one</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;long&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;short&quot;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least one of &quot;long&quot; or &quot;short&quot; must be present.&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">values</span></div>
@@ -413,14 +413,14 @@
 
 <div class="viewcode-block" id="Depth">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.Depth">[docs]</a>
-<span class="k">class</span> <span class="nc">Depth</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Depth</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">above</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">below</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Depth.check_at_least_one">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.Depth.check_at_least_one">[docs]</a>
     <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">check_at_least_one</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_at_least_one</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;above&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;below&quot;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least one of &quot;above&quot; or &quot;below&quot; must be present.&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">values</span></div>
@@ -430,14 +430,14 @@
 
 <div class="viewcode-block" id="Fee">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.Fee">[docs]</a>
-<span class="k">class</span> <span class="nc">Fee</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Fee</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">long</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">short</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Fee.check_at_least_one">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.Fee.check_at_least_one">[docs]</a>
     <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">check_at_least_one</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_at_least_one</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;long&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;short&quot;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least one of &quot;long&quot; or &quot;short&quot; must be present.&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">values</span></div>
@@ -447,7 +447,7 @@
 
 <div class="viewcode-block" id="TradeInput">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput">[docs]</a>
-<span class="k">class</span> <span class="nc">TradeInput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TradeInput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">trader</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;0x1234567890123456789012345678901234567890&quot;</span>
     <span class="n">pairIndex</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;pair_index&quot;</span><span class="p">)</span>
     <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;trade_index&quot;</span><span class="p">)</span>
@@ -463,7 +463,7 @@
 <div class="viewcode-block" id="TradeInput.validate_eth_address">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.validate_eth_address">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;trader&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate_eth_address</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_eth_address</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^0x[a-fA-F0-9]</span><span class="si">{40}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid Ethereum address&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">v</span></div>
@@ -472,7 +472,7 @@
 <div class="viewcode-block" id="TradeInput.validate_tp">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.validate_tp">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;tp&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate_tp</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_tp</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;openPrice&quot;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;tp is required when openPrice is provided and is not 0&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">v</span></div>
@@ -481,7 +481,7 @@
 <div class="viewcode-block" id="TradeInput.convert_to_float_10">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.convert_to_float_10">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;openPrice&quot;</span><span class="p">,</span> <span class="s2">&quot;tp&quot;</span><span class="p">,</span> <span class="s2">&quot;sl&quot;</span><span class="p">,</span> <span class="s2">&quot;leverage&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span><span class="p">)</span></div>
@@ -490,7 +490,7 @@
 <div class="viewcode-block" id="TradeInput.assign_and_validate_collateral_and_position_size_usdc">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.assign_and_validate_collateral_and_position_size_usdc">[docs]</a>
     <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">assign_and_validate_collateral_and_position_size_usdc</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">assign_and_validate_collateral_and_position_size_usdc</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="n">collateral_in_trade</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;position_size_usdc&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">collateral_in_trade</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">values</span><span class="p">[</span><span class="s2">&quot;positionSizeUSDC&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">collateral_in_trade</span>
@@ -516,14 +516,14 @@
 <div class="viewcode-block" id="TradeInput.convert_to_float_6">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.convert_to_float_6">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;initialPosToken&quot;</span><span class="p">,</span> <span class="s2">&quot;positionSizeUSDC&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TradeInput.set_default_timestamp">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.set_default_timestamp">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">set_default_timestamp</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_timestamp</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">v</span></div>
@@ -531,7 +531,7 @@
 
 <div class="viewcode-block" id="TradeInput.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInput.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
@@ -539,7 +539,7 @@
 
 <div class="viewcode-block" id="TradeInputOrderType">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInputOrderType">[docs]</a>
-<span class="k">class</span> <span class="nc">TradeInputOrderType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TradeInputOrderType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">MARKET</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">STOP_LIMIT</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">LIMIT</span> <span class="o">=</span> <span class="mi">2</span>
@@ -549,7 +549,7 @@
 
 <div class="viewcode-block" id="TradeResponse">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse">[docs]</a>
-<span class="k">class</span> <span class="nc">TradeResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TradeResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">trader</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">pair_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;pairIndex&quot;</span><span class="p">)</span>
     <span class="n">trade_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
@@ -565,7 +565,7 @@
 <div class="viewcode-block" id="TradeResponse.validate_eth_address">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.validate_eth_address">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;trader&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate_eth_address</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_eth_address</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^0x[a-fA-F0-9]</span><span class="si">{40}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid Ethereum address&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">v</span></div>
@@ -574,20 +574,20 @@
 <div class="viewcode-block" id="TradeResponse.convert_to_float_10">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.convert_to_float_10">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;open_price&quot;</span><span class="p">,</span> <span class="s2">&quot;tp&quot;</span><span class="p">,</span> <span class="s2">&quot;sl&quot;</span><span class="p">,</span> <span class="s2">&quot;leverage&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span></div>
 
 
 <div class="viewcode-block" id="TradeResponse.convert_to_float_6">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.convert_to_float_6">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;open_collateral&quot;</span><span class="p">,</span> <span class="s2">&quot;collateral_in_trade&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span></div>
 
 
 <div class="viewcode-block" id="TradeResponse.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeResponse.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
@@ -595,7 +595,7 @@
 
 <div class="viewcode-block" id="TradeInfo">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo">[docs]</a>
-<span class="k">class</span> <span class="nc">TradeInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TradeInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">open_interest_usdc</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;openInterestUSDC&quot;</span><span class="p">)</span>
     <span class="n">tp_last_updated</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;tpLastUpdated&quot;</span><span class="p">)</span>
     <span class="n">sl_last_updated</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;slLastUpdated&quot;</span><span class="p">)</span>
@@ -605,13 +605,13 @@
 <div class="viewcode-block" id="TradeInfo.convert_to_float_6">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.convert_to_float_6">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;open_interest_usdc&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span></div>
 
 
 <div class="viewcode-block" id="TradeInfo.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeInfo.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
@@ -619,7 +619,7 @@
 
 <div class="viewcode-block" id="TradeExtendedResponse">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse">[docs]</a>
-<span class="k">class</span> <span class="nc">TradeExtendedResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TradeExtendedResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">trade</span><span class="p">:</span> <span class="n">TradeResponse</span>
     <span class="n">additional_info</span><span class="p">:</span> <span class="n">TradeInfo</span>
     <span class="n">margin_fee</span><span class="p">:</span> <span class="nb">float</span>
@@ -628,20 +628,20 @@
 <div class="viewcode-block" id="TradeExtendedResponse.convert_to_float_6">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.convert_to_float_6">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;margin_fee&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span></div>
 
 
 <div class="viewcode-block" id="TradeExtendedResponse.convert_to_float_10">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.convert_to_float_10">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;liquidation_price&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span></div>
 
 
 <div class="viewcode-block" id="TradeExtendedResponse.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.TradeExtendedResponse.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
@@ -649,7 +649,7 @@
 
 <div class="viewcode-block" id="PendingLimitOrderResponse">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse">[docs]</a>
-<span class="k">class</span> <span class="nc">PendingLimitOrderResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PendingLimitOrderResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">trader</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">pair_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;pairIndex&quot;</span><span class="p">)</span>
     <span class="n">trade_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
@@ -665,7 +665,7 @@
 <div class="viewcode-block" id="PendingLimitOrderResponse.validate_eth_address">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.validate_eth_address">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;trader&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate_eth_address</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_eth_address</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^0x[a-fA-F0-9]</span><span class="si">{40}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid Ethereum address&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">v</span></div>
@@ -676,20 +676,20 @@
     <span class="nd">@field_validator</span><span class="p">(</span>
         <span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="s2">&quot;tp&quot;</span><span class="p">,</span> <span class="s2">&quot;sl&quot;</span><span class="p">,</span> <span class="s2">&quot;leverage&quot;</span><span class="p">,</span> <span class="s2">&quot;slippage_percentage&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span></div>
 
 
 <div class="viewcode-block" id="PendingLimitOrderResponse.convert_to_float_6">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.convert_to_float_6">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;open_collateral&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_float_6</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span></div>
 
 
 <div class="viewcode-block" id="PendingLimitOrderResponse.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderResponse.Config">[docs]</a>
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
         <span class="n">populate_by_name</span> <span class="o">=</span> <span class="kc">True</span></div>
 </div>
 
@@ -697,13 +697,13 @@
 
 <div class="viewcode-block" id="PendingLimitOrderExtendedResponse">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse">[docs]</a>
-<span class="k">class</span> <span class="nc">PendingLimitOrderExtendedResponse</span><span class="p">(</span><span class="n">PendingLimitOrderResponse</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PendingLimitOrderExtendedResponse</span><span class="p">(</span><span class="n">PendingLimitOrderResponse</span><span class="p">):</span>
     <span class="n">liquidation_price</span><span class="p">:</span> <span class="nb">float</span>
 
 <div class="viewcode-block" id="PendingLimitOrderExtendedResponse.convert_liq_to_float_10">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.PendingLimitOrderExtendedResponse.convert_liq_to_float_10">[docs]</a>
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;liquidation_price&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">convert_liq_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_liq_to_float_10</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">10</span></div>
 </div>
 
@@ -711,7 +711,7 @@
 
 <div class="viewcode-block" id="MarginUpdateType">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.MarginUpdateType">[docs]</a>
-<span class="k">class</span> <span class="nc">MarginUpdateType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MarginUpdateType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">DEPOSIT</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">WITHDRAW</span> <span class="o">=</span> <span class="mi">1</span></div>
 
@@ -719,7 +719,7 @@
 
 <div class="viewcode-block" id="LossProtectionInfo">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.LossProtectionInfo">[docs]</a>
-<span class="k">class</span> <span class="nc">LossProtectionInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LossProtectionInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">percentage</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span></div>
 
@@ -727,7 +727,7 @@
 
 <div class="viewcode-block" id="SnapshotOpenInterest">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotOpenInterest">[docs]</a>
-<span class="k">class</span> <span class="nc">SnapshotOpenInterest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SnapshotOpenInterest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">long</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">short</span><span class="p">:</span> <span class="nb">float</span></div>
 
@@ -735,7 +735,7 @@
 
 <div class="viewcode-block" id="SnapshotGroup">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.SnapshotGroup">[docs]</a>
-<span class="k">class</span> <span class="nc">SnapshotGroup</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SnapshotGroup</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">group_open_interest_limit</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">group_open_interest</span><span class="p">:</span> <span class="n">SnapshotOpenInterest</span>
     <span class="n">group_utilization</span><span class="p">:</span> <span class="nb">float</span>
@@ -746,7 +746,7 @@
 
 <div class="viewcode-block" id="Snapshot">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.Snapshot">[docs]</a>
-<span class="k">class</span> <span class="nc">Snapshot</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Snapshot</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">groups</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">conint</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">SnapshotGroup</span><span class="p">]</span></div>
 
 </pre></div>
