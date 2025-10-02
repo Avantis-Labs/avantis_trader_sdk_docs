@@ -141,6 +141,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_id</span> <span class="o">=</span> <span class="n">kms_key_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kms_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;kms&quot;</span><span class="p">,</span> <span class="n">region_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_public_key</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cached_address</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="KMSSigner.sign_transaction">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.signers.html#avantis_trader_sdk.signers.kms_signer.KMSSigner.sign_transaction">[docs]</a>
@@ -163,8 +164,10 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves the public key associated with the KMS key.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">eth_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_eth_address</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">Web3</span><span class="o">.</span><span class="n">to_checksum_address</span><span class="p">(</span><span class="n">eth_address</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cached_address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">eth_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_eth_address</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cached_address</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">to_checksum_address</span><span class="p">(</span><span class="n">eth_address</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cached_address</span></div>
 
 
 <div class="viewcode-block" id="KMSSigner.get_ethereum_address">
