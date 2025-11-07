@@ -81,6 +81,9 @@
              
   <h1>Source code for avantis_trader_sdk.rpc.pairs_cache</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">..types</span><span class="w"> </span><span class="kn">import</span> <span class="n">PairInfoWithData</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..config</span><span class="w"> </span><span class="kn">import</span> <span class="n">AVANTIS_SOCKET_API</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ValidationError</span>
 
 
 <div class="viewcode-block" id="PairsCache">
@@ -90,7 +93,11 @@
 <span class="sd">    This class provides methods to retrieve pairs information from the blockchain.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">client</span><span class="p">,</span>
+        <span class="n">socket_api</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">AVANTIS_SOCKET_API</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for the PairsCache class.</span>
 
@@ -98,9 +105,13 @@
 <span class="sd">            client: The TraderClient object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socket_api</span> <span class="o">=</span> <span class="n">socket_api</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_pair_info_cache</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_group_indexes_cache</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pair_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pair_info_from_socket_cache</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="PairsCache.get_pairs_info">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pairs_info">[docs]</a>
@@ -161,6 +172,30 @@
             <span class="p">}</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pair_info_cache</span></div>
+
+
+<div class="viewcode-block" id="PairsCache.get_pair_info_from_socket">
+<a class="viewcode-back" href="../../../avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pair_info_from_socket">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_pair_info_from_socket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pair_index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the pair information from the socket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">socket_api</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;socket_api is not set&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">socket_api</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;pairInfos&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pair_info_from_socket_cache</span> <span class="o">=</span> <span class="n">pairs</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span><span class="p">,</span> <span class="n">ValidationError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching pair feeds: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">pair_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pair_info_from_socket_cache</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">pair_index</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pair_info_from_socket_cache</span></div>
 
 
 <div class="viewcode-block" id="PairsCache.get_pairs_count">

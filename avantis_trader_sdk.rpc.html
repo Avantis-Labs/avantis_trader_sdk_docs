@@ -370,9 +370,14 @@ related to trades.</p>
 <span id="avantis-trader-sdk-rpc-pairs-cache-module"></span><h2>avantis_trader_sdk.rpc.pairs_cache module<a class="headerlink" href="#module-avantis_trader_sdk.rpc.pairs_cache" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="avantis_trader_sdk.rpc.pairs_cache.PairsCache">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.rpc.pairs_cache.</span></span><span class="sig-name descname"><span class="pre">PairsCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/pairs_cache.html#PairsCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.rpc.pairs_cache.</span></span><span class="sig-name descname"><span class="pre">PairsCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">socket_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AVANTIS_SOCKET_API</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/pairs_cache.html#PairsCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class provides methods to retrieve pairs information from the blockchain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>socket_api</strong> (<em>str</em>)</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_group_indexes">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_group_indexes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/pairs_cache.html#PairsCache.get_group_indexes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_group_indexes" title="Link to this definition"></a></dt>
@@ -399,6 +404,12 @@ related to trades.</p>
 <dd class="field-odd"><p><strong>ValueError</strong> – If the pair is not found in the pairs information.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pair_info_from_socket">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_pair_info_from_socket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/pairs_cache.html#PairsCache.get_pair_info_from_socket"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pair_info_from_socket" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the pair information from the socket.</p>
 </dd></dl>
 
 <dl class="py method">
