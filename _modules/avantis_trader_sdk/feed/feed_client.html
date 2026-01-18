@@ -211,7 +211,7 @@
             <span class="k">return</span> <span class="n">pairs</span>
         <span class="k">except</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span><span class="p">,</span> <span class="n">ValidationError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching pair feeds: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">[]</span>    </div>
+            <span class="k">return</span> <span class="p">[]</span></div>
 
 
 <div class="viewcode-block" id="FeedClient.load_pair_feeds">
@@ -222,6 +222,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pair_feeds</span><span class="p">:</span>
+                <span class="k">return</span>
+
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
             <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
@@ -335,6 +338,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A PriceFeedUpdatesResponse object containing the latest price updates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pair_feeds</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_pair_feeds</span><span class="p">()</span>
+
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hermes_url</span>
 
         <span class="n">feedIds</span> <span class="o">=</span> <span class="p">[]</span>
