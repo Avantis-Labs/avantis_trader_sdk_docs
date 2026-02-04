@@ -89,7 +89,7 @@
 <span id="avantis-trader-sdk-feed-feed-client-module"></span><h2>avantis_trader_sdk.feed.feed_client module<a class="headerlink" href="#module-avantis_trader_sdk.feed.feed_client" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.feed.feed_client.</span></span><span class="sig-name descname"><span class="pre">FeedClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wss://hermes.pyth.network/ws'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hermes_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://hermes.pyth.network/v2/updates/price/latest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">socket_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AVANTIS_SOCKET_API</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pair_fetcher</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feed_v3_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AVANTIS_FEED_V3_URL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lazer_sse_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PYTH_LAZER_SSE_URL</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">avantis_trader_sdk.feed.feed_client.</span></span><span class="sig-name descname"><span class="pre">FeedClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wss://hermes.pyth.network/ws'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hermes_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://hermes.pyth.network/v2/updates/price/latest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">socket_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AVANTIS_SOCKET_API</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pair_fetcher</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Client for interacting with the Pyth price feed websocket.</p>
 <dl class="field-list simple">
@@ -97,8 +97,6 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>socket_api</strong> (<em>str</em>)</p></li>
 <li><p><strong>pair_fetcher</strong> (<em>Callable</em>)</p></li>
-<li><p><strong>feed_v3_url</strong> (<em>str</em>)</p></li>
-<li><p><strong>lazer_sse_url</strong> (<em>str</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -145,46 +143,6 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The pair string.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.get_price_update_data">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_price_update_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.get_price_update_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.get_price_update_data" title="Link to this definition"></a></dt>
-<dd><p>Retrieves price update data from the feed-v3 API for a specific pair.</p>
-<p>This returns both core (Pyth Hermes) and pro (Pyth Lazer) price data,
-including the priceUpdateData bytes needed for contract calls.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>pair_index</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The pair index to get price update data for.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.FeedV3PriceResponse" title="avantis_trader_sdk.types.FeedV3PriceResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeedV3PriceResponse</span></code></a></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A FeedV3PriceResponse containing core and pro price data.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>requests.HTTPError</strong> – If the API request fails.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.listen_for_lazer_price_updates">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">listen_for_lazer_price_updates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lazer_feed_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.listen_for_lazer_price_updates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.listen_for_lazer_price_updates" title="Link to this definition"></a></dt>
-<dd><p>Listens for real-time price updates from the Pyth Lazer SSE stream.</p>
-<p>This is the Pyth Pro alternative to the WebSocket-based listen_for_price_updates.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>lazer_feed_ids</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – List of Lazer feed IDs to subscribe to.</p></li>
-<li><p><strong>callback</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.LazerPriceFeedResponse" title="avantis_trader_sdk.types.LazerPriceFeedResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazerPriceFeedResponse</span></code></a>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Callback function to handle price updates.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Exception</strong> – If an error occurs while listening for price updates.</p>
 </dd>
 </dl>
 </dd></dl>

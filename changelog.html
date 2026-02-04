@@ -85,48 +85,6 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
-<p><strong>Version 0.8.14 (2026-02-04)</strong></p>
-<ul class="simple">
-<li><p><strong>New Features:</strong></p>
-<ul>
-<li><p><strong>Upgraded to Pyth Pro Pricing</strong>:</p>
-<ul>
-<li><p>Trading methods now use Pyth Pro/Lazer for improved price accuracy and lower latency.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">build_trade_tp_sl_update_tx</span></code>, <code class="docutils literal notranslate"><span class="pre">build_trade_tp_sl_update_tx_delegate</span></code>, <code class="docutils literal notranslate"><span class="pre">build_trade_margin_update_tx</span></code>, and <code class="docutils literal notranslate"><span class="pre">build_trade_margin_update_tx_delegate</span></code> automatically use Pyth Pro pricing.</p></li>
-</ul>
-</li>
-<li><p><strong>Feed Client Enhancements</strong>:</p>
-<ul>
-<li><p>Added <code class="docutils literal notranslate"><span class="pre">get_price_update_data(pair_index)</span></code> - Fetches price update data from the new feed-v3 API.</p></li>
-<li><p>Added <code class="docutils literal notranslate"><span class="pre">listen_for_lazer_price_updates(lazer_feed_ids,</span> <span class="pre">callback)</span></code> - SSE streaming for Pyth Pro real-time prices with lower latency than WebSocket.</p></li>
-</ul>
-</li>
-<li><p><strong>Pairs Cache Enhancements</strong>:</p>
-<ul>
-<li><p>Added <code class="docutils literal notranslate"><span class="pre">get_lazer_feed_id(pair_index)</span></code> - Returns the Pyth Lazer feed ID for a pair.</p></li>
-</ul>
-</li>
-<li><p><strong>New Types</strong>:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">LazerPriceFeed</span></code> - Single price feed from Pyth Lazer SSE stream.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">LazerPriceFeedResponse</span></code> - Full SSE response with timestamp and price feeds.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">FeedV3PriceResponse</span></code> - Response from feed-v3 API.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>ABI Updates:</strong></p>
-<ul>
-<li><p>Updated Trading ABI to latest version with <code class="docutils literal notranslate"><span class="pre">MarketOrderInitiated</span></code> event changes.</p></li>
-</ul>
-</li>
-<li><p><strong>Examples Updated:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">05_example_get_realtime_prices.py</span></code> - Now demonstrates SSE streaming for real-time prices.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">06_example_get_latest_price.py</span></code> - Now demonstrates feed-v3 API usage.</p></li>
-</ul>
-</li>
-</ul>
 <p><strong>Version 0.8.13 (2026-01-18)</strong></p>
 <ul class="simple">
 <li><p><strong>New Features:</strong></p>

@@ -82,20 +82,13 @@
   <h1>Source code for avantis_trader_sdk.feed.feed_client</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">websockets</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">..types</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">PriceFeedResponse</span><span class="p">,</span>
-    <span class="n">PriceFeedUpdatesResponse</span><span class="p">,</span>
-    <span class="n">PairInfoFeed</span><span class="p">,</span>
-    <span class="n">FeedV3PriceResponse</span><span class="p">,</span>
-    <span class="n">LazerPriceFeedResponse</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..types</span><span class="w"> </span><span class="kn">import</span> <span class="n">PriceFeedResponse</span><span class="p">,</span> <span class="n">PriceFeedUpdatesResponse</span><span class="p">,</span> <span class="n">PairInfoFeed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ValidationError</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">..config</span><span class="w"> </span><span class="kn">import</span> <span class="n">AVANTIS_SOCKET_API</span><span class="p">,</span> <span class="n">AVANTIS_FEED_V3_URL</span><span class="p">,</span> <span class="n">PYTH_LAZER_SSE_URL</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..config</span><span class="w"> </span><span class="kn">import</span> <span class="n">AVANTIS_SOCKET_API</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">aiohttp</span>
 
 
 <div class="viewcode-block" id="FeedClient">
@@ -113,21 +106,14 @@
         <span class="n">hermes_url</span><span class="o">=</span><span class="s2">&quot;https://hermes.pyth.network/v2/updates/price/latest&quot;</span><span class="p">,</span>
         <span class="n">socket_api</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">AVANTIS_SOCKET_API</span><span class="p">,</span>
         <span class="n">pair_fetcher</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">feed_v3_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">AVANTIS_FEED_V3_URL</span><span class="p">,</span>
-        <span class="n">lazer_sse_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">PYTH_LAZER_SSE_URL</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for the FeedClient class.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            ws_url: Optional - The websocket URL to connect to (Pyth Hermes).</span>
-<span class="sd">            on_error: Optional callback for handling websocket/SSE errors.</span>
-<span class="sd">            on_close: Optional callback for handling websocket/SSE close events.</span>
-<span class="sd">            hermes_url: Optional - The Hermes HTTP API URL.</span>
-<span class="sd">            socket_api: Optional - The Avantis socket API URL.</span>
-<span class="sd">            pair_fetcher: Optional - Custom pair fetcher function.</span>
-<span class="sd">            feed_v3_url: Optional - The feed-v3 API URL for price update data.</span>
-<span class="sd">            lazer_sse_url: Optional - The Pyth Lazer SSE URL for real-time prices.</span>
+<span class="sd">            ws_url: Optional - The websocket URL to connect to.</span>
+<span class="sd">            on_error: Optional callback for handling websocket errors.</span>
+<span class="sd">            on_close: Optional callback for handling websocket close events.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">ws_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -138,15 +124,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ws_url</span> <span class="o">=</span> <span class="n">ws_url</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hermes_url</span> <span class="o">=</span> <span class="n">hermes_url</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">feed_v3_url</span> <span class="o">=</span> <span class="n">feed_v3_url</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lazer_sse_url</span> <span class="o">=</span> <span class="n">lazer_sse_url</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pair_feeds</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">feed_pairs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">price_feed_callbacks</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lazer_callbacks</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_socket</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_lazer_connected</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span> <span class="o">=</span> <span class="n">on_error</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_close</span> <span class="o">=</span> <span class="n">on_close</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">socket_api</span> <span class="o">=</span> <span class="n">socket_api</span>
@@ -389,84 +371,6 @@
             <span class="k">return</span> <span class="n">PriceFeedUpdatesResponse</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="FeedClient.get_price_update_data">
-<a class="viewcode-back" href="../../../avantis_trader_sdk.feed.html#avantis_trader_sdk.feed.feed_client.FeedClient.get_price_update_data">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_price_update_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pair_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeedV3PriceResponse</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves price update data from the feed-v3 API for a specific pair.</span>
-
-<span class="sd">        This returns both core (Pyth Hermes) and pro (Pyth Lazer) price data,</span>
-<span class="sd">        including the priceUpdateData bytes needed for contract calls.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            pair_index: The pair index to get price update data for.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            A FeedV3PriceResponse containing core and pro price data.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            requests.HTTPError: If the API request fails.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">feed_v3_url</span><span class="si">}</span><span class="s2">/v2/pairs/</span><span class="si">{</span><span class="n">pair_index</span><span class="si">}</span><span class="s2">/price-update-data&quot;</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">FeedV3PriceResponse</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="FeedClient.listen_for_lazer_price_updates">
-<a class="viewcode-back" href="../../../avantis_trader_sdk.feed.html#avantis_trader_sdk.feed.feed_client.FeedClient.listen_for_lazer_price_updates">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">listen_for_lazer_price_updates</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">lazer_feed_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-        <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">LazerPriceFeedResponse</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
-    <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Listens for real-time price updates from the Pyth Lazer SSE stream.</span>
-
-<span class="sd">        This is the Pyth Pro alternative to the WebSocket-based listen_for_price_updates.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            lazer_feed_ids: List of Lazer feed IDs to subscribe to.</span>
-<span class="sd">            callback: Callback function to handle price updates.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            Exception: If an error occurs while listening for price updates.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;price_feed_ids=</span><span class="si">{</span><span class="n">fid</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">lazer_feed_ids</span><span class="p">])</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lazer_sse_url</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s2">&quot;</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">async</span> <span class="k">with</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-                <span class="k">async</span> <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_lazer_connected</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="k">async</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
-                        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;data:&quot;</span><span class="p">):</span>
-                            <span class="k">try</span><span class="p">:</span>
-                                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-                                <span class="n">price_response</span> <span class="o">=</span> <span class="n">LazerPriceFeedResponse</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-                                <span class="n">callback</span><span class="p">(</span><span class="n">price_response</span><span class="p">)</span>
-                            <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">:</span>
-                                    <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                            <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">:</span>
-                                    <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_lazer_connected</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">e</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_lazer_connected</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_close</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_on_close</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">e</span></div>
 </div>
 
 </pre></div>
