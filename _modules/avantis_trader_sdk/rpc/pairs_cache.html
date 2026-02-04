@@ -291,6 +291,28 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pairs_info</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pairs_info</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">pairs_info</span><span class="p">[</span><span class="n">pair_index</span><span class="p">]</span><span class="o">.</span><span class="n">from_</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">pairs_info</span><span class="p">[</span><span class="n">pair_index</span><span class="p">]</span><span class="o">.</span><span class="n">to</span></div>
+
+
+<div class="viewcode-block" id="PairsCache.get_lazer_feed_id">
+<a class="viewcode-back" href="../../../avantis_trader_sdk.rpc.html#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_lazer_feed_id">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_lazer_feed_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pair_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the Pyth Lazer feed ID for a pair.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pair_index: The pair index.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The Lazer feed ID as an integer.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the pair does not have a Lazer feed configured.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pair_info</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pair_info_from_socket</span><span class="p">(</span><span class="n">pair_index</span><span class="p">)</span>
+        <span class="n">lazer_feed</span> <span class="o">=</span> <span class="n">pair_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lazerFeed&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">lazer_feed</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pair </span><span class="si">{</span><span class="n">pair_index</span><span class="si">}</span><span class="s2"> does not have a Lazer feed configured&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lazer_feed</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;feedId&quot;</span><span class="p">)</span></div>
 </div>
 
 </pre></div>
