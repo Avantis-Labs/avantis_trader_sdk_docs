@@ -396,6 +396,26 @@ related to trades.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_lazer_feed_id">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_lazer_feed_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/pairs_cache.html#PairsCache.get_lazer_feed_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_lazer_feed_id" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the Pyth Lazer feed ID for a pair.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pair_index</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The pair index.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Lazer feed ID as an integer.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the pair does not have a Lazer feed configured.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pair_index">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_pair_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/rpc/pairs_cache.html#PairsCache.get_pair_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.rpc.pairs_cache.PairsCache.get_pair_index" title="Link to this definition"></a></dt>
 <dd><p>Retrieves the index of a pair from the blockchain.</p>
