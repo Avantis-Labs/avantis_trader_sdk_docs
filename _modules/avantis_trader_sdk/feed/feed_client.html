@@ -416,6 +416,31 @@
         <span class="k">return</span> <span class="n">FeedV3PriceResponse</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="FeedClient.get_latest_lazer_price">
+<a class="viewcode-back" href="../../../avantis_trader_sdk.feed.html#avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_lazer_price">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_latest_lazer_price</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">lazer_feed_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LazerPriceFeedResponse</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the latest prices from the Pyth Lazer API.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lazer_feed_ids: List of Lazer feed IDs to get prices for.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A LazerPriceFeedResponse containing the latest prices.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            requests.HTTPError: If the API request fails.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;price_feed_ids=</span><span class="si">{</span><span class="n">fid</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">lazer_feed_ids</span><span class="p">])</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lazer_sse_url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/stream&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;/latest_price&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">LazerPriceFeedResponse</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="FeedClient.listen_for_lazer_price_updates">
 <a class="viewcode-back" href="../../../avantis_trader_sdk.feed.html#avantis_trader_sdk.feed.feed_client.FeedClient.listen_for_lazer_price_updates">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">listen_for_lazer_price_updates</span><span class="p">(</span>
@@ -478,7 +503,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Avantis Labs.</p>
+    <p>&#169; Copyright 2026, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

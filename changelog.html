@@ -85,6 +85,27 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
+<p><strong>Version 0.8.15 (2026-02-04)</strong></p>
+<ul class="simple">
+<li><p><strong>Pyth Pro Pricing for Trade Opening</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">build_trade_open_tx</span></code> and <code class="docutils literal notranslate"><span class="pre">build_trade_open_tx_delegate</span></code> now use Pyth Lazer for price fetching.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">get_latest_lazer_price(lazer_feed_ids)</span></code> - Fetches latest prices from Pyth Lazer API.</p></li>
+</ul>
+</li>
+<li><p><strong>Documentation</strong>:</p>
+<ul>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">AGENT.md</span></code> - AI agent guide for building with the SDK.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">.cursorrules</span></code> - Cursor IDE context rules.</p></li>
+<li><p>Simplified README with practical examples.</p></li>
+</ul>
+</li>
+<li><p><strong>Examples Updated:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">06_example_get_latest_price.py</span></code> - Now demonstrates <code class="docutils literal notranslate"><span class="pre">get_latest_lazer_price</span></code> method.</p></li>
+</ul>
+</li>
+</ul>
 <p><strong>Version 0.8.14 (2026-02-04)</strong></p>
 <ul class="simple">
 <li><p><strong>New Features:</strong></p>
@@ -529,7 +550,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Avantis Labs.</p>
+    <p>&#169; Copyright 2026, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

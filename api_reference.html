@@ -440,6 +440,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#avantis_trader_sdk.feed.feed_client.FeedClient"><code class="docutils literal notranslate"><span class="pre">FeedClient</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#avantis_trader_sdk.feed.feed_client.FeedClient.default_pair_fetcher"><code class="docutils literal notranslate"><span class="pre">FeedClient.default_pair_fetcher()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_lazer_price"><code class="docutils literal notranslate"><span class="pre">FeedClient.get_latest_lazer_price()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_price_updates"><code class="docutils literal notranslate"><span class="pre">FeedClient.get_latest_price_updates()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#avantis_trader_sdk.feed.feed_client.FeedClient.get_pair_from_feed_id"><code class="docutils literal notranslate"><span class="pre">FeedClient.get_pair_from_feed_id()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#avantis_trader_sdk.feed.feed_client.FeedClient.get_price_update_data"><code class="docutils literal notranslate"><span class="pre">FeedClient.get_price_update_data()</span></code></a></li>
@@ -2774,6 +2775,26 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_lazer_price">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_latest_lazer_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lazer_feed_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.get_latest_lazer_price"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_lazer_price" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the latest prices from the Pyth Lazer API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lazer_feed_ids</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – List of Lazer feed IDs to get prices for.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="avantis_trader_sdk.html#avantis_trader_sdk.types.LazerPriceFeedResponse" title="avantis_trader_sdk.types.LazerPriceFeedResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazerPriceFeedResponse</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A LazerPriceFeedResponse containing the latest prices.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>requests.HTTPError</strong> – If the API request fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_price_updates">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_latest_price_updates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/avantis_trader_sdk/feed/feed_client.html#FeedClient.get_latest_price_updates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#avantis_trader_sdk.feed.feed_client.FeedClient.get_latest_price_updates" title="Link to this definition"></a></dt>
 <dd><p>Retrieves the latest price updates for the specified feed ids.</p>
@@ -2927,7 +2948,7 @@ be called with the updated price feed data.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Avantis Labs.</p>
+    <p>&#169; Copyright 2026, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
