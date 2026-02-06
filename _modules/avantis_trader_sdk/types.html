@@ -792,7 +792,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">converted_price</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">price</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">exponent</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">price</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**-</span><span class="bp">self</span><span class="o">.</span><span class="n">exponent</span>
 
 <div class="viewcode-block" id="LazerPriceFeed.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.LazerPriceFeed.Config">[docs]</a>
@@ -862,7 +862,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Response from feed-v3 API containing both core and pro price data.&quot;&quot;&quot;</span>
 
     <span class="n">core</span><span class="p">:</span> <span class="n">FeedV3CorePriceData</span>
-    <span class="n">pro</span><span class="p">:</span> <span class="n">FeedV3ProPriceData</span>
+    <span class="n">pro</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FeedV3ProPriceData</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="FeedV3PriceResponse.Config">
 <a class="viewcode-back" href="../../avantis_trader_sdk.html#avantis_trader_sdk.types.FeedV3PriceResponse.Config">[docs]</a>
@@ -913,7 +913,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Avantis Labs.</p>
+    <p>&#169; Copyright 2026, Avantis Labs.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

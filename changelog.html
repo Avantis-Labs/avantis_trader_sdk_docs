@@ -85,6 +85,22 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
 <p>This section outlines the changes made in each version of the Avantis Trader SDK</p>
+<p><strong>Version 0.8.16 (2026-02-06)</strong></p>
+<ul class="simple">
+<li><p><strong>Automatic Lazer State Detection</strong>:</p>
+<ul>
+<li><p>Trading methods now check <code class="docutils literal notranslate"><span class="pre">lazerFeed.state</span></code> before using Pyth Pro pricing.</p></li>
+<li><p>Pairs without stable Lazer support automatically fall back to core/Hermes pricing.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">is_lazer_supported(pair_index)</span></code> to <code class="docutils literal notranslate"><span class="pre">PairsCache</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Simplified Price Sourcing</strong>:</p>
+<ul>
+<li><p>Removed <code class="docutils literal notranslate"><span class="pre">price_sourcing</span></code> parameter from <code class="docutils literal notranslate"><span class="pre">build_trade_tp_sl_update_tx</span></code>, <code class="docutils literal notranslate"><span class="pre">build_trade_margin_update_tx</span></code>, and their delegate variants.</p></li>
+<li><p>These methods now auto-detect the correct price source via feed-v3.</p></li>
+</ul>
+</li>
+</ul>
 <p><strong>Version 0.8.15 (2026-02-04)</strong></p>
 <ul class="simple">
 <li><p><strong>Pyth Pro Pricing for Trade Opening</strong>:</p>
